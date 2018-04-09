@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">哈哈哈</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -107,7 +107,7 @@
                                 <div>
                                     <p>
                                         <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
+                                        <span class="pull-right text-muted">70% Complete</span>
                                     </p>
                                     <div class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
@@ -239,7 +239,7 @@
                         </li>
                       
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> 组织管理功能<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> &nbsp;部门管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="flot.html">员工检索</a>
@@ -247,106 +247,86 @@
 								<li>
                                     <a href="flot.html">添加员工</a>
                                 </li>
-								<li>
-                                    <a href="flot.html">添加部门</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">部门系列</a>
-                                </li>
+				
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                       
-                        <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i>共告管理<span class="fa arrow"></span></a>
+                       <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>&nbsp; 系统管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">公告审批</a>
+                                    <a href="blank.html">角色管理</a>
                                 </li>
-								<li>
-                                    <a href="panels-wells.html">公告申请</a>
+                                <li>
+                                    <a href="login.html">为用户分配角色</a>
+                                </li>
+                                  <li>
+                                    <a href="login.html">为角色分配权限</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i>&nbsp; 公文发布管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">公文审批</a>
+                                </li>
+								<li>
+                                    <a href="panels-wells.html">新增公文</a>
+                                </li>
+                                 <li>
+                                    <a href="panels-wells.html">公文拟稿</a>
+                                </li>
+								<li>
+                                    <a href="panels-wells.html">公文列表</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+						<li>
+                            <a href="#"><i class="fa fa-envelope fa-fw"></i>&nbsp; 信息管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">新建信息</a>
+                                </li>
+                                <li>
+                                    <a href="buttons.html">草稿列表</a>
+                                </li>
+                                <li>
+                                    <a href="notifications.html">接受信息</a>
+                                </li>
+                                <li>
+                                    <a href="typography.html">发送列表</a>
+                                </li>
+                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                         <li>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>&nbsp; 日程管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                         
+                                <li>
+                                    <a href="grid.html">我的日程</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+						  
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i>&nbsp; 文件管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                               
+                                <li>
+                                    <a href="#">文件导航</a>
+                                </li>
+                          
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
 						
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 文件夹<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">回收站</a>
-                                </li>
-                                <li>
-                                    <a href="#">操作文件夹</a>
-                                </li>
-                               <!--   <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                  
-                                </li> -->
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 权限角色功能<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">编辑角色</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">添加角色</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-						  <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>日程管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                               
-                                <li>
-                                    <a href="icons.html"> 制定会议</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">日程</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-						  <li>
-                            <a href="#"><i class="fa fa-envelope fa-fw"></i>邮件功能<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">发邮件</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">垃圾箱</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">已发邮件</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">收件箱</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> 草稿箱</a>
-                                </li>
-                               
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
