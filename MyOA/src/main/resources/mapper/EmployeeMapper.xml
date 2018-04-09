@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myoa.dao.EmployeeDao">
+	<sql id="EmployeeJoinDocument">
+		SELECT e.*,d.name dname,d.description,d.status dstatus FROM Employee e LEFT JOIN Department d ON e.departmentId=d.id where 1=1
+	</sql>
+	<resultMap type="Employee" id="EmployeeRM">
+		<id column="id" property="id" />
+		<result column="nr" property="nr" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="gender" property="gender" />
+		<result column="isManager" property="isManager" />
+		<result column="status" property="status" />
+		<association property="department" javaType="Department">
+			<id column="departmentId" property="id" />
+			<result column="dname" property="name" />
+			<result column="description" property="description" />
+			<result column="dstatus" property="status" />
+		</association>
+	</resultMap>
+	<select id="getByDid" parameterType="int" resultMap="EmployeeRM">
+		<include refid="EmployeeJoinDocument"></include>
+		and e.departmentId=#{did}
+	</select>
+</mapper>
