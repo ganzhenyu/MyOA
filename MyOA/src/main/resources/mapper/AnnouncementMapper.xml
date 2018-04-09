@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myoa.dao.AnnouncementDao">
+	<sql id="AnnouncementJoin">
+		SELECT a.*,e1.nr e1nr,e1.password e1password,e1.Name e1name,e1.Gender e1gGender,e1.departmentId departmentId1,e1.isManager e1isManager,e1.status e1status,
+e2.nr e2nr,e2.password e2password,e2.Name e2name,e2.Gender e2gGender,e2.departmentId departmentId2,e2.isManager e2isManager,e2.status e2status,
+d1.name d1name,d1.description d1description,d1.status d1status,
+d2.name d2name,d2.description d2description,d2.status d2status
+FROM Announcement a 
+LEFT JOIN Employee e1 ON e1.id=a.creatorid 
+LEFT JOIN Employee e2 ON e2.id=a.approverid
+LEFT JOIN Department d1 ON d1.id=e1.DepartmentId
+LEFT JOIN Department d2 ON d2.id=e1.DepartmentId
+	</sql>
+	<resultMap type="Announcement" id="AnnouncementRM">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="createTime" property="createTime" />
+		<result column="lastEditTime" property="lastEditTime" />
+		<result column="approveTime" property="approveTime" />
+		<result column="status" property="status" />
+		<association property="creator" javaType="Employee">
+			<id column="CreatorId" property="id" />
+			<result column="e1nr" property="nr" />
+			<result column="e1password" property="password" />
+			<result column="e1status" property="name" />
+			<result column="e1gender" property="gender" />
+			<result column="e1isManager" property="isManager" />
+			<result column="e1status" property="status" />
+			<association property="department1" javaType="Department">
+				<id column="DepartmentId" property="id" />
+				<result column="d1name" property="name" />
+				<result column="d1description" property="description" />
+				<result column="d1status" property="status" />
+			</association>
+		</association>
+		<association property="approver" javaType="Employee">
+			<id column="ApproverId" property="id" />
+			<result column="e2nr" property="nr" />
+			<result column="e2password" property="password" />
+			<result column="e2status" property="name" />
+			<result column="e2gender" property="gender" />
+			<result column="e2isManager" property="isManager" />
+			<result column="e2status" property="status" />
+			<association property="department" javaType="Department">
+				<id column="DepartmentId2" property="id" />
+				<result column="d2name" property="name" />
+				<result column="d2description" property="description" />
+				<result column="d2status" property="status" />
+			</association>
+		</association>
+	</resultMap>
+	<select id="getByDid" parameterType="int" resultMap="AnnouncementRM">
+		<include refid="AnnouncementJoin"></include>
+	</select>
+</mapper>
