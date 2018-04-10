@@ -19,4 +19,9 @@ public class EmployeeBizImpl implements EmployeeBiz{
 		return employeeDao.getByDid(did);
 	}
 
+	@Override
+	public Employee checkUserLogin(String nr, String password) {
+		return employeeDao.checkUserLogin(nr, password);
+	}
+
 }

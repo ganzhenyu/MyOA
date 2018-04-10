@@ -23,4 +23,7 @@
 		<include refid="EmployeeJoinDocument"></include>
 		and e.departmentId=#{did}
 	</select>
+	<select id="checkUserLogin" resultMap="EmployeeRM">
+		select * from Employee where nr=#{nr} and PASSWORD=#{password}
+	</select>
 </mapper>
