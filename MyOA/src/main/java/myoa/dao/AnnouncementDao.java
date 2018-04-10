@@ -1,5 +1,7 @@
 package myoa.dao;
 
-public interface AnnouncementDao {
+import myoa.entity.Announcement;
 
+public interface AnnouncementDao {
+	Announcement getByDid(int did);
 }
