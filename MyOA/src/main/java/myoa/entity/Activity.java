@@ -3,7 +3,7 @@ package myoa.entity;
 import java.util.Date;
 
 public class Activity {
-	private int idd;
+	private int id;
 	private int creatorId;
 	private Date createTime;
 	private String title;
@@ -15,7 +15,7 @@ public class Activity {
 	public Activity(int id, int creatorId, Date createTime, String title, String description, String location,
 			Date startTime, Date endTime) {
 		super();
-		this.idd = id;
+		this.id = id;
 		this.creatorId = creatorId;
 		this.createTime = createTime;
 		this.title = title;
@@ -25,10 +25,10 @@ public class Activity {
 		this.endTime = endTime;
 	}
 	public int getId() {
-		return idd;
+		return id;
 	}
 	public void setId(int id) {
-		this.idd = id;
+		this.id = id;
 	}
 	public int getCreatorId() {
 		return creatorId;
