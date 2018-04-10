@@ -1,11 +1,24 @@
 package myoa.entity;
 
 public class MessageAttachment {
+	public MessageAttachment() {}
+	public MessageAttachment(int id, String name, String fileurl, Message message) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.fileurl = fileurl;
+		this.message = message;
+	}
 	private int id;
 	private String name;
 	private String fileurl;
-	private int messageid;
-	
+	private Message message;
+	public Message getMessage() {
+		return message;
+	}
+	public void setMessage(Message message) {
+		this.message = message;
+	}
 	public int getId() {
 		return id;
 	}
@@ -23,21 +36,6 @@ public class MessageAttachment {
 	}
 	public void setFileurl(String fileurl) {
 		this.fileurl = fileurl;
-	}
-	
-	public int getMessageid() {
-		return messageid;
-	}
-	public void setMessageid(int messageid) {
-		this.messageid = messageid;
-	}
-	public MessageAttachment() {}
-	public MessageAttachment(int id, String name, String fileurl, int messageid) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.fileurl = fileurl;
-		this.messageid = messageid;
 	}
 	
 	

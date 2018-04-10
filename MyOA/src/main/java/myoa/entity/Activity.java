@@ -3,38 +3,39 @@ package myoa.entity;
 import java.util.Date;
 
 public class Activity {
-	private int id;
-	private int creatorId;
-	private Date createTime;
-	private String title;
-	private String description;
-	private String location;
-	private Date startTime;
-	private Date endTime;
 	public Activity() {}
-	public Activity(int id, int creatorId, Date createTime, String title, String description, String location,
-			Date startTime, Date endTime) {
+	public Activity(int id, Date createTime, String title, String description, String location, Date startTime,
+			Date endTime, Employee employee) {
 		super();
 		this.id = id;
-		this.creatorId = creatorId;
 		this.createTime = createTime;
 		this.title = title;
 		this.description = description;
 		this.location = location;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.employee = employee;
+	}
+	private int id;
+	private Date createTime;
+	private String title;
+	private String description;
+	private String location;
+	private Date startTime;
+	private Date endTime;
+	private Employee employee;
+	
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int getCreatorId() {
-		return creatorId;
-	}
-	public void setCreatorId(int creatorId) {
-		this.creatorId = creatorId;
 	}
 	public Date getCreateTime() {
 		return createTime;

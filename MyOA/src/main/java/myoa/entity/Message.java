@@ -7,28 +7,35 @@ public class Message {
 	public Message() {
 		super();
 	}
-	public Message(int id, String title, String content, int creatorId, Date sendTime, String receivers, int level,
-			int status, int isSent) {
+	public Message(int id, String title, String content, Date sendTime, String receivers, int level, int status,
+			int isSent, Employee employee) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
-		this.creatorId = creatorId;
 		this.sendTime = sendTime;
 		this.receivers = receivers;
 		this.level = level;
 		this.status = status;
 		this.isSent = isSent;
+		this.employee = employee;
 	}
+
 	private int id;
 	private String title;
 	private String content;
-	private int creatorId;
 	private Date sendTime;
 	private String receivers;
 	private int level;
 	private int status;
 	private int isSent;
+	private Employee employee;
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 	public int getId() {
 		return id;
 	}
@@ -46,12 +53,6 @@ public class Message {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public int getCreatorId() {
-		return creatorId;
-	}
-	public void setCreatorId(int creatorId) {
-		this.creatorId = creatorId;
 	}
 	public Date getSendTime() {
 		return sendTime;

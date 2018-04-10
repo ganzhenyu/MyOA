@@ -1,32 +1,33 @@
 package myoa.entity;
 
 public class ActivityActor {
-	private int id;
-	private int activityId;
-	private int actorId;
 	public ActivityActor() {}
-	public ActivityActor(int id, int activityId, int actorId) {
+	public ActivityActor(int id, Activity activity, Employee employee) {
 		super();
 		this.id = id;
-		this.activityId = activityId;
-		this.actorId = actorId;
+		this.activity = activity;
+		this.employee = employee;
 	}
+	private int id;
+	private Activity activity;
+	private Employee employee;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getActivityId() {
-		return activityId;
+	public Activity getActivity() {
+		return activity;
 	}
-	public void setActivityId(int activityId) {
-		this.activityId = activityId;
+	public void setActivity(Activity activity) {
+		this.activity = activity;
 	}
-	public int getActorId() {
-		return actorId;
+	public Employee getEmployee() {
+		return employee;
 	}
-	public void setActorId(int actorId) {
-		this.actorId = actorId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
+	
 }
