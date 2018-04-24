@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myoa.dao.ActivityDao">
+	<sql id="ActivityJoin">
+		SELECT a.*,e.nr,e.password,e.Name ename,e.Gender,e.departmentId,e.isManager,e.status estatus,
+d.name dname,d.description,d.status dstatus 
+FROM Activity a 
+LEFT JOIN Employee e ON a.creatorId=e.id 
+LEFT JOIN Department d ON e.DepartmentId=d.id 
+where 1=1
+	</sql>
+	<resultMap type="Activity" id="ActivityRM">
+		<id column="id" property="id" />
+		<result column="createTime" property="createTime" />
+		<result column="title" property="title" />
+		<result column="description" property="description" />
+		<result column="location" property="location" />
+		<result column="startTime" property="startTime" />
+		<result column="endTime" property="endTime" />
+		<association property="employee" javaType="Employee">
+			<id column="creatorId" property="id" />
+			<result column="nr" property="nr" />
+			<result column="password" property="password" />
+			<result column="ename" property="name" />
+			<result column="gender" property="gender" />
+			<result column="isManager" property="isManager" />
+			<result column="estatus" property="status" />
+			<association property="department" javaType="Department">
+				<id column="departmentId" property="id" />
+				<result column="dname" property="name" />
+				<result column="description" property="description" />
+				<result column="dstatus" property="status" />
+			</association>
+		</association>
+	</resultMap>
+	<select id="getByEmployeeName" parameterType="String" resultMap="ActivityRM">
+		<include refid="ActivityJoin"></include>
+		and e.`NAME`=#{cid}
+	</select>
+	<insert id="add" parameterType="Activity" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO Activity VALUES(#{id},#{employee.id},#{createTime},#{title},#{description},#{location},#{startTime},#{endTime})
+	</insert>
+	<delete id="detele" parameterType="int">
+		DELETE FROM Activity WHERE id=#{id}
+	</delete>
+	<update id="update" parameterType="Activity">
+		UPDATE Activity
+		<set>
+			<if test="employee.id!=0">creatorId=#{employee.id},</if>
+			<if test="createTime!=null">createTime=#{createTime},</if>
+			<if test="title!=null and !title.isEmpty()">title=#{title},</if>
+			<if test="description!=null">description=#{description},</if>
+			<if test="location!=null">location=#{location},</if>
+			<if test="startTime!=null">startTime=#{startTime},</if>
+			<if test="endTime!=null">endTime=#{endTime},</if>
+		</set>
+		where id=#{id}
+	</update>
+	<select id="fetchById" parameterType="int" resultMap="ActivityRM">
+		<include refid="ActivityJoin"></include>
+		and a.id=#{id}
+	</select>
+</mapper>

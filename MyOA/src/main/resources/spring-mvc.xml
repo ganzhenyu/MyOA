@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc
 				http://www.springframework.org/schema/mvc/spring-mvc.xsd
 				http://www.springframework.org/schema/beans
@@ -17,13 +15,29 @@
 	<!-- 注解扫描范围 -->
 	<context:component-scan base-package="myoa.web" />
 	<aop:aspectj-autoproxy />
-	
+
 	<!-- 配置不需要经过Spring MVC处理的URL路径 -->
 	<mvc:resources mapping="/static/**" location="/static/" />
 
+	<!-- Spring 整合 Tiles3 的 VeiwResolver -->
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/adminTemplate.xml</value>
+			</list>
+		</property>
+	</bean>
 	<!-- ViewResolver 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2" />
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
 		<!-- 前缀：从根目录到视图文件夹 -->
