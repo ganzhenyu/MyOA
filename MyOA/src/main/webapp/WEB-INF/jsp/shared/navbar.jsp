@@ -317,15 +317,17 @@
                             <!-- /.nav-second-level -->
                         </li>
 						  
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i>&nbsp; 文件管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                               
-                                <li>
-                                    <a href="#">文件导航</a>
-                                </li>
-                          
-                            </ul>
+                       <li class="jstree-node">
+                            <a href="#" id="json0"><i class="fa fa-files-o fa-fw"></i> 文件管理<span class="fa arrow"></span></a>
+
+                                <ul id="xx">
+                                    <div id="jsTree"></div>
+                                </ul>
+
+
+
+
+
                             <!-- /.nav-second-level -->
                         </li>
                         
@@ -336,3 +338,4 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
+        

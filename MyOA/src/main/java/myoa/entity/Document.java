@@ -1,11 +1,13 @@
 package myoa.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Document {
 	public Document() {}	
-	public Document(int id, String name, String description, Date createTime, String type, String fileUrl, int parentId,
-			Employee employee) {
+
+	public Document(int id, String name, String description, Date createTime, String type, String fileUrl,
+			List<Document> documents, int parentId, int creatorId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -13,24 +15,23 @@ public class Document {
 		this.createTime = createTime;
 		this.type = type;
 		this.fileUrl = fileUrl;
+		this.documents = documents;
 		this.parentId = parentId;
-		this.employee = employee;
+		this.creatorId = creatorId;
 	}
+
 	private int id;
 	private String name;
 	private String description;
 	private Date createTime;
 	private String type;
 	private String fileUrl;
+	private List<Document> documents;
 	private int parentId;
-	private Employee employee;
+	private int creatorId;
 	
-	public Employee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -67,11 +68,30 @@ public class Document {
 	public void setFileUrl(String fileUrl) {
 		this.fileUrl = fileUrl;
 	}
+	public List<Document> getDocuments() {
+		return documents;
+	}
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
+	}
+	public int getCreatorId() {
+		return creatorId;
+	}
+	public void setCreatorId(int creatorId) {
+		this.creatorId = creatorId;
+	}
+
 	public int getParentId() {
 		return parentId;
 	}
+
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
+
+	
+	
+
+	
 	
 }
