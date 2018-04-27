@@ -27,6 +27,9 @@
     <!-- Custom Fonts -->
     <link href="${pageContext.request.contextPath}/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/dist/themes/default/style.min.css" />
+ <link href="${pageContext.request.contextPath}/static/JSAjaxFileUploader/JQuery.JSAjaxFileUploader.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/static/css/stream-v1.css" rel="stylesheet" type="text/css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -71,9 +74,10 @@ body{
         	text-hight:150px;
         	font-size:18px;
         	float:left;
-        	width:230px;
-        	higth:70px;  
-        	overflow:hidden;    	
+        	width:185px!important;
+        	higth:50px!important;  
+        	margin-top:30px;
+        	overflow:hidden!important;    	
         }
          #im{
          	margin-top:200px;
@@ -92,6 +96,37 @@ body{
        margin-top:10px;
        display:block;
        }
+     
+       #sou{
+       	width:100%;
+       	height: 100%;
+       	padding-top: 180px;
+       	padding-left: 250px;
+       }
+       #sousuo{
+       	width:550px;
+       	
+       }
+        #tb table{
+            border-collapse: collapse;              
+            width: 600px;         
+        }
+
+        #tb td {
+            text-align: center;
+            padding-top: 5px;
+            width: 25%;
+        }
+
+        #tb tr {
+            background-color: #E3E3E3;
+            line-height: 35px;
+        }
+
+        .showImg {
+            width: 50px;
+            height: 50px;
+        }
 
     </style>
 </head>
@@ -665,36 +700,26 @@ body{
     <script src="${pageContext.request.contextPath}/static/dist/js/sb-admin-2.js"></script>
     <script src="${pageContext.request.contextPath}/static/dist/jstree.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/ios-parallax.js"></script> 
-    
+    <script t src="${pageContext.request.contextPath}/static/js/pdfobject.js"></script>
+    <script src="${pageContext.request.contextPath}/static/layer/layer.js"></script>
+    <script src="${pageContext.request.contextPath}/static/vendor/jquery.cookie-1.4.1.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/stream-v1.js"></script>
+	
 
     <script>
-        $(function() {    
+        $(function() {         	
         	 var nodess=new Array();
         	 var inx=0;
         	 var mm;
         	 
         	 //点击后展开树节点
              $('#json0').click(function() {
-            	 var htm="<div id='toplo9-image'>"+
-            	  "<div id='content' class='container center-block'>"+
-            	  "<div class='jumbotron'>"+
-            	  "<div class='container'>"+
-            	  "<h1>搜索功能</h1> "+           	      
-            	  " <div class='input-group input-group-lg'> <span class='input-group-addon' id='sizing-addon1'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></span> "+
-            	  " <input type='text' class='form-control' placeholder='输入关键词' aria-describedby='sizing-addon1'> "+
-            	  "  <span class='input-group-btn'> "+
-            	  "   <button class='btn btn-default' type='button'>搜 索</button> "+
-            	  "   </span> </div> "+
-            	     "  </div> "+
-            	    " </div> "+
-            	   "</div> "+
-            	 "</div>"
-            	 
-            	 
-            		$("#page-wrapper").html(htm)
-            	   
-            	 
-            	 
+            	 var htm="<div id='sou'>"+            	
+            	  "<h3>搜索功能</h3> "+           	                  	
+            	  "<input type='text' class='form-control' placeholder='输入关键词' aria-describedby='sizing-addon1' id='sousuo'> "+            	
+            	  "<button class='btn btn-default' type='button'>搜 索</button> "+            	            	               	            	 
+            	  "</div>"           	           	 
+            	  $("#page-wrapper").html(htm)        	 
             	var node=this.id;
             	var ss=node.charAt(node.length-1);
               //加载树节点
@@ -758,14 +783,27 @@ body{
                        },
                        //启用自定义功能，自定义菜单，右键菜单
                        "plugins" : [ "types","contextmenu"]
-                       //给树每个节点绑定一个点击时间，并把点击对象传过去
+                       //给树每个节点绑定一个点击事件，并把点击对象传过去
                    }).bind("select_node.jstree", function(event, data) {  
                 	   var inst = data.instance;                 	
                        var selectedNode = inst.get_node(data.selected); 
                        var selectid=selectedNode.id;
                        //点击过后异步加载下两层方法
                        loadConfig(inst, selectedNode);                                                                 
-                   });                                                          
+                   }).bind("rename_node.jstree",function(event,data){  //重命名绑定事件
+                	   console.log(data.node.id);               	   
+                   		var xxs=data.node.id;
+                	   var kk;
+                       if(xxs.length>5){
+                      	 var cha=xxs.length-4;
+                      	 kk=xxs.substring(4,4+cha);   
+                       	}else{
+                    	  kk=xxs.charAt(xx.length-1);   
+                       	} 
+                	 	$.getJSON("modifier?id="+kk+"&name="+data.text+"",function(jsonfromList){
+                	 		
+                	 	})                	                  	   
+                   })                                                 
            });               
              function loadConfig(inst, selectedNode){  
                  var temp = selectedNode.text;                 
@@ -812,7 +850,7 @@ body{
               					 //有文件夹则显示所有文件夹
               					var ht="<div id='neibu'><ul>"
               					for(var m=0;m<mapJakcson.documents.length;m++){                    						
-              						ht+="<li hight='70px'><img src='${pageContext.request.contextPath}/static/images/"+mapJakcson.documents[m].type+"2.png' /><span id='sp'>"+mapJakcson.documents[m].name+"<span> </li>";
+              						ht+="<li hight='70px' id='lili"+mapJakcson.documents[m].id+"' class='libian' ><img src='${pageContext.request.contextPath}/static/images/"+mapJakcson.documents[m].type+"2.png' /><span id='sp'>"+mapJakcson.documents[m].name+"<span> </li>";
               					}
               					ht+="</ul></div>";
               					$("#page-wrapper").html(ht);
@@ -820,8 +858,20 @@ body{
               				 //显示图片文件并且提供下载
                    		}else if(mapJakcson.type=="jpg"){
                    			$("#page-wrapper").html("<div id='neibu'><div><img src='${pageContext.request.contextPath}/static/"+mapJakcson.fileUrl+"' id='im' style='display: inline-block; vertical-align: middle;' /> <span id='spn'><a href='${pageContext.request.contextPath}/static/"+mapJakcson.fileUrl+"' download=''><button>下载</button></a></span></div></div>")                     		                			
+                   		}else if(mapJakcson.type=="docx"){
+                   			var is = layer.load();
+                   			$.getJSON("readDocx?path="+mapJakcson.fileUrl+"",function(json){
+                   			 	layer.close(is);
+                   				PDFObject.embed("${pageContext.request.contextPath}/static/"+json.hrefs+"","#page-wrapper",{height: "720px"});
+                   						
+                   			})
+                   		  
                    		}else if(mapJakcson.type=="txt"){
-                   			
+                   			var ii = layer.load();
+                   			$.getJSON("readTxt?path="+mapJakcson.fileUrl+"",function(json){
+                   				layer.close(ii);
+                   				PDFObject.embed("${pageContext.request.contextPath}/static/"+json.hrefs+"","#page-wrapper",{height: "720px"});                   						
+                   			})
                    		}else{
                    			//其他文件类型可以继续扩展
                    			$("#page-wrapper").html("<div id='neibu'><h1>该文件暂不支持预览</h1><a href='${pageContext.request.contextPath}/static/"+mapJakcson.fileUrl+"' download=''><button>下载</button></a></div>");
@@ -843,10 +893,9 @@ body{
                                     "label"                : "重命名",  //Create这一项的名称 可自定义
                                     "icon":"${pageContext.request.contextPath}/static/images/rename.png",                                  
                                     "action"            : function (data) {  //点击Create这一项触发该方法
-                                        var inst = $.jstree.reference(data.reference),
-                                        obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性   
-                                        
-                                                                                                                    
+                                    	 var inst = $.jstree.reference(data.reference),
+                                         obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性                                                                          
+                                         inst.edit(data.reference,obj.val);                                                                                                                     
                                     }
                                 },
                                 "delete":{                           	 
@@ -855,10 +904,23 @@ body{
                                      "icon":"${pageContext.request.contextPath}/static/images/delete.png",                                  
                                      "action"            : function (data) {  //点击Create这一项触发该方法
                                          var inst = $.jstree.reference(data.reference),
-                                             obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
-                                             
-                                                                                
-                                                                                                                   
+                                             obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性       
+                                         var xx=obj.id;  
+                                         var ll;
+                                         if(xx.length>5){
+                                        	 var cha=xx.length-4;
+                                        	 ll=xx.substring(4,4+cha);   
+                                         }else{
+                                        	 ll=xx.charAt(xx.length-1);   
+                                         }
+                                         var msg = "您真的确定要删除吗？删除后不可恢复！"; 
+                                         if (confirm(msg)==true){ 
+                                        		$.getJSON("delete?id="+ll+"",function(jsonfromList){
+                                             		inst.delete_node (obj);
+                                             	})
+                                         }else{ 
+                                         	 return false; 
+                                         } 
                                      }
                                },
                                "down":{                             	  
@@ -868,9 +930,7 @@ body{
                                     "action"            : function (data) {  //点击Create这一项触发该方法
                                         var inst = $.jstree.reference(data.reference),
                                             obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
-                                            //console.log(obj);
-                                            //console.log(obj.original.path);
-                                        //新加节点                                       
+                                                                     
                                         location.href="${pageContext.request.contextPath}/static/"+obj.original.path+"";                                                                        
                                     }
                               }
@@ -878,26 +938,82 @@ body{
                     		}
                     	 }else{
                     		 return {
-                    			 "create":{                               	
+                    			 "cre":{                               	
                                       "_disabled"            : false, //false表示 create 这一项可以使用; true表示不能使用
                                       "label"                : "新建",  //Create这一项的名称 可自定义
                                       "icon":"${pageContext.request.contextPath}/static/images/add.png",                                  
-                                      "action"            : function (data) {  //点击Create这一项触发该方法
-                                          var inst = $.jstree.reference(data.reference),
-                                              obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
-                                          //新加节点                                       
-                                                                                                                         
-                                      }
+                                      "action"            : function (data) {  //点击Create这一项触发该方法     
+                                      var inst = $.jstree.reference(data.reference),
+                                      obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性 
+                                      var xx=obj.id;  
+                                      var ll;
+                                      if(xx.length>5){
+                                     	 var cha=xx.length-4;
+                                     	 ll=xx.substring(4,4+cha);   
+                                      }else{
+                                     	 ll=xx.charAt(xx.length-1);   
+                                      }                                     
+                                  	  $.getJSON("addfile?parentId="+parseInt(ll)+"&type="+obj.type+"",function(json){
+                                  	  inst.create_node(obj, {"id":"json"+json.id+"","parent":""+obj.id+"","type":"FOLDER"}, "last", function (new_node) {
+                                             setTimeout(function () { inst.edit(new_node); },0);//新加节点后触发 重命名方法,即 创建节点完成后可以立即重命名节点
+                                             $("#json"+obj.parent+"").click();
+                                  	  });
+                                  	 
+                                  	})                                                                                                                                                                                                                                                                                
+                                   }
                                 },
-                                "rname" : {     	 
-                                  
+                                "rname" : {     	                                 
                                     "_disabled"            : false, //false表示 create 这一项可以使用; true表示不能使用
                                     "label"                : "重命名",  //Create这一项的名称 可自定义
+                                    "icon":"${pageContext.request.contextPath}/static/images/rename.png",                                  
+                                    "action"            : function (data) {  //点击Create这一项触发该方法、                                    
+                                        var inst = $.jstree.reference(data.reference),
+                                        obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性                                                                          
+                                        inst.edit(data.reference,obj.val);                                        
+                                    }
+                                },
+                                "loads" : {     	 
+                                    
+                                    "_disabled"            : false, //false表示 create 这一项可以使用; true表示不能使用
+                                    "label"                : "上传",  //Create这一项的名称 可自定义
                                     "icon":"${pageContext.request.contextPath}/static/images/rename.png",                                  
                                     "action"            : function (data) {  //点击Create这一项触发该方法
                                         var inst = $.jstree.reference(data.reference),
                                         obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性                                  
-                                        inst.edit(new_node);                                                                                  
+                                        var xx=obj.id;  
+                                        var ll;
+                                        if(xx.length>5){
+                                       	 var cha=xx.length-4;
+                                       	 ll=xx.substring(4,4+cha);   
+                                        }else{
+                                       	 ll=xx.charAt(xx.length-1);   
+                                        }
+                                    	$("#page-wrapper").html(" <div id='i_select_files'>"+
+                                    			"</div>"+
+
+                                    	"<div id='i_stream_files_queue'>"+
+                                    	"</div>"+
+                                    	"<button onclick='javascript:_t.upload();''>开始上传</button>|<button onclick='javascript:_t.stop();'>停止上传</button>|<button onclick='javascript:_t.cancel();'>取消</button>"+
+                                    	"|<button onclick='javascript:_t.disable();'>禁用文件选择</button>|<button onclick='javascript:_t.enable();'>启用文件选择</button>"+
+                                    	"<br>"+
+                                    	"Messages:"+
+                                    	"<div id='i_stream_message_container' class='stream-main-upload-box' style='overflow: auto;height:200px;'>"+
+                                    	"</div>");   
+                                    	var config = {
+                                    			browseFileId : "i_select_files", /** 选择文件的ID, 默认: i_select_files */
+                                    			browseFileBtn : "<div>请选择文件</div>", /** 显示选择文件的样式, 默认: `<div>请选择文件</div>` */
+                                    			dragAndDropArea: "i_select_files", /** 拖拽上传区域，Id（字符类型"i_select_files"）或者DOM对象, 默认: `i_select_files` */
+                                    			dragAndDropTips: "<span>把文件(文件夹)拖拽到这里</span>", /** 拖拽提示, 默认: `<span>把文件(文件夹)拖拽到这里</span>` */
+                                    			filesQueueId : "i_stream_files_queue", /** 文件上传容器的ID, 默认: i_stream_files_queue */
+                                    			filesQueueHeight : 200, /** 文件上传容器的高度（px）, 默认: 450 */
+                                    			messagerId : "i_stream_message_container", /** 消息显示容器的ID, 默认: i_stream_message_container */
+                                    			multipleFiles: true /** 多个文件一起上传, 默认: false */
+                                    		    uploadURL : "/upload" /** HTML5上传的URI */
+                                    		};
+                                    		var _t = new Stream(config);
+
+                                    		
+                                    	
                                     }
                                 },
                                 "delete":{
@@ -939,11 +1055,9 @@ body{
              
             
         });
-        $(document).ready(function() {
-        	  $('#top-image').iosParallax({
-        		movementFactor: 50
-        	  });
-        	});
+      
+        
+      
      
         
     </script>

@@ -21,7 +21,7 @@
 		delete  from Document where id=#{id}
 	</delete>
 	<update id="updateName">
-		UPDATE Document SET  `name`={name} WHERE id={id}
+		UPDATE Document SET  `name`=#{name} WHERE id=#{id}
 	</update>
 	
 	<insert id="addFile" parameterType="Document"  keyProperty="id">
@@ -29,6 +29,6 @@
         select LAST_INSERT_ID();  
     </selectKey>  
 		INSERT INTO Document(Id,NAME,Description,CreatorId,CreateTime,TYPE,FileUrl,ParentId)
-	VALUES(0,#{name},#{description},#{creatorId},#{createTime},#{type},#{fileUrl},#{ParentId});
+	    VALUES(#{id},#{name},#{description},#{creatorId},#{createTime},#{type},#{fileUrl},#{parentId});
 	</insert>
 </mapper>

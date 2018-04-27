@@ -3,6 +3,8 @@ package myoa.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Document {
 	public Document() {}	
 
@@ -23,6 +25,7 @@ public class Document {
 	private int id;
 	private String name;
 	private String description;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	private String type;
 	private String fileUrl;
