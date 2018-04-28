@@ -42,10 +42,8 @@ public class IndexController {
 	private AnnouncementBiz announcementBiz;
 	
 	@RequestMapping("/activity")
-	public String announcement(Model model,HttpSession session){
-		//合成要删除
-		Employee loginUser=employeeBiz.checkUserLogin("Nr002", "123");
-		session.setAttribute("loginUser", loginUser);
+	public String announcement(Model model,HttpSession session,HttpServletRequest request){
+		Employee loginUser = (Employee) request.getSession().getAttribute("loginUser");
 		int did=loginUser.getDepartment().getId();
 		List<Employee> elist= employeeBiz.getByDid(did);
 		model.addAttribute("elist",elist);
@@ -77,10 +75,7 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/meeting")
-	public String meeting(Model model,HttpSession session){
-		//合成要删除
-		Employee loginUser=employeeBiz.checkUserLogin("Nr002", "123");
-		session.setAttribute("loginUser", loginUser);
+	public String meeting(Model model){
 		List<Department> dlist=departmentBiz.getFullAll();
 		model.addAttribute("dlist",dlist);
 		return "meeting";
