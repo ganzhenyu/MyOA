@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import myoa.biz.ActivityActorBiz;
 import myoa.biz.ActivityBiz;
 import myoa.biz.AnnouncementBiz;
+import myoa.biz.DepartmentBiz;
 import myoa.biz.EmployeeBiz;
 import myoa.entity.Activity;
 import myoa.entity.ActivityActor;
@@ -27,6 +28,9 @@ public class IndexController {
 	
 	@Autowired
 	private EmployeeBiz employeeBiz;
+	
+	@Autowired
+	private DepartmentBiz departmentBiz;
 	
 	@Autowired
 	private ActivityBiz activityBiz;
@@ -42,7 +46,8 @@ public class IndexController {
 		//合成要删除
 		Employee loginUser=employeeBiz.checkUserLogin("Nr002", "123");
 		session.setAttribute("loginUser", loginUser);
-		List<Employee> elist= employeeBiz.getByDid(loginUser.getDepartment().getId());
+		int did=loginUser.getDepartment().getId();
+		List<Employee> elist= employeeBiz.getByDid(did);
 		model.addAttribute("elist",elist);
 		return "activity";
 	}
@@ -60,8 +65,11 @@ public class IndexController {
 		if(activity.getId()==0) {
 			activityBiz.add(activity);
 			ActivityActor actor=new ActivityActor(0, activity, loginUser);
-			activityActorBiz.add(actor);
-			activityActorBiz.addActorIdList(activity, actorId);
+			if(actorId!=null) {
+				activityActorBiz.addActorIdList(activity, actorId);
+			}else {
+				activityActorBiz.add(actor);
+			}
 		}else {
 			activityBiz.update(activity);
 		}
@@ -73,8 +81,8 @@ public class IndexController {
 		//合成要删除
 		Employee loginUser=employeeBiz.checkUserLogin("Nr002", "123");
 		session.setAttribute("loginUser", loginUser);
-		List<Employee> elist= employeeBiz.getAllNotMy(loginUser);
-		model.addAttribute("elist",elist);
+		List<Department> dlist=departmentBiz.getFullAll();
+		model.addAttribute("dlist",dlist);
 		return "meeting";
 	}
 	

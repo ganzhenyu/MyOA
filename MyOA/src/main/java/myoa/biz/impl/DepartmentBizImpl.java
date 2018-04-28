@@ -51,4 +51,14 @@ public class DepartmentBizImpl implements DepartmentBiz {
 		return departmentDao.checkNameIsUsing(name);
 	}
 
+	@Override
+	public List<Department> getFullAll() {
+		return departmentDao.getFullAll();
+	}
+
+	@Override
+	public List<Department> getFullAllByEname(String ename) {
+		return departmentDao.getFullAllByEname(ename);
+	}
+
 }

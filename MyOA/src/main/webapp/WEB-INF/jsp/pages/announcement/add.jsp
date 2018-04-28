@@ -5,14 +5,34 @@
     $(document).ready(function() {
         $("#re").click(function(){
             $("#title").val("");
+            $("#titleError").hide();
             CKEDITOR.instances.content.setData('');
         });
         $("#save").click(function(){
-            $("#Exit").submit();
+        	var flag=true;
+        	if($("#title").val()==""){
+            	$("#titleError").show();
+            	flag=false;
+            }else{
+            	$("#titleError").hide();
+            }
+        	if(flag){
+        		$("#Exit").submit();
+            }
+            
         })
+        $("#titleError").hide();
         $("#cao").click(function(){
-            $("#status").val(0);
-            $("#Exit").submit();
+        	var flag=true;
+        	if($("#title").val()==""){
+            	$("#titleError").show();
+            	flag=false;
+            }else{
+            	$("#titleError").hide();
+            }
+        	if(flag){
+        		$("#Exit").submit();
+            }
         })
     });
 </script>
@@ -28,8 +48,11 @@
             <input type="hidden" id="status" name="status" value="1">
             <div class="form-group">
                 <label>公告标题</label>
-                <input class="form-control" id="title" name="title" placeholder="公告标题">
+                <input class="form-control" id="title" name="title" placeholder="请填写公告标题">
             </div>
+            <div class="form-group">
+				<label id="titleError" class="text-danger">请填写公告标题</label>
+			</div>
             <div class="form-group">
                 <label>公告内容</label>
                 <textarea id="content" name="content" class="ckeditor form-control"></textarea>

@@ -94,7 +94,7 @@
                             <input type="hidden" id="status" name="status" value="1">
                             <div class="form-group">
                                 <label>公告标题</label>
-                                <input class="form-control" readonly id="title" name="title" placeholder="公告标题">
+                                <input class="form-control" readonly id="title" name="title" placeholder="请填写公告标题">
                             </div>
                             <div class="form-group">
                                 <label>公告内容</label>

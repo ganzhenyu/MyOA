@@ -13,4 +13,6 @@ public interface DepartmentBiz {
 	Department fetchById(int id);
 	int checkIsUsing(int id);
 	int checkNameIsUsing(String name);
+	List<Department> getFullAll();
+	List<Department> getFullAllByEname(String ename);
 }

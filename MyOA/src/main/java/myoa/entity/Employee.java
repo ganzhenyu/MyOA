@@ -17,7 +17,6 @@ public class Employee {
 	}
 
 	private Integer id;
-	//@NotEmpty(message="请输入唱片名称")
 	private String nr;
 	private String password;
 	private String name;
@@ -26,7 +25,7 @@ public class Employee {
 	private int status;
 	private Department department;
 	public String getGenderInfo(){
-		if(this.isManager==0) {
+		if(this.gender==0) {
 			return "女";
 		}else {
 			return "男";

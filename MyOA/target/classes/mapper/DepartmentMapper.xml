@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myoa.dao.DepartmentDao">
+	<sql id="DepartmentJoin">
+SELECT d.*,e.nr,e.password,e.name ename,e.gender,e.departmentid,e.ismanager,e.status estatus
+FROM Department d 
+LEFT JOIN Employee e ON d.id=e.departmentid
+where 1=1
+	</sql>
 	<resultMap type="Department" id="DepartmentRM">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
 		<result column="description" property="description" />
 		<result column="status" property="status" />
+		<collection property="employees" ofType="Employee"> 
+			<id column="eid" property="id" />
+			<result column="nr" property="nr" />
+			<result column="password" property="password" />
+			<result column="ename" property="name" />
+			<result column="gender" property="gender" />
+			<result column="isManager" property="isManager" />
+			<result column="estatus" property="status" />
+		</collection>
 	</resultMap>
-	<select id="getAll" resultMap="DepartmentRM">
+	<select id="getAll" resultType="Department">
 		select * from Department
 	</select>
 	<update id="update" parameterType="Department">
@@ -27,5 +42,12 @@
 	</select>
 	<select id="checkNameIsUsing" resultType="int">
 		select count(id) from Department where name = #{name}
+	</select>
+	<select id="getFullAll" resultMap="DepartmentRM" >
+		<include refid="DepartmentJoin"/>
+	</select>
+	<select id="getFullAllByEname" parameterType="hashmap" resultMap="DepartmentRM" >
+		<include refid="DepartmentJoin"/>
+		<if test="ename!=null and !ename.isEmpty()">and e.name LIKE CONCAT('%',#{ename},'%')</if>
 	</select>
 </mapper>

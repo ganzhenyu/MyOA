@@ -47,8 +47,39 @@
         }
         $(document).ready(function() {
             $("#save").click(function(){
-                $("#Edit").submit();
+            	var flag=true;
+            	var count = 0;
+                var checkArry = $("input[name='actorId']");
+                for (var i = 0; i < checkArry.length; i++) {
+                    if(checkArry[i].checked == true){
+                        count++;
+                    }
+                }
+                if( count == 0 ){
+                    $("#soError").show();
+                    flag=false;
+                }else{
+                	$("#soError").hide();
+                }
+                if($("#title").val()==""){
+                	$("#titleError").show();
+                	flag=false;
+                }else{
+                	$("#titleError").hide();
+                }
+                if($("#startTime").val()=="" || $("#endTime").val()==""){
+                	$("#timeError").show();
+                	flag=false;
+                }else{
+                	$("#timeError").hide();
+                }
+                if(flag){
+                	$("#Edit").submit();
+                }
             });
+            $("#timeError").hide();
+            $("#soError").hide();
+            $("#titleError").hide();
             $("#soename").click(function(){
             	var name=$("#soso").val();
             	$.ajax({//通过ajax动态查询要展示的课次数据信息
@@ -57,14 +88,24 @@
                         "name":name
                     },
                     dataType: 'json',
-                    type: 'post',
+                    type: 'get',
                     success: function (json) {
                     	$("#enamebox").children().remove();
                     	var len=json.data.length;
                     	var list = json.data;
                     	for (var i = 0; i < len; i++) {
-                    		var item="<div class='checkbox'><label><input type='checkbox' name='actorId' value='"
-                    		+list[i].id+"'>"+list[i].name+"</label></div>";
+                    		var d=list[i];
+                    		var item="<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"
+                    		+d.id+"'>"+d.name+"</a></h4></div><div id='collapse"
+                    		+d.id+"' class='panel-collapse collapse in'><div class='panel-body'>";
+                    		var elen=d.employees.length;
+                    		var elist=d.employees;
+                    		for (var j = 0; j < elen; j++) {
+                    			var e=elist[j];
+                    			item+="<div class='checkbox'><label><input type='checkbox' name='actorId' value='"+e.id+"'>"
+                    			+e.name+"</label></div>";
+                    		}
+                    		item+="</div></div></div>";
                             $("#enamebox").append(item);
                     	}
                     }
@@ -78,7 +119,6 @@
                             autoclose: true,
                             startView: 2,
                             format: "yyyy-mm-dd hh:ii",
-                            clearBtn:true,
                             todayBtn:false,
                             startDate:new Date()
                         }).on('changeDate', function(ev){
@@ -94,7 +134,6 @@
                             autoclose: true,
                             startView:2,
                             format: "yyyy-mm-dd hh:ii",
-                            clearBtn:true,
                             todayBtn:false
                         }).on('changeDate', function(ev){
                             if(ev.date){
@@ -107,6 +146,7 @@
             }
 
             DatePicker("#date_begin","#date_end");
+            
         });
     </script>
 <style>
@@ -132,13 +172,16 @@
 			<div class="panel-body">
 				<div class="col-lg-8 ">
 					<div class="form-group">
-						<label>会议名称</label> <input class="form-control" name="title"
+						<label>会议名称</label> <input class="form-control" id="title" name="title"
 							placeholder="会议名称">
+					</div>
+					<div class="form-group">
+						<label id="titleError" class="text-danger">请填写会议名称</label>
 					</div>
 					<div class="form-group" style="width: 50%; float: left">
 						<label>开始时间</label>
 						<div class="input-group date" id="date_begin">
-							<input type="text" name="startTime" class="form-control" readonly>
+							<input type="text" id="startTime" name="startTime" class="form-control" readonly>
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-calendar"></i></span>
 						</div>
@@ -146,10 +189,13 @@
 					<div class="form-group" style="width: 45%; float: right">
 						<label>结束时间</label>
 						<div class="input-group date" id="date_end">
-							<input type="text" name="endTime" class="form-control" readonly>
+							<input type="text" id="endTime" name="endTime" class="form-control" readonly>
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-calendar"></i></span>
 						</div>
+					</div>
+					<div class="form-group">
+						<label id="timeError" class="text-danger">请选择时间</label>
 					</div>
 					<div class="form-group">
 						<label>活动地点</label> <input class="form-control" name="location"
@@ -174,16 +220,30 @@
 					<div class="panel panel-default">
 						<div class="col-lg-12 form-group" id="enamebox"
 							style="height: 250px; overflow: auto">
-								<c:forEach var="e" items="${elist }">
-									<div class="checkbox">
-										<label> <input type="checkbox" name="actorId"
-											value="${e.id }">${e.name }
-										</label>
-									</div>
+								<c:forEach var="d" items="${dlist }">
+								<div class="panel panel-default">
+				                    <div class="panel-heading">
+				                        <h4 class="panel-title">
+				                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse${d.id }">${d.name }</a>
+				                        </h4>
+				                    </div>
+				                    <div id="collapse${d.id }" class="panel-collapse collapse in">
+				                        <div class="panel-body">
+				                        	<c:forEach var="e" items="${d.employees }">
+				                            <div class="checkbox">
+				                                <label>
+				                                    <input type="checkbox" name="actorId" value="${e.id }">${e.name }
+				                                </label>
+				                            </div>
+				                            </c:forEach>
+				                        </div>
+				                    </div>
+				                </div>
 								</c:forEach>
 						</div>
 						<div class="clear"></div>
 					</div>
+					<label id="soError" class="text-danger">请选择员工</label>
 				</div>
 			</div>
 			<div class="clear"></div>

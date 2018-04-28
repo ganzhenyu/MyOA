@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import myoa.biz.ActivityActorBiz;
 import myoa.biz.ActivityBiz;
 import myoa.biz.AnnouncementBiz;
+import myoa.biz.DepartmentBiz;
 import myoa.biz.EmployeeBiz;
 import myoa.entity.Activity;
 import myoa.entity.ActivityActor;
 import myoa.entity.Announcement;
+import myoa.entity.Department;
 import myoa.entity.Employee;
 
 @RestController
@@ -31,6 +33,9 @@ public class AjaxController {
 	
 	@Autowired
 	private EmployeeBiz employeeBiz;
+	
+	@Autowired
+	private DepartmentBiz departmentBiz;
 	
 	@Autowired
 	private AnnouncementBiz announcementBiz;
@@ -54,8 +59,9 @@ public class AjaxController {
 	public Map<String, Object> fetchEname(String name,HttpServletRequest request) {
 		Map<String, Object> map=new HashMap<>();
 		Employee loginUser = (Employee) request.getSession().getAttribute("loginUser");
-		List<Employee> elist=employeeBiz.getByNameNotMy(loginUser, name);
-		map.put("data", elist);
+		List<Department> dlist=departmentBiz.getFullAllByEname(name);
+		System.out.println(dlist.size());
+		map.put("data", dlist);
 		return map;
 	}
 	

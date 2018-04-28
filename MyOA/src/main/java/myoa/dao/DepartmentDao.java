@@ -2,6 +2,8 @@ package myoa.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import myoa.entity.Department;
 
 public interface DepartmentDao {
@@ -12,4 +14,6 @@ public interface DepartmentDao {
 	Department fetchById(int id);
 	int checkIsUsing(int id);
 	int checkNameIsUsing(String name);
+	List<Department> getFullAll();
+	List<Department> getFullAllByEname(@Param("ename")String ename);
 }

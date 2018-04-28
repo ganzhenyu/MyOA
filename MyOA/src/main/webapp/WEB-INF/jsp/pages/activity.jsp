@@ -167,7 +167,7 @@
                             "id": id
                         },
                         dataType: 'json',
-                        type: 'post',
+                        type: 'get',
                         success: function (json) { // 获取当前月的数据
                         	$("#date_begin_b").datetimepicker('setStartDate', new Date());
                         	$("#date_end_b").datetimepicker('setStartDate', new Date());
@@ -200,7 +200,6 @@
                             autoclose: true,
                             startView: 2,
                             format: "yyyy-mm-dd hh:ii",
-                            clearBtn:true,
                             todayBtn:false
                         }).on('changeDate', function(ev){
                             if(ev.date){
@@ -215,7 +214,6 @@
                             autoclose: true,
                             startView:2,
                             format: "yyyy-mm-dd hh:ii",
-                            clearBtn:true,
                             todayBtn:false
                         }).on('changeDate', function(ev){
                             if(ev.date){
@@ -231,8 +229,25 @@
             DatePicker("#date_begin_b","#date_end_b");
             
             $("#save").click(function(){
-                $("#Edit").submit();
+            	var flag=true;
+            	if($("#title").val()==""){
+                	$("#titleError").show();
+                	flag=false;
+                }else{
+                	$("#titleError").hide();
+                }
+                if($("#startTime").val()=="" || $("#endTime").val()==""){
+                	$("#timeError").show();
+                	flag=false;
+                }else{
+                	$("#timeError").hide();
+                }
+                if(flag){
+                	$("#Edit").submit();
+                }
             });
+            $("#timeError").hide();
+            $("#titleError").hide();
             $("#alter").click(function(){
                 $("#lookEdit").submit();
             });
@@ -281,13 +296,16 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>活动名称</label> <input class="form-control" name="title"
-								placeholder="活动名称">
+							<label>活动名称</label> <input class="form-control" id="title" name="title"
+								placeholder="请填写活动名称">
+						</div>
+						<div class="form-group">
+							<label id="titleError" class="text-danger">请填写会议名称</label>
 						</div>
 						<div class="form-group" style="width: 50%; float: left">
 							<label>开始时间</label>
 							<div class="input-group date " id="date_begin">
-								<input type="text" name="startTime" class="form-control"
+								<input type="text" id="startTime" name="startTime" class="form-control"
 									readonly> <span class="input-group-addon"><i
 									class="glyphicon glyphicon-calendar"></i></span>
 							</div>
@@ -295,14 +313,17 @@
 						<div class="form-group" style="width: 45%; float: right">
 							<label>结束时间</label>
 							<div class="input-group date " id="date_end">
-								<input type="text" name="endTime" class="form-control" readonly>
+								<input type="text" id="endTime" name="endTime" class="form-control" readonly>
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-calendar"></i></span>
 							</div>
 						</div>
 						<div class="form-group">
+							<label id="timeError" class="text-danger">请选择时间</label>
+						</div>
+						<div class="form-group">
 							<label>活动地点</label> <input class="form-control" name="location"
-								placeholder="活动地点">
+								placeholder="请填写活动地点">
 						</div>
 						<div class="form-group">
 							<label>活动描述</label>
@@ -339,7 +360,7 @@
 						<div class="form-group">
 							<label>活动名称</label> <input type="hidden" id="loadId" name="id">
 							<input class="form-control" id="loadTitle" name="title"
-								placeholder="活动名称">
+								placeholder="请填写活动名称">
 						</div>
 						<div class="form-group" style="width: 50%; float: left">
 							<label>开始时间</label>
@@ -361,7 +382,7 @@
 						</div>
 						<div class="form-group">
 							<label>活动地点</label> <input class="form-control" id="loadLocation"
-								name="location" placeholder="活动地点">
+								name="location" placeholder="请填写活动地点">
 						</div>
 						<div class="form-group">
 							<label>活动描述</label>

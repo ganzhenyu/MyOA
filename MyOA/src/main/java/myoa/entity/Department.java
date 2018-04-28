@@ -1,5 +1,8 @@
 package myoa.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Department {
 	public Department() {}
 	public Department(int id, String name, String description, int status) {
@@ -13,6 +16,13 @@ public class Department {
 	private String name;
 	private String description;
 	private int status;
+	private List<Employee> employees=new ArrayList<>();
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
 	public int getId() {
 		return id;
 	}

@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import myoa.biz.EmployeeBiz;
+import myoa.entity.Employee;
 @ContextConfiguration("classpath:spring-beans.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -23,6 +24,11 @@ public class EmployeeDaoTest {
 	@Test
 	public void testGetByDid() {
 		assertEquals(3, traget.getByDid(1).size());
+	}
+	@Test
+	public void testcheckuser() {
+		Employee loginUser=traget.checkUserLogin("Nr002", "123");
+		System.out.println(loginUser.getIsManager());
 	}
 
 }

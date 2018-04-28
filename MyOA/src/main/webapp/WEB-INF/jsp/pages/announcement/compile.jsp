@@ -5,16 +5,36 @@
 <script>
     $(document).ready(function() {
         $("#save").click(function(){
-        	$("#status").val(1);
-            $("#lookEdit").submit();
+        	var flag=true;
+        	if($("#title").val()==""){
+            	$("#titleError").show();
+            	flag=false;
+            }else{
+            	$("#titleError").hide();
+            }
+        	if(flag){
+        		$("#status").val(1);
+                $("#lookEdit").submit();
+            }
         })
         $("#cao").click(function(){
-        	$("#status").val(0);
-            $("#lookEdit").submit();
+        	var flag=true;
+        	if($("#title").val()==""){
+            	$("#titleError").show();
+            	flag=false;
+            }else{
+            	$("#titleError").hide();
+            }
+        	if(flag){
+        		$("#status").val(0);
+                $("#lookEdit").submit();
+            }
         })
+        $("#titleError").hide();
         $("button.save").click(function(){
+        	$("#titleError").hide();
         	var id= $(this).attr("data-id");
-            $.ajax({//通过ajax动态查询要展示的课次数据信息
+            $.ajax({
                 url: 'ajax/fetchAnnouncementById',
                 data : {
                     "id": id
@@ -151,8 +171,11 @@
                             <input type="hidden" id="status" name="status" value="0">
                             <div class="form-group">
                                 <label>公告标题</label>
-                                <input class="form-control" id="title" name="title" placeholder="公告标题">
+                                <input class="form-control" id="title" name="title" placeholder="请填写公告标题">
                             </div>
+                            <div class="form-group">
+								<label id="titleError" class="text-danger">请填写公告标题</label>
+							</div>
                             <div class="form-group">
                                 <label>公告内容</label>
                                 <textarea id="content" name="content" class="ckeditor form-control"></textarea>
