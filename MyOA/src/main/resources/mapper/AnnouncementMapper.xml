@@ -11,6 +11,15 @@ LEFT JOIN Employee e1 ON e1.id=a.creatorid
 LEFT JOIN Employee e2 ON e2.id=a.approverid
 LEFT JOIN Department d1 ON d1.id=e1.DepartmentId
 LEFT JOIN Department d2 ON d2.id=e1.DepartmentId
+where 1=1 
+	</sql>
+	<sql id="AnnouncementCreatorJoin">
+SELECT a.*,e1.nr e1nr,e1.password e1password,e1.Name e1name,e1.Gender e1gGender,e1.departmentId departmentId1,e1.isManager e1isManager,e1.status e1status,
+d1.name d1name,d1.description d1description,d1.status d1status
+FROM Announcement a 
+LEFT JOIN Employee e1 ON e1.id=a.creatorid 
+LEFT JOIN Department d1 ON d1.id=e1.DepartmentId
+where 1=1 
 	</sql>
 	<resultMap type="Announcement" id="AnnouncementRM">
 		<id column="id" property="id" />
@@ -24,11 +33,11 @@ LEFT JOIN Department d2 ON d2.id=e1.DepartmentId
 			<id column="CreatorId" property="id" />
 			<result column="e1nr" property="nr" />
 			<result column="e1password" property="password" />
-			<result column="e1status" property="name" />
+			<result column="e1name" property="name" />
 			<result column="e1gender" property="gender" />
 			<result column="e1isManager" property="isManager" />
 			<result column="e1status" property="status" />
-			<association property="department1" javaType="Department">
+			<association property="department" javaType="Department">
 				<id column="DepartmentId" property="id" />
 				<result column="d1name" property="name" />
 				<result column="d1description" property="description" />
@@ -39,7 +48,7 @@ LEFT JOIN Department d2 ON d2.id=e1.DepartmentId
 			<id column="ApproverId" property="id" />
 			<result column="e2nr" property="nr" />
 			<result column="e2password" property="password" />
-			<result column="e2status" property="name" />
+			<result column="e2name" property="name" />
 			<result column="e2gender" property="gender" />
 			<result column="e2isManager" property="isManager" />
 			<result column="e2status" property="status" />
@@ -51,7 +60,74 @@ LEFT JOIN Department d2 ON d2.id=e1.DepartmentId
 			</association>
 		</association>
 	</resultMap>
-	<select id="getByDid" parameterType="int" resultMap="AnnouncementRM">
+	<resultMap type="Announcement" id="CreatorRM">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="createTime" property="createTime" />
+		<result column="lastEditTime" property="lastEditTime" />
+		<result column="approveTime" property="approveTime" />
+		<result column="status" property="status" />
+		<association property="creator" javaType="Employee">
+			<id column="CreatorId" property="id" />
+			<result column="e1nr" property="nr" />
+			<result column="e1password" property="password" />
+			<result column="e1name" property="name" />
+			<result column="e1gender" property="gender" />
+			<result column="e1isManager" property="isManager" />
+			<result column="e1status" property="status" />
+			<association property="department" javaType="Department">
+				<id column="DepartmentId" property="id" />
+				<result column="d1name" property="name" />
+				<result column="d1description" property="description" />
+				<result column="d1status" property="status" />
+			</association>
+		</association>
+	</resultMap>
+	<select id="getPaging" parameterType="hashmap" resultMap="AnnouncementRM">
 		<include refid="AnnouncementJoin"></include>
+		<if test="title!=null and !title.isEmpty()">and a.title LIKE CONCAT('%',#{title},'%') </if>
+		<if test="status>=0">AND a.status=#{status} </if>
+		ORDER BY a.lastEditTime
+		LIMIT #{startIndex},#{maxRows}
+	</select>
+	<select id="fetchRows" parameterType="hashmap" resultType="int">
+		SELECT COUNT(id) FROM Announcement 
+		<if test="title!=null and !title.isEmpty()">and title LIKE CONCAT('%',#{title},'%') </if>
+		<if test="status>=0">AND status=#{status} </if>
+	</select>
+	<select id="getAnnouncementNew" parameterType="hashmap" resultType="Announcement">
+		SELECT * FROM Announcement WHERE STATUS=#{status} AND approveTime &lt; #{startDate} AND approveTime &gt; #{endDate} LIMIT #{num}
+	</select>
+	<insert id="add" parameterType="Announcement" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO Announcement VALUES(#{id},#{title},#{content},#{creator.id},#{createTime},#{lastEditTime},#{approver.id},#{approveTime},#{status})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM Announcement WHERE id=#{id}
+	</delete>
+	<update id="update" parameterType="Announcement">
+		UPDATE Announcement
+		<set>
+			<if test="title!=null and !title.isEmpty()">title=#{title},</if>
+			<if test="content!=null">content=#{content},</if>
+			<if test="creator.id!=0">creatorId=#{creator.id},</if>
+			<if test="createTime!=null">createTime=#{createTime},</if>
+			<if test="lastEditTime!=null">lastEditTime=#{lastEditTime},</if>
+			<if test="approver.id!=0 and approver.id!=null">approverId=#{approver.id},</if>
+			<if test="approveTime!=null">ApproveTime=#{approveTime},</if>
+			<if test="status>=0">status=#{status},</if>
+		</set>
+		where id=#{id}
+	</update>
+	<select id="fetchById" parameterType="int" resultMap="CreatorRM">
+		<include refid="AnnouncementCreatorJoin"/>
+		and a.id=#{id}
+	</select>
+	<select id="getByStatus" parameterType="hashmap" resultMap="AnnouncementRM">
+		<include refid="AnnouncementJoin"/>
+		<if test="creatorId!=0">AND a.creatorid=#{creatorId}</if>
+		<if test="status>=0">and a.status=#{status}</if>
+		ORDER BY a.lastEditTime DESC 
+		<if test="num>=0">LIMIT #{num}</if>
 	</select>
 </mapper>

@@ -11,4 +11,9 @@ public class DepartmentController {
 	public String modify(){
 		return "pages/index";
 	}
+	
+	@RequestMapping("/announcement")
+	public String announcement(){
+		return "pages/announcement";
+	}
 }

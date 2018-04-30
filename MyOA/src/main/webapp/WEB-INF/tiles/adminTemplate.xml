@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- 定义模板 -->
+	<definition name="adminTemplate" template="/WEB-INF/jsp/shared/admin-template.jsp">
+		<put-attribute name="navbar" value="/WEB-INF/jsp/shared/navbar.jsp" />
+	</definition>
+	<!-- 定义具体页面组成 -->
+	<!-- oa -->
+	<definition name="activity" extends="adminTemplate">
+		<put-attribute name="title" value="我的日程" />
+		<put-attribute name="main" value="/WEB-INF/jsp/pages/activity.jsp" />
+	</definition>
+	<definition name="meeting" extends="adminTemplate">
+		<put-attribute name="title" value="定制会议" />
+		<put-attribute name="main" value="/WEB-INF/jsp/pages/meeting.jsp" />
+	</definition>
+	<definition name="ann_add" extends="adminTemplate">
+		<put-attribute name="title" value="公告申请" />
+		<put-attribute name="main" value="/WEB-INF/jsp/pages/announcement/add.jsp" />
+	</definition>
+	<definition name="ann_compile" extends="adminTemplate">
+		<put-attribute name="title" value="公告拟稿" />
+		<put-attribute name="main" value="/WEB-INF/jsp/pages/announcement/compile.jsp" />
+	</definition>
+	<definition name="ann_audit" extends="adminTemplate">
+		<put-attribute name="title" value="公告审核" />
+		<put-attribute name="main" value="/WEB-INF/jsp/pages/announcement/audit.jsp" />
+	</definition>
+</tiles-definitions>

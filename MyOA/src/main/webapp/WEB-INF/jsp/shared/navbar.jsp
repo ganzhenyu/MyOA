@@ -1,6 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- Bootstrap Core CSS -->
+<link
+	href="${pageContext.request.contextPath}/static/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- MetisMenu CSS -->
+<link
+	href="${pageContext.request.contextPath}/static/vendor/metisMenu/metisMenu.min.css"
+	rel="stylesheet">
+<!-- Custom CSS -->
+<link
+	href="${pageContext.request.contextPath}/static/dist/css/sb-admin-2.css"
+	rel="stylesheet">
+
+<!-- Morris Charts CSS -->
+<link
+	href="${pageContext.request.contextPath}/static/vendor/morrisjs/morris.css"
+	rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link
+	href="${pageContext.request.contextPath}/static/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<!-- js -->
+<!-- Bootstrap Core JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/static/vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/static/vendor/raphael/raphael.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/vendor/morrisjs/morris.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/data/morris-data.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/static/dist/js/sb-admin-2.js"></script>
+
+<!-- layer -->
+<script
+	src='${pageContext.request.contextPath}/static/vendor/layer/layer.js'></script>
+</head>
    <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -270,19 +317,16 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i>&nbsp; 公文发布管理<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i>&nbsp; 公告发布管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">公文审批</a>
+                                    <a href="ann_audit">公告审核</a>
                                 </li>
 								<li>
-                                    <a href="panels-wells.html">新增公文</a>
-                                </li>
-                                 <li>
-                                    <a href="panels-wells.html">公文拟稿</a>
+                                    <a href="ann_add">公告申请</a>
                                 </li>
 								<li>
-                                    <a href="panels-wells.html">公文列表</a>
+                                    <a href="ann_compile">公告拟稿</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -309,9 +353,11 @@
                          <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>&nbsp; 日程管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                         
+                         		<li>
+                                    <a href="meeting">定制会议</a>
+                                </li>
                                 <li>
-                                    <a href="grid.html">我的日程</a>
+                                    <a href="activity">我的日程</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -330,8 +376,6 @@
 
                             <!-- /.nav-second-level -->
                         </li>
-                        
-						
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

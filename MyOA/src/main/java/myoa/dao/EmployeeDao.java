@@ -7,7 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import myoa.entity.Employee;
 
 public interface EmployeeDao {
-	List<Employee> getByDid(int did);
+
 	
+	
+
+	List<Employee> getByDid(@Param("did")int did);
+	List<Employee> getByDidName(@Param("did")int did,@Param("name")String name);
+
 	Employee checkUserLogin(@Param("nr")String nr,@Param("password")String password);
 }

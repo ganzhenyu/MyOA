@@ -2,6 +2,8 @@ package myoa.entity;
 
 import java.util.Date;
 
+import myoa.web.until.ConvertTime;
+
 public class Announcement {
 	public Announcement() {}
 	public Announcement(int id, String title, String content, Date createTime, Date lastEditTime, Date approveTime,
@@ -25,7 +27,7 @@ public class Announcement {
 	private Date approveTime;
 	private int status;
 	private Employee creator;
-	private Employee approver;
+	private Employee approver=new Employee();
 	public int getId() {
 		return id;
 	}
@@ -47,11 +49,23 @@ public class Announcement {
 	public Date getCreateTime() {
 		return createTime;
 	}
+	public String getCreateTimeLong() {
+		if(this.createTime==null)
+			return null;
+		String time=ConvertTime.DateToLongStr(this.createTime);
+		return time;
+	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	public Date getLastEditTime() {
 		return lastEditTime;
+	}
+	public String getLastEditTimeLong() {
+		if(this.lastEditTime==null)
+			return null;
+		String time=ConvertTime.DateToLongStr(this.lastEditTime);
+		return time;
 	}
 	public void setLastEditTime(Date lastEditTime) {
 		this.lastEditTime = lastEditTime;
@@ -59,6 +73,13 @@ public class Announcement {
 	public Date getApproveTime() {
 		return approveTime;
 	}
+	public String getApproveTimeLong() {
+		if(this.approveTime==null)
+			return null;
+		String time=ConvertTime.DateToLongStr(this.approveTime);
+		return time;
+	}
+	
 	public void setApproveTime(Date approveTime) {
 		this.approveTime = approveTime;
 	}

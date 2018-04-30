@@ -2,6 +2,10 @@ package myoa.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import myoa.web.until.ConvertTime;
+
 public class Activity {
 	public Activity() {}
 	public Activity(int id, Date createTime, String title, String description, String location, Date startTime,
@@ -21,7 +25,9 @@ public class Activity {
 	private String title;
 	private String description;
 	private String location;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date startTime;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date endTime;
 	private Employee employee;
 	
@@ -67,8 +73,38 @@ public class Activity {
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
+	public String getStartTimeLong() {
+		if(this.startTime==null)
+			return null;
+		String time=ConvertTime.DateToLongStr(this.startTime);
+		return time;
+	}
+	public String getStartTimeInfo() {
+		if(this.startTime==null)
+			return null;
+		String time=ConvertTime.DateToTimeStr(this.startTime);
+		return time;
+	}
 	public Date getEndTime() {
 		return endTime;
+	}
+	public String getEndTimeInfo() {
+		if(this.endTime==null)
+			return null;
+		String time=ConvertTime.DateToTimeStr(this.endTime);
+		return time;
+	}
+	public String getEndTimeLong() {
+		if(this.endTime==null)
+			return null;
+		String time=ConvertTime.DateToLongStr(this.endTime);
+		return time;
+	}
+	public Date getEndTimeAddOneDay() {
+		if(this.endTime==null)
+			return null;
+		Date time=ConvertTime.getAddDay(this.endTime, 1);
+		return time;
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;

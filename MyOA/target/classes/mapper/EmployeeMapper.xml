@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myoa.dao.EmployeeDao">
 	<sql id="EmployeeJoinDocument">
-		SELECT e.*,d.name dname,d.description,d.status dstatus FROM Employee e LEFT JOIN Department d ON e.departmentId=d.id where 1=1
+		SELECT e.*,d.name dname,d.description,d.status dstatus FROM Employee e LEFT JOIN Department d ON e.departmentId=d.id 
+		where 1=1
 	</sql>
 	<resultMap type="Employee" id="EmployeeRM">
 		<id column="id" property="id" />
@@ -21,7 +22,16 @@
 	</resultMap>
 	<select id="getByDid" parameterType="int" resultMap="EmployeeRM">
 		<include refid="EmployeeJoinDocument"></include>
-		and e.departmentId=#{did}
+		<if test="did!=0">and e.departmentId=#{did}</if>
+	</select>
+	<select id="checkUserLogin" parameterType="hashmap"  resultMap="EmployeeRM">
+		<include refid="EmployeeJoinDocument"></include>
+		and e.nr=#{nr} and e.PASSWORD=#{password}
+	</select>
+	<select id="getByDidName" parameterType="hashmap" resultMap="EmployeeRM">
+	<include refid="EmployeeJoinDocument"></include>
+		<if test="name!=null and !name.isEmpty()">and e.name like CONCAT('%', #{name}, '%')</if>
+		<if test="did!=0">and e.departmentId=#{did} </if>
 	</select>
 	<select id="checkUserLogin" resultMap="EmployeeRM">
 		select * from Employee where nr=#{nr} and PASSWORD=#{password}

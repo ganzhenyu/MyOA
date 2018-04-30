@@ -24,4 +24,37 @@ public class EmployeeBizImpl implements EmployeeBiz{
 		return employeeDao.checkUserLogin(nr, password);
 	}
 
+
+	@Override
+	public List<Employee> getByDidName(int did, String name) {
+		return employeeDao.getByDidName(did, name);
+	}
+
+	@Override
+	public List<Employee> getAllNotMy(Employee employee) {
+		List<Employee> list= employeeDao.getByDid(0);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getId()==employee.getId()) {
+				list.remove(i);
+				i--;
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Employee> getByNameNotMy(Employee employee, String name) {
+		List<Employee> list= employeeDao.getByDidName(0, name);
+		if(list!=null) {
+			for(int i=0;i<list.size();i++) {
+				if(list.get(i).getId()==employee.getId()) {
+					list.remove(i);
+					i--;
+				}
+			}
+		}
+		return list;
+	}
+
+
 }

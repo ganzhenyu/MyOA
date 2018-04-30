@@ -2,7 +2,8 @@ package myoa.entity;
 
 public class Employee {
 	public Employee() {}
-	public Employee(int id, String nr, String password, String name, int gender, int isManager, int status,
+
+	public Employee(Integer id, String nr, String password, String name, int gender, int isManager, int status,
 			Department department) {
 		super();
 		this.id = id;
@@ -14,8 +15,8 @@ public class Employee {
 		this.status = status;
 		this.department = department;
 	}
-	private int id;
-	//@NotEmpty(message="请输入唱片名称")
+
+	private Integer id;
 	private String nr;
 	private String password;
 	private String name;
@@ -23,12 +24,22 @@ public class Employee {
 	private int isManager;
 	private int status;
 	private Department department;
-	public int getId() {
+	public String getGenderInfo(){
+		if(this.gender==0) {
+			return "女";
+		}else {
+			return "男";
+		}
+	}
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNr() {
 		return nr;
 	}

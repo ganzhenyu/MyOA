@@ -9,15 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
-
+    <title>MyOA主页</title>
+        <!-- jQuery -->
+    <script src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- MetisMenu CSS -->
     <link href="${pageContext.request.contextPath}/static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="${pageContext.request.contextPath}/static/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -26,26 +24,7 @@
 
     <!-- Custom Fonts -->
     <link href="${pageContext.request.contextPath}/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/dist/themes/default/style.min.css" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<style type="text/css">
-        #ll{
-            position: absolute;
-            width: 250px;
-        }
-      a{
-          z-index: 100000;
-      }
-        .collapse.in{
-            z-index: -50;
-        }
 
-    </style>
 </head>
 
 <body>
@@ -152,6 +131,7 @@
                 </div>
             </div>
             <!-- /.row -->
+            
             <div class="row">
                 <div class="col-lg-8">
                     <div class="panel panel-default">
@@ -594,12 +574,9 @@
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="${pageContext.request.contextPath}/static/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -614,48 +591,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="${pageContext.request.contextPath}/static/dist/js/sb-admin-2.js"></script>
-       <script src="${pageContext.request.contextPath}/static/dist/jstree.js"></script>
- <script>
-        $(function() {
-            $.jstree.defaults.contextmenu.select_node=false;
-            $.jstree.defaults.contextmenu = {
-                select_node:true,//设置当前节点是否为选中状态 true表示选中状态
-                show_at_node:true,//设置右键菜单是否和节点对齐 true表示对齐
-                items : function (o, cb) { // Could be an object directly
-                    return {
-                        "create" : {
-                            "separator_before"    : false,//Create这一项在分割线之前
-                            "separator_after"    : false,//Create这一项在分割线之后
-                            "_disabled"            : false, //false表示 create 这一项可以使用; true表示不能使用
-                            "label"                : "新增",  //Create这一项的名称 可自定义
-                            "action"            : function (data) {  //点击Create这一项触发该方法
-                                var inst = $.jstree.reference(data.reference),
-                                    obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
-                                //新加节点
-                                inst.create_node(obj, {}, "last", function (new_node) {
-                                    setTimeout(function () { inst.edit(new_node); },0);//新加节点后触发 重命名方法,即 创建节点完成后可以立即重命名节点
-                                });
-                            }
-                        }}}};
-            $("#ajson0").click(function(){
-            	 $('#jsTree').jstree({
-                     'core': {
-                         'data': [
-                             {"id": "ajson1", "parent": "#", "text": "根目录"},
-                             {"id": "ajson2", "parent": "ajson1", "text": "子目录"},
-                             {"id": "ajson4", "parent": "ajson1", "text": "子目录"},
-                         ],
-                         "check_callback": true
-                     },
-
-                     "plugins": ["contextmenu"]
-
-
-                 })
-            })
-           
-        })
-    </script>
 </body>
 
 </html>
