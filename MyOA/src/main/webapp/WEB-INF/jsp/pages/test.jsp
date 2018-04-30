@@ -988,16 +988,32 @@ body{
                                         }else{
                                        	 ll=xx.charAt(xx.length-1);   
                                         }
-                                     
-                                            layer.open({
-                                              type: 2,
-                                              title: 'iframe父子操作',
-                                              maxmin: true,
-                                              shadeClose: true, //点击遮罩关闭层
-                                              area : ['800px' , '520px'],
-                                              content: 'shang?parentId='+ll+'&creatorId=1'
-                                            });
-                                                                	                                   		                                   	
+                                    	$("#page-wrapper").html(" <div id='i_select_files'>"+
+                                    			"</div>"+
+
+                                    	"<div id='i_stream_files_queue'>"+
+                                    	"</div>"+
+                                    	"<button onclick='javascript:_t.upload();''>开始上传</button>|<button onclick='javascript:_t.stop();'>停止上传</button>|<button onclick='javascript:_t.cancel();'>取消</button>"+
+                                    	"|<button onclick='javascript:_t.disable();'>禁用文件选择</button>|<button onclick='javascript:_t.enable();'>启用文件选择</button>"+
+                                    	"<br>"+
+                                    	"Messages:"+
+                                    	"<div id='i_stream_message_container' class='stream-main-upload-box' style='overflow: auto;height:200px;'>"+
+                                    	"</div>");   
+                                    	var config = {
+                                    			browseFileId : "i_select_files", /** 选择文件的ID, 默认: i_select_files */
+                                    			browseFileBtn : "<div>请选择文件</div>", /** 显示选择文件的样式, 默认: `<div>请选择文件</div>` */
+                                    			dragAndDropArea: "i_select_files", /** 拖拽上传区域，Id（字符类型"i_select_files"）或者DOM对象, 默认: `i_select_files` */
+                                    			dragAndDropTips: "<span>把文件(文件夹)拖拽到这里</span>", /** 拖拽提示, 默认: `<span>把文件(文件夹)拖拽到这里</span>` */
+                                    			filesQueueId : "i_stream_files_queue", /** 文件上传容器的ID, 默认: i_stream_files_queue */
+                                    			filesQueueHeight : 200, /** 文件上传容器的高度（px）, 默认: 450 */
+                                    			messagerId : "i_stream_message_container", /** 消息显示容器的ID, 默认: i_stream_message_container */
+                                    			multipleFiles: true /** 多个文件一起上传, 默认: false */
+                                    		    uploadURL : "/upload" /** HTML5上传的URI */
+                                    		};
+                                    		var _t = new Stream(config);
+
+                                    		
+                                    	
                                     }
                                 },
                                 "delete":{
@@ -1036,10 +1052,11 @@ body{
                      	cb();
                         }};
              
-           
+             
             
         });
       
+        
       
      
         
