@@ -25,8 +25,8 @@
     <link href="${pageContext.request.contextPath}/static/vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="${pageContext.request.contextPath}/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/dist/themes/default/style.min.css" />
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/shangchuanjs/css/default.css">
+<link href="${pageContext.request.contextPath}/static/shangchuanjs/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

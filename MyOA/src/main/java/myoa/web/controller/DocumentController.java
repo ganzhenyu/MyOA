@@ -20,6 +20,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -174,23 +175,31 @@ public class DocumentController {
 		//上传文件
 		@ResponseBody
 		@RequestMapping("/addDocument")
-		public Map<String,Object> addDocument(MultipartFile[] file,HttpServletRequest request,int parentId,int creatorId) throws IllegalStateException, IOException{
+		public Map<String,Object> addDocument(@RequestParam("fileParameter")MultipartFile[] multipartFile,HttpServletRequest request,int parentId,int creatorId) throws IllegalStateException, IOException{
 			List<UploadFileResult> data=new ArrayList<>();
+			
 			Map<String,Object> model = new HashMap<>();
-			for (MultipartFile m : file) {
+			for (MultipartFile m : multipartFile) {
 				if(!m.isEmpty()) {
 					String filename=m.getOriginalFilename();
+					String type = filename.substring(filename.indexOf(",") + 1);
 					String path=request.getSession().getServletContext().getRealPath("/static/Upload/"+filename);
+					System.out.println(path);
 					m.transferTo(new File(path));
 					UploadFileResult upoald=new UploadFileResult(filename,11, m.getContentType(), true, "上传成功", path);
 					data.add(upoald);
-					Document document=new Document(0, filename, "", new Date(), "FOLDER","Upload"+filename, null, parentId, 1);
+					Document document=new Document(0, filename, "", new Date(), type,"Upload"+filename, null, parentId, 1);
 					dbz.addFile(document);
 					}					
 			}
 			model.put("data", data);
 			return model;
 			
+		}
+		
+		@RequestMapping("/shang")
+		public String shang(int parentId,int creatorId){
+			return "pages/shang";
 		}
 	
 }
