@@ -320,13 +320,13 @@
                             <a href="#"><i class="fa fa-edit fa-fw"></i>&nbsp; 公告发布管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="ann_audit">公告审核</a>
+                                    <a href="${pageContext.request.contextPath}/ann_audit">公告审核</a>
                                 </li>
 								<li>
-                                    <a href="ann_add">公告申请</a>
+                                    <a href="${pageContext.request.contextPath}/ann_add">公告申请</a>
                                 </li>
 								<li>
-                                    <a href="ann_compile">公告拟稿</a>
+                                    <a href="${pageContext.request.contextPath}/ann_compile">公告拟稿</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -354,19 +354,20 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i>&nbsp; 日程管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                          		<li>
-                                    <a href="meeting">定制会议</a>
+                                    <a href="${pageContext.request.contextPath}/meeting">定制会议</a>
                                 </li>
                                 <li>
-                                    <a href="activity">我的日程</a>
+                                    <a href="${pageContext.request.contextPath}/activity">我的日程</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
 						  
                        <li class="jstree-node">
-                            <a href="#" id="json0"><i class="fa fa-files-o fa-fw"></i> 文件管理<span class="fa arrow"></span></a>
-
-                                <ul id="xx">
+                            <a href="" id="json0"><i class="fa fa-files-o fa-fw"></i> 文件管理<span class="fa arrow"></span></a>
+								
+                                <ul id="xx" class="nav nav-second-level">
+                                 <a href="${pageContext.request.contextPath}/pages/indextest">文件导航</a>
                                     <div id="jsTree"></div>
                                 </ul>
 

@@ -33,7 +33,5 @@
 		<if test="name!=null and !name.isEmpty()">and e.name like CONCAT('%', #{name}, '%')</if>
 		<if test="did!=0">and e.departmentId=#{did} </if>
 	</select>
-	<select id="checkUserLogin" resultMap="EmployeeRM">
-		select * from Employee where nr=#{nr} and PASSWORD=#{password}
-	</select>
+	
 </mapper>

@@ -15,11 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.crypto.Data;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,6 +90,14 @@ public class DocumentController {
 		 ss = new ArrayList<>();
 		xi=0;
 		return "pages/test";
+	}
+	
+	@RequestMapping("/addDocuments")
+	public String addDocument(int  parentId,int creatorId,Model model){
+		
+		model.addAttribute("creatorId", creatorId);
+		model.addAttribute("parentId", parentId);
+		return "pages/addDocument";
 	}
 	
 	@ResponseBody
@@ -173,18 +185,22 @@ public class DocumentController {
 		
 		//上传文件
 		@ResponseBody
-		@RequestMapping("/addDocument")
-		public Map<String,Object> addDocument(MultipartFile[] file,HttpServletRequest request,int parentId,int creatorId) throws IllegalStateException, IOException{
+		@RequestMapping(value="/addDocument")
+		public Map<String,Object> addDocument(@RequestParam("myfile")MultipartFile[] myfile,HttpServletRequest request,Integer parentId) throws IllegalStateException, IOException{
 			List<UploadFileResult> data=new ArrayList<>();
 			Map<String,Object> model = new HashMap<>();
-			for (MultipartFile m : file) {
+		
+			System.out.println(parentId);
+			//int creatorId=Integer.valueOf(request.getParameter("creatorId"));
+			for (MultipartFile m : myfile) {
 				if(!m.isEmpty()) {
 					String filename=m.getOriginalFilename();
+					String my = filename.substring(0, filename.lastIndexOf("."));
 					String path=request.getSession().getServletContext().getRealPath("/static/Upload/"+filename);
 					m.transferTo(new File(path));
 					UploadFileResult upoald=new UploadFileResult(filename,11, m.getContentType(), true, "上传成功", path);
 					data.add(upoald);
-					Document document=new Document(0, filename, "", new Date(), "FOLDER","Upload"+filename, null, parentId, 1);
+					Document document=new Document(0, filename, "", new Date(), my,"Upload"+filename, null, 1, 1);
 					dbz.addFile(document);
 					}					
 			}
