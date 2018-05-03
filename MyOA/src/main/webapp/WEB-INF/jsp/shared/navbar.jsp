@@ -367,8 +367,9 @@
                             <a href="" id="json0"><i class="fa fa-files-o fa-fw"></i> 文件管理<span class="fa arrow"></span></a>
 								
                                 <ul id="xx" class="nav nav-second-level">
-                                 <a href="${pageContext.request.contextPath}/pages/indextest">文件导航</a>
-                                    <div id="jsTree"></div>
+                               
+                                 <div id="jsTree"></div>
+                                 <a href="${pageContext.request.contextPath}/pages/indextest" id='her'>文件导航</a>
                                 </ul>
 
 
