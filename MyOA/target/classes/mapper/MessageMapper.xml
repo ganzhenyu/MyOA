@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myoa.dao.MessageDao">
+	<sql id="MessageAndEmployee">
+		SELECT m.*,e.name as eaname,d.Description as dadescription,d.NAME as daname,ma.id maid,ma.NAME maname,ma.`FileUrl` as mafileurl,ma.MessageId as maMessageId
+		FROM Message m
+		LEFT JOIN Employee e ON m.CreatorId=e.id
+		LEFT JOIN Department d ON e.DepartmentId=d.id
+		LEFT JOIN MessageReception r ON R.MessageId=m.id
+		LEFT JOIN MessageAttachment ma ON ma.MessageId=m.id
+	</sql>
+	<resultMap type="Message" id="MessageRM">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="sendTime" property="sendTime" />
+		<result column="receivers" property="receivers" />
+		<result column="level" property="level" />
+		<result column="status" property="status" />
+		<result column="isSent" property="isSent" />
+		<association property="employee" javaType="Employee">
+			<id column="creatorId" property="id" />
+			<result column="eanr" property="nr" />
+			<result column="eapassword" property="password" />
+			<result column="eaname" property="name" />
+			<result column="eagender" property="gender" />
+			<result column="eaisManager" property="isManager" />
+			<result column="eastatus" property="status" />
+			<result column="eadepartmentId" property="departmentId" />
+			<association property="department" javaType="Department">
+				<id column="DepartmentId" property="id" />
+				<result column="daname" property="name" />
+				<result column="dadescription" property="description" />
+				<result column="dastatus" property="status" />
+			</association>
+		</association>
+		<collection property="attachments" ofType="MessageAttachment">
+			<id column="maid" property="id" />
+			<result column="maname" property="name" />
+			<result column="mafileurl" property="fileurl" />
+			<association property="message" javaType="Message">
+				<id column="maMessageId" property="id" />
+			</association>
+		</collection>
+		 
+		
+	</resultMap>
+	<select id="findMessageAll" resultMap="MessageRM" resultType="Message">
+		<include refid="MessageAndEmployee"></include>
+		<where>
+			<if test="title!=null and title!=''">
+				and m.title like CONCAT('%',#{title},'%')
+			</if>
+			<if test="status>=0">
+				and m.status=#{status}
+			</if>
+			<if test="isSent>=0">
+				and m.isSent=#{isSent}
+			</if>
+		</where>
+		limit #{pageNum},#{pageSize}
+	</select>
+		
+	<!--
+	<select id="findMessageAllStatus" resultMap="MessageRM" resultType="Message">
+		<include refid="MessageAndEmployee"></include>
+		<where>
+			<if test="title!=null and title!=''">
+				and m.title like CONCAT('%',#{title},'%')
+			</if>
+			<if test="status==1">
+				and m.status=1
+			</if>
+			<if test="isSent>=0">
+				and m.isSent=#{isSent}
+			</if>
+		</where>
+		limit #{pageNum},#{pageSize}
+	</select>
+  -->
+	<select id="findMessageAllStatus" resultMap="MessageRM" resultType="Message">
+		<include refid="MessageAndEmployee"></include>
+		where  m.status=1 or r.status=1
+	</select>
+		
+	<select id="MessageById" resultMap="MessageRM" parameterType="int">
+		<include refid="MessageAndEmployee"></include>
+		<where>
+			m.id=#{id}
+		 </where> 
+	</select>
+
+</mapper>

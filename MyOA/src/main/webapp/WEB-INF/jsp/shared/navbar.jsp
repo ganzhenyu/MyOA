@@ -334,19 +334,22 @@
 						<li>
                             <a href="#"><i class="fa fa-envelope fa-fw"></i>&nbsp; 信息管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">新建信息</a>
+                                 <li>
+                                    <a href="newEmail">新建信息</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">草稿列表</a>
+                                    <a href="manuscript">草稿列表</a>
                                 </li>
                                 <li>
-                                    <a href="notifications.html">接受信息</a>
+                                    <a href="inbox?id=${loginUser.id}">接受信息</a>
+                                     <input type="hidden" name="id" value="${loginUser.id}">
                                 </li>
                                 <li>
-                                    <a href="typography.html">发送列表</a>
+                                     <a href="dispatch">发送列表</a>
                                 </li>
-                             
+                                 <li>
+                                    <a href="retrieve">回收列表</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

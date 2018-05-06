@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myoa.dao.MessageReceptionDao">
+	<sql id="MessageReceptionJoinMessageAndEmployee">
+		SELECT mr.*,m.`Title` as mtitle,m.`Content` as mcontent,m.SendTime as msendtime,m.level as mlevel,e.name as ename,ee.name as eename,e.id as creatorId,ma.`FileUrl` as maffileurl,ma.`NAME` as mafname,ma.MessageId as mafMessageId 
+		FROM MessageReception mr 
+		LEFT JOIN Message m ON mr.MessageId = m.`Id`
+		LEFT JOIN Employee e ON mr.ReceiverId = e.`Id` 
+		LEFT JOIN Employee ee ON (m.CreatorId=ee.id) 
+		LEFT JOIN MessageAttachment ma ON ma.MessageId=m.id
+	</sql>
+	<resultMap type="MessageReception" id="MessageReceptionRM">
+		<id column="id" property="id"/>
+		<result column="isread" property="isread" />
+		<result column="status" property="status" />
+		<association property="message" javaType="Message">
+			<id column="messageId" property="id" />
+			<result column="mtitle" property="title" />
+			<result column="mcontent" property="content" />
+			<result column="msendtime" property="sendTime" />
+			<result column="mreceivers" property="receivers" />
+			<result column="mlevel" property="level" />
+			<result column="mstatus" property="status" />
+			<result column="missent" property="issent"/>
+			<association property="employee" javaType="Employee">
+				<id column="creatorId" property="id" />
+				<result column="eenr" property="nr" />
+				<result column="eepassword" property="password" />
+				<result column="eename" property="name" />
+				<result column="eegender" property="gender" />
+				<result column="eeisManager" property="isManager" />
+				<result column="eestatus" property="status" />
+				<result column="eedepartmentId" property="departmentId" />
+			</association>
+		<collection property="attachments" ofType="MessageAttachment">
+			<id column="mafid" property="id" />
+			<result column="mafname" property="name" />
+			<result column="maffileurl" property="fileurl" />
+			<association property="message" javaType="Message">
+				<id column="mafMessageId" property="id" />
+			</association>
+		</collection>
+		</association>
+		<association property="employee" javaType="Employee">
+			<id column="creatorId" property="id" />
+			<result column="enr" property="nr" />
+			<result column="epassword" property="password" />
+			<result column="ename" property="name" />
+			<result column="egender" property="gender" />
+			<result column="eisManager" property="isManager" />
+			<result column="estatus" property="status" />
+			<association property="department" javaType="Department">
+				<id column="DepartmentId" property="id" />
+				<result column="dname" property="name" />
+				<result column="ddescription" property="description" />
+				<result column="dstatus" property="status" />
+			</association>
+		</association>
+	</resultMap>
+	<select id="findMessageReception" parameterType="MessageReception" resultMap="MessageReceptionRM">
+		<include refid="MessageReceptionJoinMessageAndEmployee"></include>
+		 WHERE IsRead=0
+	</select>
+	<select id="findMessageReceptionInbox" resultMap="MessageReceptionRM" resultType="MessageReception">
+		<include refid="MessageReceptionJoinMessageAndEmployee"></include>
+		<where>
+	      	<if test="status>=0">
+	      		  and mr.status=#{status}
+	      	</if>	
+	      		  and e.id=#{id}
+	     </where>
+		limit #{pageNum},#{pageSize}
+	</select>
+	<select id="MessageReceptionById" parameterType="int" resultMap="MessageReceptionRM">
+		<include refid="MessageReceptionJoinMessageAndEmployee"></include>
+		<where>
+			mr.id=#{id}
+		 </where> 
+	</select>
+	
+	<update id="messageRUpdateAll" parameterType="MessageReception">
+		update Department set name = #{name},description = #{description},status = #{status} WHERE id = #{id}
+	</update>
+</mapper>
