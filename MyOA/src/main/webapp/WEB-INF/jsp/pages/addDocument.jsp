@@ -22,16 +22,15 @@
 		
 		<div class="container kv-main" >                    
             <form enctype="multipart/form-data" name="myfile">           
-                <div class="form-group">
-                    <input id="file-1" type="file" multiple class="file" name="myfile" data-overwrite-initial="false" data-min-file-count="1">                   
-					
+                <div class="form-group">                    
+                    <input id="file-1" type="file" multiple class="file" name="myfile" data-overwrite-initial="false" data-min-file-count="1">                   					
                 </div>
                 <hr>
              
             </form>
         </div>
-		<input id="parentId" value="${parentId}" type="hidden" name="parentId">
-					<input id="creatorId" value="${creatorId}" type="hidden" name="creatorId">
+		
+					
 	</div>
 	
 	<script src="${pageContext.request.contextPath}/static/bost/js/jquery.min.js"></script>
@@ -41,7 +40,7 @@
     <script>
     	
 	     $("#file-1").fileinput({
-		        uploadUrl: 'addDocument', // you must set a valid URL here else you will get an error
+		        uploadUrl: 'addDocument?parentId=${parentId}&creatorId=${creatorId}', // you must set a valid URL here else you will get an error
 		        allowedFileExtensions : ['jpg', 'png','gif','txt','docx','pdf'],
 		        overwriteInitial: false,
 		        maxFileSize: 1000,
@@ -53,9 +52,7 @@
 			});
 			//文件上传前触发事件
 
-		    $('#file-1').bind('fileuploadsubmit', function (e, data) {
-		        data.formData = { parentId: "1"};  //如果需要额外添加参数可以在这里添加
-		    });
+		
 		</script>
 </body>
 </html>

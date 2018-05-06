@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.crypto.Data;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.WebUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +37,7 @@ import com.lowagie.text.DocumentException;
 
 import myoa.biz.DocumentBiz;
 import myoa.entity.Document;
+import myoa.entity.Employee;
 import myoa.util.ReadCreatePdf;
 import myoa.util.UploadFileResult;
 import myoa.util.XDocReport;
@@ -186,27 +191,35 @@ public class DocumentController {
 		//上传文件
 		@ResponseBody
 		@RequestMapping(value="/addDocument")
-		public Map<String,Object> addDocument(@RequestParam("myfile")MultipartFile[] myfile,HttpServletRequest request,Integer parentId) throws IllegalStateException, IOException{
+		public Map<String,Object> addDocument(@RequestParam("myfile")MultipartFile[] myfile,HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException{
 			List<UploadFileResult> data=new ArrayList<>();
-			Map<String,Object> model = new HashMap<>();
-		
-			System.out.println(parentId);
+			Map<String,Object> model = new HashMap<>();	
+			int parentId=Integer.valueOf(request.getParameter("parentId"));	
+			Employee employee=(Employee) session.getAttribute("loginUser");
+			int creatorId=employee.getId();
+			//		System.out.println(parentId);
 			//int creatorId=Integer.valueOf(request.getParameter("creatorId"));
-			for (MultipartFile m : myfile) {
-				if(!m.isEmpty()) {
+			for (MultipartFile m : myfile) {				
+				if(!m.isEmpty()) {																			
 					String filename=m.getOriginalFilename();
-					String my = filename.substring(0, filename.lastIndexOf("."));
-					String path=request.getSession().getServletContext().getRealPath("/static/Upload/"+filename);
+					String my = filename.substring(filename.indexOf(".")+1);
+					long tim=System.currentTimeMillis();
+					String path=request.getSession().getServletContext().getRealPath("/static/Upload/"+tim+"."+my);
+					System.out.println(path);
 					m.transferTo(new File(path));
 					UploadFileResult upoald=new UploadFileResult(filename,11, m.getContentType(), true, "上传成功", path);
 					data.add(upoald);
-					Document document=new Document(0, filename, "", new Date(), my,"Upload"+filename, null, 1, 1);
-					dbz.addFile(document);
-					}					
+					Document document=new Document(0, filename, "", new Date(), my,"Upload/"+tim+'.'+my, null, parentId, creatorId);
+					dbz.addFile(document);					
+				}					
 			}
 			model.put("data", data);
 			return model;
 			
 		}
+		
+		
+		
+		
 	
 }

@@ -707,7 +707,10 @@ body{
 	
 
     <script>
-        $(function() {         	
+        $(function() {  
+        	
+        	$("#her").remove();
+        	
         	 var nodess=new Array();
         	 var inx=0;
         	 var mm;
