@@ -37,6 +37,10 @@ where 1=1
 		<include refid="ActivityJoin"></include>
 		and e.`NAME`=#{cid}
 	</select>
+	<select id="getByEmployeeId" parameterType="int" resultMap="ActivityRM">
+		<include refid="ActivityJoin"></include>
+		and e.`id`=#{id}
+	</select>
 	<insert id="add" parameterType="Activity" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO Activity VALUES(#{id},#{employee.id},#{createTime},#{title},#{description},#{location},#{startTime},#{endTime})
 	</insert>

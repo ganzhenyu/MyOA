@@ -1,5 +1,4 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-/*The MIT License (MIT)
+﻿/*The MIT License (MIT)
 Copyright (c) 2014 https://github.com/JSEver/JSAjaxFileUploader/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

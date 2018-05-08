@@ -9,5 +9,6 @@ public interface ActivityDao {
 	void detele(int id);
 	void update(Activity activity);
 	List<Activity> getByEmployeeName(String ename);
+	List<Activity> getByEmployeeId(int id);
 	Activity fetchById(int id);
 }

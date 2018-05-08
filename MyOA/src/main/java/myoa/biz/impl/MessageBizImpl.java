@@ -2,7 +2,6 @@ package myoa.biz.impl;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,9 +11,10 @@ import myoa.biz.MessageBiz;
 import myoa.dao.DaoException;
 import myoa.dao.MessageDao;
 import myoa.entity.Message;
-import myoa.entity.MessageReception;
+
 @Service
-public class MessageBizImpl implements MessageBiz{
+public class MessageBizImpl implements MessageBiz {
+
 	@Autowired
 	private MessageDao messageDao;
 
@@ -98,4 +98,5 @@ public class MessageBizImpl implements MessageBiz{
 		// TODO Auto-generated method stub
 		return messageDao.findMessageAllStatus();
 	}
+
 }

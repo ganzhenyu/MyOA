@@ -48,4 +48,9 @@ public class ActivityBizImpl implements ActivityBiz{
 		return activityDao.fetchById(id);
 	}
 
+	@Override
+	public List<Activity> getByEmployeeId(int id) {
+		return activityDao.getByEmployeeId(id);
+	}
+
 }
