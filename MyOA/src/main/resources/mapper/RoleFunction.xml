@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myoa.dao.RoleFunctionDao">	
+	<select id="FechID" resultType="RoleFunction" parameterType="int">
+		SELECT * FROM `rolefunction` WHERE roleid=#{id} AND functionid  IN (
+	SELECT id FROM `function` WHERE ParentId IS NOT NULL
+)
+	</select>
+	
+	
+	<update id="cancel" parameterType="int">
+		delete from rolefunction where roleid=#{roleId} 
+	</update>
+	
+	<update id="add" parameterType="RoleFunction">
+		INSERT INTO RoleFunction VALUES(0,#{roleId},#{functionId});
+	</update>
+</mapper>

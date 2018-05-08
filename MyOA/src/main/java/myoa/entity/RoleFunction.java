@@ -2,32 +2,41 @@ package myoa.entity;
 
 public class RoleFunction {
 	public RoleFunction() {}
-	public RoleFunction(int id, Role role, Function function) {
+	
+	
+
+	public RoleFunction(int id, int roleId, int functionId) {
 		super();
 		this.id = id;
-		this.role = role;
-		this.function = function;
+		this.roleId = roleId;
+		this.functionId = functionId;
 	}
+
+
+
 	private int id;
-	private Role role;
-	private Function function;
+	private int roleId;
+	private int functionId;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Role getRole() {
-		return role;
+	
+	
+	public int getFunctionId() {
+		return functionId;
 	}
-	public void setRole(Role role) {
-		this.role = role;
+	public void setFunctionId(int functionId) {
+		this.functionId = functionId;
 	}
-	public Function getFunction() {
-		return function;
+	public int getRoleId() {
+		return roleId;
 	}
-	public void setFunction(Function function) {
-		this.function = function;
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
+	
 	
 }
