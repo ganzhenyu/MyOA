@@ -11,4 +11,6 @@ public interface ActivityBiz {
 	List<Activity> getByEmployeeName(String ename);
 	List<Activity> getByEmployeeId(int id);
 	Activity fetchById(int id);
+	List<Activity> getToday(int num,int id);
+	List<Activity> getFutureEndTime(int num,int id);
 }

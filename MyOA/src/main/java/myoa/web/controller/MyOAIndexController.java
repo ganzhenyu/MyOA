@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import myoa.biz.ActivityActorBiz;
 import myoa.biz.ActivityBiz;
+import myoa.biz.AnnouncementBiz;
 import myoa.entity.Employee;
 
 @Controller
@@ -20,14 +21,15 @@ public class MyOAIndexController {
 	private ActivityBiz activityBiz;
 	
 	@Autowired
-	private ActivityActorBiz activityActorBiz;
+	private AnnouncementBiz announcementBiz;
 	
 	@RequestMapping(value="/index",method=RequestMethod.GET)
 	public String index(HttpSession session,Model model){
 		Employee loginUser = (Employee) session.getAttribute("loginUser");
 		if (loginUser.getId() > 0) {
-			model.addAttribute("activityActor",activityActorBiz.getByActorId(loginUser.getId()));
-			model.addAttribute("activitys",activityBiz.getByEmployeeId(loginUser.getId()));
+			model.addAttribute("activityToday",activityBiz.getToday(5,loginUser.getId()));
+			model.addAttribute("activityFuture",activityBiz.getFutureEndTime(5,loginUser.getId()));
+			model.addAttribute("announcements",announcementBiz.getByStatus(5, 2, 0));
 		}
 		return "pages/index";
 	}

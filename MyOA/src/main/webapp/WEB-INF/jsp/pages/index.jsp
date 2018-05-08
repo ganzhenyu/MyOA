@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -142,7 +143,6 @@
 					<div class="tab-wrapper">
 						<ul class="tab-menu">
 							<li class="active">公告</li>
-							<li>所属部门公告</li>
 						</ul>
 
 						<div class="tab-content">
@@ -156,28 +156,12 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="a" items="${announcements}">
 										<tr class="odd gradeX">
-											<td></td>
-											<td></td>
+											<td>${a.title}</td>
+											<td><fmt:formatDate value="${a.approveTime}" type="both"/></td>
 										</tr>
-									</tbody>
-								</table>
-								<!-- /.table-responsive -->
-							</div>
-							<div>
-								<table width="100%"
-									class="table table-striped table-bordered table-hover">
-									<thead>
-										<tr>
-											<th>主题</th>
-											<th>发布日期</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr class="odd gradeX">
-											<td></td>
-											<td></td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 								<!-- /.table-responsive -->
@@ -190,8 +174,7 @@
 				<div class="col-lg-4" style="width: 60%; padding-right: 0px;">
 					<div class="tab-wrapper">
 						<ul class="tab-menu">
-							<li class="active">会议</li>
-							<li>今天日程</li>
+							<li class="active">今天日程</li>
 							<li>个人日程</li>
 						</ul>
 
@@ -207,11 +190,11 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="actor" items="${activityActor}">
+										<c:forEach var="at" items="${activityToday}">
 										<tr class="odd gradeX">
-											<td>${actor.activity.title}</td>
-											<td>${actor.activity.startTime}</td>
-											<td>${actor.activity.endTime}</td>
+											<td>${at.title}</td>
+											<td><fmt:formatDate value="${at.startTime}" type="both"/></td>
+											<td><fmt:formatDate value="${at.endTime}" type="both"/></td>
 										</tr>
 										</c:forEach>
 									</tbody>
@@ -229,31 +212,11 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="af" items="${activityFuture}">
 										<tr class="odd gradeX">
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-									</tbody>
-								</table>
-								<!-- /.table-responsive -->
-							</div>
-							<div>
-								<table width="100%"
-									class="table table-striped table-bordered table-hover">
-									<thead>
-										<tr>
-											<th>标题</th>
-											<th>开始时间</th>
-											<th>结束时间</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="activity" items="${activitys}">
-										<tr class="odd gradeX">
-											<td>${activity.title}</td>
-											<td>${activity.startTime}</td>
-											<td>${activity.endTime}</td>
+											<td>${af.title}</td>
+											<td><fmt:formatDate value="${af.startTime}" type="both"/></td>
+											<td><fmt:formatDate value="${af.endTime}" type="both"/></td>
 										</tr>
 										</c:forEach>
 									</tbody>

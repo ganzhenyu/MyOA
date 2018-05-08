@@ -37,10 +37,6 @@ where 1=1
 		<include refid="ActivityJoin"></include>
 		and e.`NAME`=#{cid}
 	</select>
-	<select id="getByEmployeeId" parameterType="int" resultMap="ActivityRM">
-		<include refid="ActivityJoin"></include>
-		and e.`id`=#{id}
-	</select>
 	<insert id="add" parameterType="Activity" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO Activity VALUES(#{id},#{employee.id},#{createTime},#{title},#{description},#{location},#{startTime},#{endTime})
 	</insert>
@@ -63,5 +59,18 @@ where 1=1
 	<select id="fetchById" parameterType="int" resultMap="ActivityRM">
 		<include refid="ActivityJoin"></include>
 		and a.id=#{id}
+	</select>
+	<select id="getToday" resultMap="ActivityRM">
+		<include refid="ActivityJoin"></include>
+		and a.starttime &gt; DATE(NOW()) AND a.starttime &lt; TIMESTAMPADD(DAY, 1, DATE(NOW())) 
+		AND e.`id`=#{id}
+		ORDER BY a.starttime
+		LIMIT #{num}
+	</select>
+	<select id="getFutureEndTime" resultMap="ActivityRM">
+		<include refid="ActivityJoin"></include>
+		and a.endtime &gt; NOW() AND e.`id`=#{id}
+		ORDER BY a.starttime 
+		LIMIT #{num}
 	</select>
 </mapper>

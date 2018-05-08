@@ -53,4 +53,14 @@ public class ActivityBizImpl implements ActivityBiz{
 		return activityDao.getByEmployeeId(id);
 	}
 
+	@Override
+	public List<Activity> getToday(int num,int id) {
+		return activityDao.getToday(num, id);
+	}
+
+	@Override
+	public List<Activity> getFutureEndTime(int num,int id) {
+		return activityDao.getFutureEndTime(num, id);
+	}
+
 }
