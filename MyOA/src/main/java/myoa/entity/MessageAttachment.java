@@ -13,6 +13,21 @@ public class MessageAttachment {
 	private String name;
 	private String fileurl;
 	private Message message;
+	private int messageId;
+	
+	public MessageAttachment(int id, String name, String fileurl, int messageId) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.fileurl = fileurl;
+		this.messageId = messageId;
+	}
+	public int getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
+	}
 	public Message getMessage() {
 		return message;
 	}

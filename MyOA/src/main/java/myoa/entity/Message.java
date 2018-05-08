@@ -1,8 +1,27 @@
 package myoa.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Message {
+	
+	
+	private int id;
+	private String title;
+	private String content;
+	@DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+	private Date sendTime;
+	private String receivers;
+	private int level;
+	private int status;
+	private int isSent;
+	private Employee employee;
+	private List<MessageAttachment> attachments;
+	
+	
 	
 	public Message() {
 		super();
@@ -21,15 +40,13 @@ public class Message {
 		this.employee = employee;
 	}
 
-	private int id;
-	private String title;
-	private String content;
-	private Date sendTime;
-	private String receivers;
-	private int level;
-	private int status;
-	private int isSent;
-	private Employee employee;
+	
+	public List<MessageAttachment> getAttachments() {
+		return attachments;
+	}
+	public void setAttachments(List<MessageAttachment> attachments) {
+		this.attachments = attachments;
+	}
 	public Employee getEmployee() {
 		return employee;
 	}
@@ -54,8 +71,8 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getSendTime() {
-		return sendTime;
+	public String getSendTime() {
+		return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(sendTime);
 	}
 	public void setSendTime(Date sendTime) {
 		this.sendTime = sendTime;

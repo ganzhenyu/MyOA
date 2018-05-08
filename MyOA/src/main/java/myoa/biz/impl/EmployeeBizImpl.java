@@ -24,7 +24,6 @@ public class EmployeeBizImpl implements EmployeeBiz{
 		return employeeDao.checkUserLogin(nr, password);
 	}
 
-
 	@Override
 	public List<Employee> getByDidName(int did, String name) {
 		return employeeDao.getByDidName(did, name);
@@ -56,5 +55,34 @@ public class EmployeeBizImpl implements EmployeeBiz{
 		return list;
 	}
 
+	@Override
+	public List<Employee> getAll() {
+		return employeeDao.getAll();
+	}
+
+	@Override
+	public Employee fetchById(int id) {
+		return employeeDao.fetchById(id);
+	}
+
+	@Override
+	public List<Employee> fetchByDidName(int did, String name) {
+		return employeeDao.fetchByDidName(did, name);
+	}
+
+	@Override
+	public List<Employee> fetchEmployees(String nr, String name, int did, int gender) {
+		return employeeDao.fetchEmployees(nr, name, did, gender);
+	}
+
+	@Override
+	public void add(Employee employee) {
+		employeeDao.add(employee);
+	}
+
+	@Override
+	public void update(Employee employee) {
+		employeeDao.update(employee);
+	}
 
 }
