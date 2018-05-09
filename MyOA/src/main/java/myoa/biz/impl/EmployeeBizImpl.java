@@ -56,5 +56,10 @@ public class EmployeeBizImpl implements EmployeeBiz{
 		return list;
 	}
 
+	@Override
+	public Employee findByName(String name) {
+		return employeeDao.findByName(name);
+	}
+
 
 }

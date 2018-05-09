@@ -70,9 +70,7 @@ public class MessageController {
 	
 	@RequestMapping("/retrieve")
 	public String findMessageAllr(Model model) {
-
 		List<Message> mlist=messageBiz.findMessageAllStatus();
-		
 		model.addAttribute("mlist", mlist);
 		return "pages/retrieve";
 	}
@@ -104,6 +102,11 @@ public class MessageController {
 	public String mfasongdelete(Model model,Integer id){
 		messageBiz.MessageDelete(id);
 		return "redirect:/pages/dispatch";
+	}
+	@RequestMapping("/mhuishoudelete")
+	public String mhuishoudelete(Model model,Integer id){
+		messageBiz.MessageDelete(id);
+		return "redirect:/pages/retrieve";
 	}
 	
 	@RequestMapping("mdel")
@@ -137,8 +140,7 @@ public class MessageController {
 		} catch (DaoException e) {
 			model.addAttribute("erre", e.getMessage());		
 		}
-		
-		return "redirect:/pages/dispatch";
+		return "redirect:/pages/";
 	}
 	
 	@RequestMapping("/messageUpdatestatus")
@@ -159,7 +161,6 @@ public class MessageController {
 
 	@RequestMapping("/newEmail")
 	public String messageNewEmail(Model model){		
-		
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (Department department : departmentBiz.getAll()) {
 			 Map<String,Object> item = new HashMap();
@@ -187,7 +188,7 @@ public class MessageController {
 		model.addAttribute("departments",list);
 		return "pages/newEmail";
 	}
-	//http://localhost:8080/static/file/timg.png
+//http://localhost:8080/static/file/timg.png
 //	@RequestMapping("test_upload") 
 //    public String test_upload(MessageAttachment messageAttachment, HttpSession session,MultipartFile file){  
 //		//获取静态资源对应的真实文件路径
@@ -219,12 +220,13 @@ public class MessageController {
 //		
 //    }  
 	@RequestMapping("/upload") 
-    public String upload(Message message,String [] listReceivers,int[] listReceiversid,MessageAttachment messageAttachment, HttpSession session,MultipartFile file){
-		if(message.getId()>0) {
-			messageBiz.MessageUpdate(message);
-		}else {
-			String Receivers = "";
-			for (int i = 0;i<listReceivers.length;i++) {
+    public String upload(Message message,String receivers,MessageAttachment messageAttachment, HttpSession session,MultipartFile file){
+//		if(message.getId()>0) {
+//			messageBiz.MessageUpdate(message);
+//		}else {
+/*			String Receivers = "";*/
+			
+/*			for (int i = 0;i<listReceivers.length;i++) {
 				try {
 					Receivers+=listReceivers[i];
 					if(listReceivers[i+1]!=null) {
@@ -233,15 +235,13 @@ public class MessageController {
 				} catch (Exception e) {
 					break;
 				}
-			}
-			message.setReceivers(Receivers);
+			}*/
+			message.setReceivers(receivers);
 			messageBiz.MessageAdd(message);
-			
 			//获取静态资源对应的真实文件路径
 			String pathName = session.getServletContext().getRealPath("/static");
 			//获取上传文件名称
 			String fileName = file.getOriginalFilename();
-			System.out.println(fileName);
 			//获取上传文件的文件类型，以供后面判断是否可以上传使用
 			String extension = FilenameUtils.getExtension(fileName);
 			//名称请使用自定义命名替换，至少要保证在该系统中唯一
@@ -260,16 +260,16 @@ public class MessageController {
 			messageAttachment.setName(fileName);
 			messageAttachment.setFileurl(pathName);
 			messageAttachmentBiz.mAaddAll(messageAttachment);
-
-			for (int i = 0; i < listReceiversid.length; i++) {
+			//这里写一个方法，把字符串写进去,输出一个Employee数组
+			List<Employee> wlist= messageBiz.getByReceiversStr(receivers);
+			//这里把员工数组添加
+			for (int i = 0; i < wlist.size(); i++) {
 				MessageReception m = new MessageReception();
 				m.setMessage(messageBiz.MessageById(message.getId()));
-				Employee employee = new Employee();
-				employee.setId(listReceiversid[i]);
-				m.setEmployee(employee);
+				m.setEmployee(wlist.get(i));
 				messageReceptionBiz.messageRAddAll(m);
 			}
-		}
+		//}
 		return "redirect:/pages/dispatch";
 		
     }  
@@ -278,6 +278,23 @@ public class MessageController {
 	public String messageById(Model model,Integer id){
 		model.addAttribute("mById", messageBiz.MessageById(id));
 		return "pages/replyTwo";
+	}
+	@RequestMapping("/manuscriptTwo")
+	public String findMessage(Model model,
+			@RequestParam(name="status", required=true, defaultValue="0")int status,
+			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent,
+			String title,
+			Integer pageNum) {
+		pageNum = pageNum==null?1:pageNum;
+		int pageSize = 10;
+		List<Message> mlist=messageBiz.findMessageAll(title, 0, 0, pageNum, pageSize);
+		
+		int rows=messageBiz.numMessageRow(status,isSent);
+		int totalPages = rows%pageSize==0?rows/pageSize:rows/pageSize+1;
+		model.addAttribute("mlist", mlist);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalPages", totalPages);
+		return "pages/manuscriptTwo";
 	}
 	
 }

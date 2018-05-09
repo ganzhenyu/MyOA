@@ -1,22 +1,26 @@
 package myoa.biz.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
+import myoa.biz.EmployeeBiz;
 import myoa.biz.MessageBiz;
 import myoa.dao.DaoException;
 import myoa.dao.MessageDao;
+import myoa.entity.Employee;
 import myoa.entity.Message;
-import myoa.entity.MessageReception;
 @Service
 public class MessageBizImpl implements MessageBiz{
 	@Autowired
 	private MessageDao messageDao;
+	
+	@Autowired
+	private EmployeeBiz employeeBiz;
 
 	@Override
 	public List<Message> findMessageAll(String title,int status,int isSent,int pageNum,int pageSize) {
@@ -98,4 +102,17 @@ public class MessageBizImpl implements MessageBiz{
 		// TODO Auto-generated method stub
 		return messageDao.findMessageAllStatus();
 	}
+
+	@Override
+	public List<Employee> getByReceiversStr(String Receivers) {
+		String[] enameList=Receivers.split(",");
+		List<Employee> list=new ArrayList<>();
+		for(String s:enameList) {
+			Employee e=employeeBiz.findByName(s);
+			list.add(e);
+		}
+		return list;
+	}
+
+	
 }

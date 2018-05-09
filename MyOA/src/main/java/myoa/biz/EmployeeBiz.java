@@ -12,4 +12,6 @@ public interface EmployeeBiz {
 	List<Employee> getAllNotMy(Employee employee);
 	List<Employee> getByNameNotMy(Employee employee,String name);
 
+	Employee findByName(String name);
+	
 }

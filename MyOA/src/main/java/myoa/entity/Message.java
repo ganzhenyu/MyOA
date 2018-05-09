@@ -12,7 +12,7 @@ public class Message {
 	private int id;
 	private String title;
 	private String content;
-	@DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+	//@DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
 	private Date sendTime;
 	private String receivers;
 	private int level;
@@ -20,7 +20,7 @@ public class Message {
 	private int isSent;
 	private Employee employee;
 	private List<MessageAttachment> attachments;
-	
+	private MessageReception messagereception;
 	
 	
 	public Message() {
@@ -41,6 +41,12 @@ public class Message {
 	}
 
 	
+	public MessageReception getMessagereception() {
+		return messagereception;
+	}
+	public void setMessagereception(MessageReception messagereception) {
+		this.messagereception = messagereception;
+	}
 	public List<MessageAttachment> getAttachments() {
 		return attachments;
 	}
@@ -68,17 +74,26 @@ public class Message {
 	public String getContent() {
 		return content;
 	}
+	
+	
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getSendTime() {
-		return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(sendTime);
+//	public String getSendTime() {
+//		return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(sendTime);
+//	}
+//	public void setSendTime(Date sendTime) {
+//		this.sendTime = sendTime;
+//	}
+	
+	public String getReceivers() {
+		return receivers;
+	}
+	public Date getSendTime() {
+		return sendTime;
 	}
 	public void setSendTime(Date sendTime) {
 		this.sendTime = sendTime;
-	}
-	public String getReceivers() {
-		return receivers;
 	}
 	public void setReceivers(String receivers) {
 		this.receivers = receivers;

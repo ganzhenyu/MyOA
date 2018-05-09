@@ -111,6 +111,7 @@ public class MessageReceptionController {
 		}
 		model.addAttribute("departments",list);
 		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(id));
+		model.addAttribute("id",id);
 		
 		
 		model.addAttribute("mById", messageBiz.MessageById(id));
@@ -155,9 +156,7 @@ public class MessageReceptionController {
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-				
 		
-		System.out.println(message.getId());
 		//Message message= new Message();
 		messageAttachment.setMessageId(message.getId());
 		messageAttachment.setName(fileName);

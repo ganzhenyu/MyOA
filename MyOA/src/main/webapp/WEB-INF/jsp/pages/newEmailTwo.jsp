@@ -97,9 +97,7 @@
 					bool = false;
 					break;
 				}
-				
 			}
-			
 			if(bool){
 				
 				$("#addname").html($("#addname").html()+"<span class='addressee'><input type='checkbox' style='display: none;' checked='checked' value='"+$(this).text()+"' name='listReceivers'/><input type='checkbox' checked='checked' value='"+$(this).attr("date-id")+"' name='listReceiversid'/><label>"+$(this).text()+"</label></span>")
@@ -121,11 +119,9 @@
 
 <body>
 	<div id="wrapper">
-	
 	 <!--共有部分 -->
 		<c:import url="../shared/navbar.jsp"></c:import>
-
-	<div id="page-wrapper">
+		<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">邮件箱</h1>
@@ -140,29 +136,26 @@
                         <div class="panel-body">
                          <form action="mRupload" method="post"  role="form" class="toup" enctype="multipart/form-data" id="from">
                             <div class="row">
-                                <div class="col-lg-9">
-                                   		<input type="hidden" name="employee.id" value="${loginUser.id}">
-                                 		<input type="hidden" name="status" value="0">
-                                 	    <input type="hidden" name="isSent" value="0">
-                                 		
-                                       <div class="form-group">
-                                            <label id="addname">收件人：</label>
-                                            <c:if test="${mrById.message.employee.name!=null}">
-                                            	<span class='addressee'><input type='checkbox' checked='checked' value="${mrById.message.employee.id}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mrById.message.employee.name}" name='listReceivers'/><label>${mrById.message.employee.name}</label></span>
-                                            </c:if>     
-                                            <p class="xuxian" name="receivers"></p>             
-                                             <p></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>标题</label>
-                                            <input class="form-control" name="title" value=" 回复：${mrById.message.title}">
-                                                 
-                                            <p></p>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>内容</label>
-                                            <textarea id="content" name="content" class="ckeditor form-control">
+                               <div class="col-lg-9">
+                                 	<input type="hidden" name="employee.id" value="${loginUser.id}">
+                               		<input type="hidden" name="status" value="0">
+                               	    <input type="hidden" name="isSent" value="0">
+                                    <div class="form-group">
+                                         <label id="addname">收件人：</label>
+                                         <c:if test="${mrById.message.employee.name!=null}">
+                                         	<span class='addressee'><input type='checkbox' checked='checked' value="${id}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mrById.message.employee.name}" name='listReceivers'/><label>${mrById.message.employee.name}</label></span>
+                                         </c:if>     
+                                         <p class="xuxian" name="receivers"></p>             
+                                          <p></p>
+                                     </div>
+                                     <div class="form-group">
+                                         <label>标题</label>
+                                         <input class="form-control" name="title" value=" 回复：${mrById.message.title}">
+                                         <p></p>
+                                     </div>
+                                     <div class="form-group">
+                                         <label>内容</label>
+                                         <textarea id="content" name="content" class="ckeditor form-control">
 												<p></p>
 												--------------原邮件-----------
 												<dl>
@@ -171,51 +164,50 @@
 		                                        	<dd>收件人：${mrById.employee.name}</dd>
 		                                   		 </dl>
 												${mrById.message.content}
-											</textarea>
-										</div>
-                                        <div class="form-group">
-                                            <label>附件</label>
-											     <input type="hidden" name="name" value="">
-											     <input type="file" name="file" value="" >                                       
-										 </div>
-                                        <div class="dataTables_length" id="dataTables-example_length">
-                                            <label>重要程度
-                                                <p></p>
-                                                <select name="level" aria-controls="dataTables-example" class="form-control input-sm">
-                                                    <c:if test="${mrById.message.level==1}">
-                                                    	<option value="0">普通</option>
-                                                    </c:if>
-                                                    <c:if test="${mrById.message.level==2}">
-                                                    	<option value="0">重要</option>
-                                                    </c:if>
-                                                    <c:if test="${mrById.message.level==3}">
-                                                    	<option value="0">紧急</option>
-                                                    </c:if>
-                                                    <option value="1">普通</option>
-                                                    <option value="2">重要</option>
-                                                    <option value="3">紧急</option>
-                                                </select>
-                                            </label>
-                                        </div>
-										<div class="divbuttom">
-                                 			<p class="cssbuttom">
-	                                 			 <button type="button" class="btn btn-default" id="btn">存草稿</button>
-	                                        	 <button type="button" class="btn btn-default" id="but" >提交</button>
-                                 			</p>
-                                 		</div>
-                                  
+										</textarea>
+									</div>
+                                    <div class="form-group">
+                                         <label>附件</label>
+									     <input type="hidden" name="name" value="">
+									     <input type="file" name="file" value="" >                                       
+									</div>
+                                    <div class="dataTables_length" id="dataTables-example_length">
+                                        <label>重要程度
+                                            <p></p>
+                                            <select name="level" aria-controls="dataTables-example" class="form-control input-sm">
+                                               <c:if test="${mrById.message.level==1}">
+                                                	<option value="1">普通</option>
+                                                </c:if>
+                                                <c:if test="${mrById.message.level==2}">
+                                                	<option value="2">重要</option>
+                                                </c:if>
+                                                <c:if test="${mrById.message.level==3}">
+                                                	<option value="3">紧急</option>
+                                                </c:if>
+                                                <option value="1">普通</option>
+                                                <option value="2">重要</option>
+                                                <option value="3">紧急</option>
+                                            </select>
+                                        </label>
+                                    </div>
+									<div class="divbuttom">
+                               			<p class="cssbuttom">
+                                			 <button type="button" class="btn btn-default" id="btn">存草稿</button>
+                                       		 <button type="button" class="btn btn-default" id="but" >提交</button>
+                               			</p>
+                               		</div>
                                     <!-- 
                                     <div class="form-group">
-                                            <label>附件</label>
-                                            <form action="test_upload" method="post" enctype="multipart/form-data">  
-											     <input type="hidden" name="name" value="hhh">
-											     <input type="file" name="file" value="" >
-											     <input type="submit" value="上传">  
-											 </form>  
-                                        </div>
+                                         <label>附件</label>
+                                         <form action="test_upload" method="post" enctype="multipart/form-data">  
+										     <input type="hidden" name="name" value="hhh">
+										     <input type="file" name="file" value="" >
+										     <input type="submit" value="上传">  
+									 	 </form>  
+                                      </div>
                                         <c:forEach var="s" items="${mrById.message.attachments}">
-                                          			<input class="form-control"  value="${s.name}">
-                                          		</c:forEach>
+                                          	<input class="form-control"  value="${s.name}">
+                                        </c:forEach>
                                       -->
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -223,7 +215,6 @@
                                    <div class="content">
 									    <!-- .list以下（包含.list）以下为本插件内容，需要的同学可复制里面部分即可。 -->
 									    <div class="list">
-									      
 									        <ul>
 									        	<c:forEach var="c" items="${departments}">
 										            <li>

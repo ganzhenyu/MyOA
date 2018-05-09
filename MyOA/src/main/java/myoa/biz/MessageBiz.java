@@ -2,12 +2,9 @@ package myoa.biz;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
-
 import myoa.dao.DaoException;
+import myoa.entity.Employee;
 import myoa.entity.Message;
-import myoa.entity.MessageReception;
 
 public interface MessageBiz {
 	List<Message> findMessageAll(String title,int status,int isSent,int pageNum,int pageSize);
@@ -34,4 +31,6 @@ public interface MessageBiz {
 	Message MessageById(int id);
 	
 	List<Message> getById(int id);
+	
+	List<Employee> getByReceiversStr(String Receivers);
 }
