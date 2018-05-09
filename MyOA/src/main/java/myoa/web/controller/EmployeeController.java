@@ -43,7 +43,7 @@ public class EmployeeController {
 	@RequestMapping(value="/userLogin",method=RequestMethod.POST)
 	public String checkLogin(String nr,String password,HttpSession Session,Model model) {
 		Employee employee = employeeBiz.checkUserLogin(nr, password);
-		if(employee != null) {
+		if(employee != null) {		
 			Session.setAttribute("loginUser", employee);
 			List<EmployeeRole> employeeRole=eb.getRoleId(employee.getId());
 			List<Integer> in=new ArrayList<>();
@@ -57,11 +57,12 @@ public class EmployeeController {
 			 HashSet h = new HashSet(in);   
 			 in.clear();   
 			 in.addAll(h);   
-			 Session.setAttribute("roleFunction", in);
-			
-			 for (int i : in) {
+			for (int i : in) {
+				Session.setAttribute("r"+i+"", i);
 				System.out.println(i);
 			}
+			
+			 
 			 
 			return "redirect:/pages/index";
 		}else {

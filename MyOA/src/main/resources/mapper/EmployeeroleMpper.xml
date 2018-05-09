@@ -4,5 +4,7 @@
 	<select id="getRoleId" resultType="Employeerole" parameterType="int">
 		SELECT * FROM `Employeerole` WHERE EmployeeId =#{id}
 	</select>
-
+	<update id="add" parameterType="Employeerole">
+		INSERT INTO Employeerole VALUES(0,#{EmployeeId},#{RoleId});
+	</update>
 </mapper>

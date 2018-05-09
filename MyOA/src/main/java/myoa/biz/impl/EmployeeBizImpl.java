@@ -7,9 +7,13 @@ import org.springframework.stereotype.Service;
 
 import myoa.biz.EmployeeBiz;
 import myoa.dao.EmployeeDao;
+import myoa.dao.EmployeeroleDao;
 import myoa.entity.Employee;
+import myoa.entity.EmployeeRole;
 @Service
 public class EmployeeBizImpl implements EmployeeBiz{
+	@Autowired
+	private EmployeeroleDao ed;
 
 	@Autowired
 	private EmployeeDao employeeDao;
@@ -75,14 +79,22 @@ public class EmployeeBizImpl implements EmployeeBiz{
 		return employeeDao.fetchEmployees(nr, name, did, gender);
 	}
 
-	@Override
-	public void add(Employee employee) {
-		employeeDao.add(employee);
-	}
 
 	@Override
 	public void update(Employee employee) {
 		employeeDao.update(employee);
+	}
+
+	@Override
+	public void add(Employee employee) {
+		// TODO Auto-generated method stub
+		int id=employeeDao.add(employee);
+		EmployeeRole ro=new EmployeeRole();
+		ro.setEmployeeId(id);
+		ro.setId(0);
+		ro.setRoleId(3);
+		ed.add(ro);
+		
 	}
 
 }
