@@ -32,12 +32,23 @@ public class EmployeeController {
 	public String checkLogin(String nr,String password,HttpSession Session,Model model) {
 		Employee employee = employeeBiz.checkUserLogin(nr, password);
 		if(employee != null) {
-			Session.setAttribute("loginUser", employee);
-			return "redirect:/pages/index";
+			if (employee.getStatus() != 1) {
+				model.addAttribute("error","此用户已被注销或停职");
+				return "pages/userLogin";
+			}else {
+				Session.setAttribute("loginUser", employee);
+				return "redirect:/pages/index";
+			}
 		}else {
 			model.addAttribute("error","用户名或密码有误");
 			return "pages/userLogin";
 		}
+	}
+	
+	@RequestMapping("/out")
+	public String outUser(HttpSession session) {
+		session.invalidate();
+		return "redirect:/pages/userLogin";
 	}
 	
 	@RequestMapping(value="/employeeModify",method=RequestMethod.GET)

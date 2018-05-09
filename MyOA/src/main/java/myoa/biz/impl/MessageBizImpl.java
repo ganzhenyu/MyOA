@@ -99,4 +99,19 @@ public class MessageBizImpl implements MessageBiz {
 		return messageDao.findMessageAllStatus();
 	}
 
+	@Override
+	public List<Message> fetchByReceiverId(int id, int num) {
+		return messageDao.fetchByReceiverId(id, num);
+	}
+
+	@Override
+	public List<Message> fetchByIsRead(int id, int num) {
+		return messageDao.fetchByIsRead(id, num);
+	}
+
+	@Override
+	public List<Message> fetchByLevel(int id, int num) {
+		return messageDao.fetchByLevel(id, num);
+	}
+
 }

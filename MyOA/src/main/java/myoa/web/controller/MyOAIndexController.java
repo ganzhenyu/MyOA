@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import myoa.biz.ActivityActorBiz;
 import myoa.biz.ActivityBiz;
 import myoa.biz.AnnouncementBiz;
+import myoa.biz.MessageBiz;
 import myoa.entity.Employee;
 
 @Controller
@@ -23,10 +24,16 @@ public class MyOAIndexController {
 	@Autowired
 	private AnnouncementBiz announcementBiz;
 	
+	@Autowired
+	private MessageBiz messageBiz;
+	
 	@RequestMapping(value="/index",method=RequestMethod.GET)
 	public String index(HttpSession session,Model model){
 		Employee loginUser = (Employee) session.getAttribute("loginUser");
-		if (loginUser.getId() > 0) {
+		if (loginUser != null) {
+			model.addAttribute("AllMessage",messageBiz.fetchByReceiverId(loginUser.getId(), 5));
+			model.addAttribute("NotReadMessage",messageBiz.fetchByIsRead(loginUser.getId(), 5));
+			model.addAttribute("LevelMessage",messageBiz.fetchByLevel(loginUser.getId(), 5));
 			model.addAttribute("activityToday",activityBiz.getToday(5,loginUser.getId()));
 			model.addAttribute("activityFuture",activityBiz.getFutureEndTime(5,loginUser.getId()));
 			model.addAttribute("announcements",announcementBiz.getByStatus(5, 2, 0));

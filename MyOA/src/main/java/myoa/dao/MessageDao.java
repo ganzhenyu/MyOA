@@ -68,4 +68,13 @@ public interface MessageDao {
 	
 	List<Message> getById(int id);
 	
+	//查询特定员工的所有邮件
+	List<Message> fetchByReceiverId(@Param("id")int id,@Param("num")int num);
+	
+	//查询特定员工的未读邮件
+	List<Message> fetchByIsRead(@Param("id")int id,@Param("num")int num);
+	
+	//查询特定员工的重要邮件
+	List<Message> fetchByLevel(@Param("id")int id,@Param("num")int num);
+	
 }

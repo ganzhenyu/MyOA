@@ -27,12 +27,7 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 个人信息</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        <li><a href="out"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -44,18 +39,6 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="搜索">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                      
                         <li>
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> &nbsp;组织结构管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

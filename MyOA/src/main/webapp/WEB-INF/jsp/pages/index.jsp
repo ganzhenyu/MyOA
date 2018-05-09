@@ -83,11 +83,13 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach var="m" items="${AllMessage}">
 									<tr class="odd gradeX">
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>${m.title}</td>
+										<td>${m.employee.name}</td>
+										<td>${m.sendTime}</td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- /.table-responsive -->
@@ -103,11 +105,13 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach var="nrm" items="${NotReadMessage}">
 									<tr class="odd gradeX">
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>${nrm.title}</td>
+										<td>${nrm.employee.name}</td>
+										<td>${nrm.sendTime}</td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- /.table-responsive -->
@@ -123,11 +127,13 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach var="lm" items="${LevelMessage}">
 									<tr class="odd gradeX">
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>${lm.title}</td>
+										<td>${lm.employee.name}</td>
+										<td>${lm.sendTime}</td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- /.table-responsive -->
