@@ -1,7 +1,8 @@
 package myoa.web.controller;
 
 import java.util.List;
-
+import java.util.ArrayList;
+import java.util.HashSet;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import myoa.biz.DepartmentBiz;
 import myoa.biz.EmployeeBiz;
 import myoa.entity.Employee;
-
+import myoa.entity.EmployeeRole;
+import myoa.entity.RoleFunction;
+import myoa.biz.EmployeeRoleBiz;
+import myoa.biz.RoleFunctionBiz;
 @Controller
 @RequestMapping("/pages")
 public class EmployeeController {
+	@Autowired
+	private RoleFunctionBiz rb;
+	@Autowired
+	private EmployeeRoleBiz eb;
 	
 	@Autowired
 	private EmployeeBiz employeeBiz;
@@ -37,6 +45,23 @@ public class EmployeeController {
 				return "pages/userLogin";
 			}else {
 				Session.setAttribute("loginUser", employee);
+				List<EmployeeRole> employeeRole=eb.getRoleId(employee.getId());
+			List<Integer> in=new ArrayList<>();
+			
+			for (EmployeeRole e : employeeRole) {
+				for (RoleFunction r : rb.FechID(e.getEmployeeId())) {
+					in.add(r.getFunctionId());
+				}
+			}
+			
+			 HashSet h = new HashSet(in);   
+			 in.clear();   
+			 in.addAll(h);   
+			 Session.setAttribute("roleFunction", in);
+			
+			 for (int i : in) {
+				System.out.println(i);
+			}
 				return "redirect:/pages/index";
 			}
 		}else {
