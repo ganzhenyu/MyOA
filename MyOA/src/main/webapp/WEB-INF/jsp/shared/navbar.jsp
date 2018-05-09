@@ -27,7 +27,8 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="out"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        <li><a href="${pageContext.request.contextPath}/pages/out"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        <li><a href="${pageContext.request.contextPath}/pages/index"><i class="fa fa-sign-out fa-fw"></i> 主页</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -75,66 +76,92 @@
                             <!-- /.nav-second-level -->
                         </li>
                        </c:if>
+                       <c:if test="${r61!=null||r62!=null}">
                        <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>&nbsp; 系统管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                            <c:if test="${r61!=null}">
                                 <li>
                                     <a href="${pageContext.request.contextPath}/pages/role">角色管理</a>
                                 </li>
-                             
+                             </c:if>
+                             <c:if test="${r62!=null}">
                                   <li>
-                                    <a href="login.html">为角色分配权限</a>
-                                </li>
+                                    <a href="${pageContext.request.contextPath}/pages/roleManage">为角色分配权限</a>
+                                  </li>
+                             </c:if> 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        </c:if>
+                         <c:if test="${r41!=null||r42!=null}">
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i>&nbsp; 公告发布管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                               <c:if test="${r43!=null}">
                                 <li>
                                     <a href="${pageContext.request.contextPath}/ann_audit">公告审核</a>
                                 </li>
+                                </c:if>
+                                 <c:if test="${r42!=null}">
 								<li>
                                     <a href="${pageContext.request.contextPath}/ann_add">公告申请</a>
                                 </li>
+                               
 								<li>
                                     <a href="${pageContext.request.contextPath}/ann_compile">公告拟稿</a>
                                 </li>
+                                 </c:if>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        </c:if>
+                        <c:if test="${r21!=null||r22!=null||r23!=null}">
 						<li>
                             <a href="#"><i class="fa fa-envelope fa-fw"></i>&nbsp; 信息管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                              	<c:if test="${r22!=null}">
                                 <li>
                                     <a href="panels-wells.html">新建信息</a>
                                 </li>
+                                 <li>
+                                    <a href="typography.html">发送列表</a>
+                                </li>
+                                </c:if>
+                                <c:if test="${r23!=null}">
                                 <li>
                                     <a href="buttons.html">草稿列表</a>
                                 </li>
+                                 </c:if>
+                                 <c:if test="${r21!=null}">
                                 <li>
                                     <a href="notifications.html">接受信息</a>
                                 </li>
-                                <li>
-                                    <a href="typography.html">发送列表</a>
-                                </li>
+                               </c:if>
                              
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                         </c:if>
+                          <c:if test="${r31!=null||r32!=null}">
                          <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>&nbsp; 日程管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                            <c:if test="${r21!=null}">
                          		<li>
                                     <a href="${pageContext.request.contextPath}/meeting">定制会议</a>
                                 </li>
+                             </c:if>  
+                              <c:if test="${r31!=null}"> 
                                 <li>
                                     <a href="${pageContext.request.contextPath}/activity">我的日程</a>
                                 </li>
+                                </c:if> 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						  
+						  </c:if>
+						 <c:if test="${r51!=null}"> 
                         <li id="l">
                             <a href="#" id="json0"><i class="fa fa-files-o fa-fw"></i>&nbsp; 文件管理<span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level">
@@ -146,7 +173,7 @@
                                 </ul>                          
                             <!-- /.nav-second-level -->
                         </li>
-                        
+                        </c:if>
 						
                     </ul>
                 </div>

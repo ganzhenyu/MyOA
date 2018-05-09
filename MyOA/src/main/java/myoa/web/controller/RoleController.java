@@ -12,15 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import myoa.biz.DepartmentBiz;
+import myoa.biz.EmployeeBiz;
 import myoa.biz.FunctionBiz;
 import myoa.biz.RoleBiz;
 import myoa.biz.RoleFunctionBiz;
 import myoa.dao.RoleDao;
+import myoa.entity.Employee;
 import myoa.entity.Role;
 import myoa.entity.RoleFunction;
 
@@ -33,6 +37,10 @@ public class RoleController {
 	private FunctionBiz fb;
 	@Autowired
 	private RoleFunctionBiz rb;
+	@Autowired
+	private EmployeeBiz employeeBiz;
+	@Autowired
+	private DepartmentBiz departmentBiz;
 	
 	@RequestMapping("/role")
 	public String role(Model model) {
@@ -95,5 +103,12 @@ public class RoleController {
 			e.printStackTrace();
 		} 		
 		return json;
+	}
+	
+	@RequestMapping(value="/roleManage",method=RequestMethod.GET)
+	public String employeeRetrieve(Model model) {
+		model.addAttribute("employees",employeeBiz.getAll());
+		model.addAttribute("departments",departmentBiz.getAll());
+		return "pages/roleManage";
 	}
 }
