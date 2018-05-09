@@ -14,6 +14,6 @@ public interface EmployeeDao {
 	Employee checkUserLogin(@Param("nr")String nr,@Param("password")String password);
 	Employee fetchById(int id);
 	List<Employee> fetchEmployees(@Param("nr")String nr,@Param("name")String name,@Param("did")int did,@Param("gender")int gender);
-	void add(Employee employee);
+	int add(Employee employee);
 	void update(Employee employee);
 }

@@ -39,31 +39,49 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
+
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="搜索">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                     <c:if test="${r11!=null||r12!=null}">
+
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> &nbsp;组织结构管理<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> &nbsp;组织管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                            	<li>
-                                    <a href="departmentIndex">部门管理</a>
+                           
+                           		<c:if test="${r11!=null}">
+                            	<li> 
+                                    <a href="${pageContext.request.contextPath}/pages/departmentIndex">部门管理</a>
                                 </li>
+                              	</c:if>
+                              	
+                              	<c:if test="${r12!=null}">
                                 <li>
-                                    <a href="employeeRetrieve">员工检索</a>
+                                    <a href="${pageContext.request.contextPath}/pages/employeeRetrieve">员工检索</a>
                                 </li>
 								<li>
-                                    <a href="employeeModify">添加员工</a>
+                                    <a href="${pageContext.request.contextPath}/pages/employeeModify">添加员工</a>
                                 </li>
-				
+								</c:if>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                       </c:if>
                        <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>&nbsp; 系统管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="blank.html">角色管理</a>
+                                    <a href="${pageContext.request.contextPath}/pages/role">角色管理</a>
                                 </li>
-                                <li>
-                                    <a href="login.html">为用户分配角色</a>
-                                </li>
+                             
                                   <li>
                                     <a href="login.html">为角色分配权限</a>
                                 </li>
@@ -117,15 +135,15 @@
                             <!-- /.nav-second-level -->
                         </li>
 						  
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i>&nbsp; 文件管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                               
+                        <li id="l">
+                            <a href="#" id="json0"><i class="fa fa-files-o fa-fw"></i>&nbsp; 文件管理<span class="fa arrow"></span></a>
+                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">文件导航</a>
+                                    <a href="${pageContext.request.contextPath}/pages/indextest">文件导航</a>
                                 </li>
-                          
-                            </ul>
+                                
+                                    <div id="jsTree"></div>
+                                </ul>                          
                             <!-- /.nav-second-level -->
                         </li>
                         

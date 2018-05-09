@@ -59,7 +59,10 @@
             and e.gender = ${gender}
         </if>
 	</select>
-	<insert id="add" parameterType="Employee">
+	<insert id="add" parameterType="Employee" keyProperty="id">	
+	<selectKey keyProperty='id' resultType='int' order='AFTER'  >  
+        select LAST_INSERT_ID();  
+    </selectKey>  	
 		INSERT INTO Employee VALUES(#{id},#{nr},#{password},#{name},#{gender},#{department.id},#{isManager},#{status});
 	</insert>
 	<update id="update" parameterType="Employee">

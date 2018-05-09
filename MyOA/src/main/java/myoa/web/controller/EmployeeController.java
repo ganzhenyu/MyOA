@@ -46,22 +46,22 @@ public class EmployeeController {
 			}else {
 				Session.setAttribute("loginUser", employee);
 				List<EmployeeRole> employeeRole=eb.getRoleId(employee.getId());
-			List<Integer> in=new ArrayList<>();
-			
-			for (EmployeeRole e : employeeRole) {
-				for (RoleFunction r : rb.FechID(e.getEmployeeId())) {
-					in.add(r.getFunctionId());
+				List<Integer> in=new ArrayList<>();
+				
+				for (EmployeeRole e : employeeRole) {
+					for (RoleFunction r : rb.FechID(e.getEmployeeId())) {
+						in.add(r.getFunctionId());
+					}
 				}
-			}
-			
-			 HashSet h = new HashSet(in);   
-			 in.clear();   
-			 in.addAll(h);   
-			 Session.setAttribute("roleFunction", in);
-			
-			 for (int i : in) {
-				System.out.println(i);
-			}
+				
+				 HashSet h = new HashSet(in);   
+				 in.clear();   
+				 in.addAll(h);   
+				for (int i : in) {
+					Session.setAttribute("r"+i+"", i);
+					System.out.println(i);
+				}
+
 				return "redirect:/pages/index";
 			}
 		}else {

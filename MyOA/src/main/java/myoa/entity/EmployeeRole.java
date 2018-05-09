@@ -3,16 +3,20 @@ package myoa.entity;
 public class EmployeeRole {
 	public EmployeeRole() {}
 	
-	public EmployeeRole(int id, int employeeId, Role role) {
+
+
+	public EmployeeRole(int id, int employeeId, int roleId) {
 		super();
 		this.id = id;
 		this.employeeId = employeeId;
-		this.role = role;
+		this.roleId = roleId;
 	}
+
+
 
 	private int id;
 	private int employeeId;
-	private Role role;
+	private int roleId;
 	public int getId() {
 		return id;
 	}
@@ -20,17 +24,18 @@ public class EmployeeRole {
 		this.id = id;
 	}
 	
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
+	}
+	public int getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 	
 }
