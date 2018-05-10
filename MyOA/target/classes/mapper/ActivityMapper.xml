@@ -60,4 +60,17 @@ where 1=1
 		<include refid="ActivityJoin"></include>
 		and a.id=#{id}
 	</select>
+	<select id="getToday" resultMap="ActivityRM">
+		<include refid="ActivityJoin"></include>
+		and a.starttime &gt; DATE(NOW()) AND a.starttime &lt; TIMESTAMPADD(DAY, 1, DATE(NOW())) 
+		AND e.`id`=#{id}
+		ORDER BY a.starttime
+		LIMIT #{num}
+	</select>
+	<select id="getFutureEndTime" resultMap="ActivityRM">
+		<include refid="ActivityJoin"></include>
+		and a.endtime &gt; NOW() AND e.`id`=#{id}
+		ORDER BY a.starttime 
+		LIMIT #{num}
+	</select>
 </mapper>

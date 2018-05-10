@@ -34,7 +34,7 @@
 		});
 	</script>
 	<!--SIGN UP-->
-	<h1>klasikal Login Form</h1>
+	<h1>OA办公管理系统</h1>
 	<div class="login-form">
 		<div class="close"></div>
 		<div class="head-info">

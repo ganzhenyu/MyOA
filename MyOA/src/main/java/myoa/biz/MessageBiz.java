@@ -30,5 +30,13 @@ public interface MessageBiz {
 	
 	List<Message> getById(int id);
 	
+
 	List<Employee> getByReceiversStr(String Receivers);
+
+	List<Message> fetchByReceiverId(int id,int num);
+	
+	List<Message> fetchByIsRead(int id,int num);
+	
+	List<Message> fetchByLevel(int id,int num);
+
 }

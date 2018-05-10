@@ -96,5 +96,36 @@
 			m.id=#{id}
 		 </where> 
 	</select>
-
+	<select id="fetchByReceiverId" parameterType="hashmap" resultMap="MessageRM">
+		<include refid="MessageAndEmployee"/>
+		<where>
+		<if test="id>=0">r.receiverId=#{id}</if>
+		and m.isSent = 1
+		and r.status = 0
+		</where>
+		ORDER BY m.sendTime DESC 
+		<if test="num>=0">LIMIT #{num}</if>
+	</select>
+	<select id="fetchByIsRead" parameterType="hashmap" resultMap="MessageRM">
+		<include refid="MessageAndEmployee"/>
+		<where>
+		<if test="id>=0">r.receiverId=#{id}</if>
+		and m.isSent = 1
+		and r.status = 0
+		and r.isRead = 0
+		</where>
+		ORDER BY m.sendTime DESC 
+		<if test="num>=0">LIMIT #{num}</if>
+	</select>
+	<select id="fetchByLevel" parameterType="hashmap" resultMap="MessageRM">
+		<include refid="MessageAndEmployee"/>
+		<where>
+		<if test="id>=0">r.receiverId=#{id}</if>
+		and m.isSent = 1
+		and r.status = 0
+		and m.level > 1
+		</where>
+		ORDER BY m.sendTime DESC 
+		<if test="num>=0">LIMIT #{num}</if>
+	</select>
 </mapper>
