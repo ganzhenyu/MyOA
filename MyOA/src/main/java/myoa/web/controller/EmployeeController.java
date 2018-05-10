@@ -49,7 +49,7 @@ public class EmployeeController {
 				List<Integer> in=new ArrayList<>();
 				
 				for (EmployeeRole e : employeeRole) {
-					for (RoleFunction r : rb.FechID(e.getEmployeeId())) {
+					for (RoleFunction r : rb.FechID(e.getRoleId())) {
 						in.add(r.getFunctionId());
 					}
 				}

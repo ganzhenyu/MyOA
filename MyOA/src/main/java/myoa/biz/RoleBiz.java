@@ -12,4 +12,5 @@ public interface RoleBiz {
 	void add(String name);
 	void delete(int id);
 	void update(Role role);
+	List<Role> getIdRole(int id);
 }

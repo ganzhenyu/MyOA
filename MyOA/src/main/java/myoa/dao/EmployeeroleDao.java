@@ -7,4 +7,5 @@ import myoa.entity.EmployeeRole;
 public interface EmployeeroleDao {
 	List<EmployeeRole> getRoleId(int id);
 	void add(EmployeeRole er);
+	void delete(int id);
 }
