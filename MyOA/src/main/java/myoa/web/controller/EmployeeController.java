@@ -99,6 +99,7 @@ public class EmployeeController {
 			employee.setStatus(1);
 			employee.setIsManager(0);
 			employeeBiz.add(employee);
+			
 			return "redirect:/pages/employeeRetrieve";
 		}
 	}
