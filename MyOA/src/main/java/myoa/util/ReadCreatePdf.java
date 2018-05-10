@@ -1,8 +1,12 @@
 package myoa.util;
-import java.io.BufferedReader;     
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;     
 import java.io.FileReader;     
-import java.io.IOException;     
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import com.lowagie.text.Document;     
 import com.lowagie.text.DocumentException;     
 import com.lowagie.text.Element;     
@@ -24,6 +28,7 @@ public class ReadCreatePdf {
     IOException {
     	Document document = new Document(PageSize.A4, 80, 80, 60, 30);     
         PdfWriter.getInstance(document, new FileOutputStream(WRITEFILEPATH));     
+       
         document.open();     
         BaseFont bfChinese = BaseFont.createFont("STSong-Light",     
         		"UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);     
@@ -35,7 +40,10 @@ public class ReadCreatePdf {
         FontChinese = new Font(bfChinese, 11, Font.NORMAL);     
         BufferedReader read = null;     
         try {     
-            read = new BufferedReader(new FileReader(READFILEPATH));     
+        	InputStreamReader isr = new InputStreamReader(new FileInputStream(new File(READFILEPATH)),"UTF-8");  
+        	read = new BufferedReader(isr);  
+        	
+            //read = new BufferedReader(new FileReader(READFILEPATH));     
             String line = null;     
             while ((line = read.readLine()) != null) {     
                 t = new Paragraph(line, FontChinese);     
