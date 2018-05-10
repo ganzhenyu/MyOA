@@ -147,6 +147,15 @@ public class RoleController {
 		return "pages/roleManage";
 	}
 	
+	@RequestMapping(value="/roleManage",method=RequestMethod.POST)
+	public String employeeRetrieve(Model model,Employee employee) {
+		model.addAttribute("role",rd.getAll());
+		model.addAttribute("employee",employee);
+		model.addAttribute("employees",employeeBiz.fetchEmployees(employee.getNr(), employee.getName(), employee.getDepartment().getId(), employee.getGender()));
+		model.addAttribute("departments",departmentBiz.getAll());
+		return "pages/roleManage";
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/roleMag")
