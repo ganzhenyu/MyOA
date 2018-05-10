@@ -36,10 +36,6 @@ public interface MessageDao {
 	@Insert("INSERT INTO Message VALUES(0,#{title},#{content},#{employee.id},NOW(),#{receivers},#{level},#{status},#{isSent});")
 	void MessageAdd(Message message);
 	
-	//删除------已完成
-	@Delete("DELETE FROM Message WHERE id=#{id}")
-	void MessageDelete(int id);
-
 	//数组删除 ------已完成
 	@Delete("DELETE FROM Message WHERE id=#{id}")
 	void delete(int id);
@@ -55,6 +51,9 @@ public interface MessageDao {
 	//修改成草稿-垃圾桶 ------已完成
 	@Update("UPDATE Message SET IsSent=0,status=0  WHERE id=#{id}")
 	void MessageUpdateIsSent0(int id);
+	
+	@Update("UPDATE Message SET status=2 WHERE id=#{id}")
+	void MessageUpdateStatusTwo(int id);
 	
 	//按照 Message id查询数据
 	Message MessageById(int id);

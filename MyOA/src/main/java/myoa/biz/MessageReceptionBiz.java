@@ -13,9 +13,9 @@ public interface MessageReceptionBiz {
 	
 	List<MessageReception> findMessageReceptionInbox(
 			int status,
-			int id,
-			int pageNum,
-			int pageSize);
+			int isread,
+			int id);
+	
 	
 	int numRow(int status);
 	
@@ -34,5 +34,10 @@ public interface MessageReceptionBiz {
 	List<MessageReception> findMessageReceptionStatus(int status);
 	
 	void messageRAddAll(MessageReception messageReception);
-	
+
+	List<MessageReception> findMessageR(
+		int status,
+		int isread,
+		int id
+		);
 }

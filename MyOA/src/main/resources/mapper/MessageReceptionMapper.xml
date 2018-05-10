@@ -66,16 +66,31 @@
 		<where>
 	      	<if test="status>=0">
 	      		  and mr.status=#{status}
-	      	</if>	
-	      		  and e.id=#{id}
+	      	</if>
+	      	<if test="isread>=0">
+				and mr.isread=#{isread}
+			</if>
+			and e.id=#{id}
 	     </where>
-		limit #{pageNum},#{pageSize}
+	</select>
+	<select id="findMessageR" resultMap="MessageReceptionRM" resultType="MessageReception">
+		<include refid="MessageReceptionJoinMessageAndEmployee"></include>
+		<where>
+	      	<if test="status>=0">
+	      		  and mr.status=#{status}
+	      	</if>
+	      	<if test="isread==0">
+				and mr.isread=#{isread}
+			</if>
+			and e.id=#{id}
+	     </where>
+	     ORDER BY m.SendTime DESC LIMIT 1
 	</select>
 	<select id="MessageReceptionById" parameterType="int" resultMap="MessageReceptionRM">
 		<include refid="MessageReceptionJoinMessageAndEmployee"></include>
 		<where>
 			mr.id=#{id}
-		 </where> 
+		</where> 
 	</select>
 	
 	<update id="messageRUpdateAll" parameterType="MessageReception">

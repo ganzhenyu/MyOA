@@ -100,7 +100,16 @@
 		div.pager span.pageInfo {
 			margin-left: 10px;
 		}
-		.draftHou td{text-align: center;}  
+		.draftHou td{text-align: center;}
+		form .row{
+			margin-left:0px;margin-right:0px;
+			
+		}  
+		.cText{
+			font-size:22px;
+			text-align:center;
+			font-weight:bold;
+		}
     </style>
 </head>
 <body>
@@ -207,6 +216,11 @@
 				                                        </tr>
 				                                   	  </c:if>
                                          			</c:forEach>
+                                         			 <c:if test="${mlist.size()==0}">
+			                                         	<tr>
+			                                         		<td  class="cText" colspan="7">回收站无邮件 <i class="fa fa-frown-o fa-lg" aria-hidden="true"></i></td>
+			                                         	</tr>
+			                                         </c:if>
 			                                    </tbody>
 			                                </table>
 			                            </div>

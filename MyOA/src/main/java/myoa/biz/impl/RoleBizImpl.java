@@ -44,5 +44,11 @@ public class RoleBizImpl implements RoleBiz{
 		// TODO Auto-generated method stub
 		rd.update(role);
 	}
-	
+
+	@Override
+	public List<Role> getIdRole(int id) {
+		// TODO Auto-generated method stub
+		return rd.getIdRole(id);
+	}
+
 }

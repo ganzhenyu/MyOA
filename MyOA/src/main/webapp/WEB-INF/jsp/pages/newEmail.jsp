@@ -128,7 +128,7 @@
 			}
 		})
 		$("#btn").click(function () {
-			alert("hh");
+			
 			$("input[name='isSent']").val(0);
 			$("#from").submit();
 		})

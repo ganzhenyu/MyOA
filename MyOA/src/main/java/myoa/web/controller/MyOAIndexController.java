@@ -12,6 +12,7 @@ import myoa.biz.ActivityActorBiz;
 import myoa.biz.ActivityBiz;
 import myoa.biz.AnnouncementBiz;
 import myoa.biz.MessageBiz;
+import myoa.biz.MessageReceptionBiz;
 import myoa.entity.Employee;
 
 @Controller
@@ -27,6 +28,9 @@ public class MyOAIndexController {
 	@Autowired
 	private MessageBiz messageBiz;
 	
+	@Autowired
+	private MessageReceptionBiz messageReceptionBiz;
+	
 	@RequestMapping(value="/index",method=RequestMethod.GET)
 	public String index(HttpSession session,Model model){
 		Employee loginUser = (Employee) session.getAttribute("loginUser");
@@ -37,6 +41,8 @@ public class MyOAIndexController {
 			model.addAttribute("activityToday",activityBiz.getToday(5,loginUser.getId()));
 			model.addAttribute("activityFuture",activityBiz.getFutureEndTime(5,loginUser.getId()));
 			model.addAttribute("announcements",announcementBiz.getByStatus(5, 2, 0));
+			
+			model.addAttribute("messagrRe",messageReceptionBiz.findMessageR(0, 0, loginUser.getId()));
 		}
 		return "pages/index";
 	}

@@ -2,6 +2,7 @@ package myoa.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +21,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import myoa.biz.DepartmentBiz;
 import myoa.biz.EmployeeBiz;
+import myoa.biz.EmployeeRoleBiz;
 import myoa.biz.FunctionBiz;
 import myoa.biz.RoleBiz;
 import myoa.biz.RoleFunctionBiz;
 import myoa.dao.RoleDao;
 import myoa.entity.Employee;
+import myoa.entity.EmployeeRole;
 import myoa.entity.Role;
 import myoa.entity.RoleFunction;
 
@@ -41,6 +44,10 @@ public class RoleController {
 	private EmployeeBiz employeeBiz;
 	@Autowired
 	private DepartmentBiz departmentBiz;
+	@Autowired
+	private EmployeeRoleBiz eb;
+	
+
 	
 	@RequestMapping("/role")
 	public String role(Model model) {
@@ -57,7 +64,34 @@ public class RoleController {
 		for (int i = 0; i < checked.length; i++) {
 			rb.update(id, checked[i]);
 		}		
+		
 		return "redirect:role";		
+	}
+	
+	@RequestMapping("/addEmplpyeeRole")
+	public String addEmplpyeeRole(Model model,int [] checked,Integer id) {
+		eb.delete(id);
+		if(checked==null) {
+			return "redirect:roleManage";		
+		}
+		List<Integer> it =new ArrayList<>();
+		List<EmployeeRole> er=eb.getRoleId(id);
+		for (int i = 0; i < checked.length; i++) {
+			it.add(checked[i]);
+		}			
+		for (EmployeeRole r : er) {
+			it.add(r.getRoleId());
+		}
+		HashSet h = new HashSet(it);   
+		it.clear();   
+		it.addAll(h); 
+		System.out.println(id);
+		for (int i : it) {
+			EmployeeRole emr=new EmployeeRole(0, id, i);
+			eb.add(emr);
+		}
+	
+		return "redirect:roleManage";		
 	}
 	@ResponseBody
 	@RequestMapping("/deleteRole")
@@ -109,6 +143,27 @@ public class RoleController {
 	public String employeeRetrieve(Model model) {
 		model.addAttribute("employees",employeeBiz.getAll());
 		model.addAttribute("departments",departmentBiz.getAll());
+		model.addAttribute("role",rd.getAll());
 		return "pages/roleManage";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/roleMag")
+	public String roleMag(int id){	
+		List<EmployeeRole> rf=eb.getRoleId(id);
+		List<Integer> it =new ArrayList<>();
+		for (EmployeeRole r : rf) {
+			it.add(r.getRoleId());
+		}
+		ObjectMapper mapper = new ObjectMapper();  
+		String json="";
+		try {
+			json = mapper.writeValueAsString(it);			
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 		
+		return json;
 	}
 }

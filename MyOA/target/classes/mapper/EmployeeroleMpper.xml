@@ -3,8 +3,13 @@
 <mapper namespace="myoa.dao.EmployeeroleDao">	
 	<select id="getRoleId" resultType="Employeerole" parameterType="int">
 		SELECT * FROM `Employeerole` WHERE EmployeeId =#{id}
+		
 	</select>
 	<update id="add" parameterType="Employeerole">
-		INSERT INTO Employeerole VALUES(0,#{EmployeeId},#{RoleId});
+		INSERT INTO Employeerole VALUES(0,#{employeeId},#{roleId});
 	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from Employeerole where employeeId =#{id}
+	</delete>
 </mapper>

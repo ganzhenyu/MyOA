@@ -18,9 +18,8 @@ public interface MessageReceptionDao {
 	//收件箱--------已完成
 	List<MessageReception> findMessageReceptionInbox(
 			@Param("status")int status,
-			@Param("id")int id,
-			@Param("pageNum")int pageNum,
-			@Param("pageSize")int pageSize);
+			@Param("isread")int isread,
+			@Param("id")int id);
 	
 	@Select("SELECT * FROM MessageReception where status=0")
 	List<MessageReception> numRow(int status);
@@ -57,6 +56,12 @@ public interface MessageReceptionDao {
 	
 	
 	void messageRUpdateAll(MessageReception messageReception);
+	
+	//首页消息------已完成
+	List<MessageReception> findMessageR(
+		@Param("status")int status,
+		@Param("isread")int isread,
+		@Param("id")int id);
 }
 
 

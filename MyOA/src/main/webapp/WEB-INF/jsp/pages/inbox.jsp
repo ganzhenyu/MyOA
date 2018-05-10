@@ -38,6 +38,8 @@
 <!-- Custom Fonts -->
 <link href="${pageContext.request.contextPath}/static/vendor/font-awesome/css/font-awesome.min.css"rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/font-awesome.min.css">
+
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
    <style type="text/css">
@@ -97,6 +99,15 @@
 			margin-left: 10px;
 		}
 		.draftHou td{text-align: center;}  
+		form .row{
+			margin-left:0px;margin-right:0px;
+			
+		}
+		.cText{
+			font-size:22px;
+			text-align:center;
+			font-weight:bold;
+		}
     </style>
 </head>
 <body>
@@ -116,8 +127,8 @@
 			        <div class="col-lg-12">
 			            <div class="panel panel-default">
 			                <div class="panel-heading">
-			                  <button type="submit" id="del" class="btn btn-info"><i class="fa fa-trash-o"></i> <a href="mRdelete">删除</a></button>
-			                  <a href="">已读</a>&nbsp;&nbsp;&nbsp; <a>未读</a>
+			                  <button type="submit" id="del" class="btn btn-info"><i class="fa fa-trash-o"></i> 删除</button>
+			                  <a href="inbox?isread=1&status=0&id=${loginUser.id}">已读</a>&nbsp;&nbsp;&nbsp; <a href="inbox?isread=0&status=0&id=${loginUser.id}">未读</a>
 			                </div>
 			                <!-- /.panel-heading  <input Wheckbox> -->
 			                
@@ -142,10 +153,10 @@
 				                                    	<tr class="gradeA odd" role="row">
 					                                       <td class="sorting_1"><input name="chkItem" type="checkbox" value="${c.id}"></td>
 					                                       <c:if test="${c.isread==1}">
-					                                           <td><a href="reply?id=${c.id}"><i class="fa fa-file-text-o" aria-hidden="true"></i></a></td>
+					                                           <td><a href="reply?id=${c.id}"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></a></td>
 					                                        </c:if>
 					                                        <c:if test="${c.isread==0}">
-					                                           	<td><a href="reply?id=${c.id}"><i class="fa fa-envelope-o" aria-hidden="true"></i></a></td>
+					                                           	<td><a href="reply?id=${c.id}"><i class="fa fa-envelope" aria-hidden="true"></i></a></td>
 					                                        </c:if>
 					                                        <td><a href="reply?id=${c.id}">${c.message.employee.name} </a></td>
 					                                        <td class="center"><a href="reply?id=${c.id}">${c.message.title} <span class="font-con">- - </span>
@@ -168,6 +179,11 @@
 				                                        </tr>
 				                                        </c:if>
 				                                    </c:forEach>
+				                                     <c:if test="${mrilist.size()==0}">
+			                                         	<tr>
+			                                         		<td  class="cText" colspan="7">收件箱无邮件 <i class="fa fa-frown-o fa-lg" aria-hidden="true"></i></td>
+			                                         	</tr>
+			                                         </c:if>
 			                                    </tbody>
 			                                </table>
 			                            </div>

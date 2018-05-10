@@ -16,7 +16,6 @@ public interface MessageBiz {
 
 	void MessageAdd(Message message);
 	
-	void MessageDelete(int id);
 	
 	void delete(int[] id) throws DaoException;
 	
@@ -25,6 +24,8 @@ public interface MessageBiz {
 	void MessageUpdateIsSent1(int id);
 	
 	void MessageUpdateIsSent0(int id);
+	
+	void MessageUpdateStatusTwo(int id);
 	
 	Message MessageById(int id);
 	

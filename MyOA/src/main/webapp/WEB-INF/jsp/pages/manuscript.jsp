@@ -94,7 +94,15 @@
 			margin-left: 10px;
 		}
 		.draftHou td{text-align: center;}   
+		form .row{
+			margin-left:0px;margin-right:0px;
 			
+		}
+		.cText{
+			font-size:22px;
+			text-align:center;
+			font-weight:bold;
+		}
     </style>
 </head>
 <body>
@@ -167,6 +175,11 @@
 				                                          </td>
 			                                        </tr>
 			                                         </c:forEach>
+			                                         <c:if test="${mlist.size()==0}">
+			                                         	<tr>
+			                                         		<td  class="cText" colspan="7">草稿箱无邮件 <i class="fa fa-frown-o fa-lg" aria-hidden="true"></i></td>
+			                                         	</tr>
+			                                         </c:if>
 			                                    </tbody>
 			                                </table>
 			                            </div>

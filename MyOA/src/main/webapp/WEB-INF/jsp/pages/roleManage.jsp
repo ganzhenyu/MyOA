@@ -114,7 +114,7 @@
 										<th>操作</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="Role">
 									<c:forEach var="e" items="${employees}">
 										<tr class="odd gradeX">
 											<td>${e.nr}</td>
@@ -126,7 +126,7 @@
                                         	</c:if></td>
                                         	<td>${e.department.name}</td>
                                         	<td><button type="button" class="edit-button" data-id="${e.id}"
-										data-toggle="modal" data-target=".bs-example-modal-lg">分配角色</button></td>
+										data-toggle="modal" data-target=".bs-example-modal-lg" class="role">分配角色</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -138,35 +138,21 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 
-						<form method="post" action="addFunction" id="">
+						<form method="post" action="addEmplpyeeRole" id="listform">
 							<input type="hidden" name="id" id="fid" />
 							<div class="panel admin-panel">
 								<div class="panel-head">
-									<h2>
+									<h3>
 										<i class="fa fa-american-sign-language-interpreting"
-											aria-hidden="true">&nbsp;角色权限分配</i>
-									</h2>
+											aria-hidden="true">&nbsp;分配角色权限</i>
+									</h3>
 								</div>
 								<div class="option">
-									<div>
-										<table>
-											<tr>
-												<td>当前角色：</td>
-												<td id="role"></td>											
-											</tr>
-											<tr>
-												<td>修改角色：</td>
-												<td>
-													<select>
-														<c:forEach var="r" items="${role}">
-														
-														</c:forEach>
-													</select>
-												</td>											
-											</tr>
-										</table>
-									</div>
-								
+
+									<c:forEach var="r" items="${role}">
+										<input id="${r.id}" type="checkbox" name="checked" class="checkedId"
+																		value="${r.id}" />&nbsp;${r.name}
+									</c:forEach>
 
 									<div class="button-group" style="margin-left: 650px;">
 										<button id="Submit" type="submit" class="btn btn-default">保存</button>
@@ -230,6 +216,37 @@
 				
 				$("#fid").val(this.id)				
 			})
+			
+			
+			//根据Id查询相关权限
+			$("#Role").delegate(
+					".edit-button",
+					"click",
+					function() {
+						var id = $(this).attr("data-id");
+						
+						$.ajax({
+							url : "roleMag",
+							type : "GET",
+							data : {
+								"id" : id
+							},
+							dataType : "json",
+							success : function(json) {
+								$("#fid").val(id);
+								
+								$(".checkedId").prop("checked",false);
+								//把查到的Id 赋值
+								var ids = json;
+								for (var m = 0;m<ids.length; m++) {																	
+									$("#"+ids[m]+"").prop("checked",true);
+									
+								}
+
+							}
+						});
+
+					});
 		});
 	</script>
 </body>

@@ -14,4 +14,9 @@
 	<delete id="delete" parameterType="int">
 		delete from role where id=#{id}
 	</delete>
+	<select id="getIdRole" parameterType="int">
+		SELECT * FROM role WHERE id IN(
+			SELECT `roleid` FROM`employeerole` WHERE employeeid=id
+		)
+	</select>
 </mapper>

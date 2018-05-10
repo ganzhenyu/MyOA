@@ -98,16 +98,24 @@
 			margin-left: 10px;
 		}
 		.draftHou td{text-align: center;}   
+		form .row{
+			margin-left:0px;margin-right:0px;
 			
+		}
+		.cText{
+			font-size:22px;
+			text-align:center;
+			font-weight:bold;
+		}
     </style>
 </head>
 <body>
 	<div id="wrapper">
-	
 		 <!--共有部分 -->
 		<c:import url="../shared/navbar.jsp"></c:import>
 	
 		<div id="page-wrapper">
+		
 		    <div class="row">
 		    	<div class="col-lg-12">
 		     		 <h1 class="page-header"><i class="fa fa-paper-plane" aria-hidden="true"></i> 发送箱&nbsp;&nbsp;<span>(共${mlist.size()}封)</span></h1>
@@ -115,7 +123,7 @@
 		   	</div>
 		   	<c:if test="${param.status!=1}">
 			    <form action="ddel" method="post">
-				   <div class="row">
+				   <div class="row" >
 				        <div class="col-lg-12">
 				            <div class="panel panel-default">
 				              	<div class="panel-heading">
@@ -172,6 +180,11 @@
 				                                          </td>
 			                                        	</tr>
 			                                         </c:forEach>
+			                                          <c:if test="${mlist.size()==0}">
+			                                         	<tr>
+			                                         		<td  class="cText" colspan="7">发送箱无邮件 <i class="fa fa-frown-o fa-lg" aria-hidden="true"></i></td>
+			                                         	</tr>
+			                                         </c:if>
 			                                    	</tbody>
 			                                	</table>
 			                            	</div>

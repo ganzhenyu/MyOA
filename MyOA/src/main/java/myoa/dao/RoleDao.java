@@ -11,4 +11,5 @@ public interface RoleDao {
 	void add(String name);
 	void update(Role role);
 	void delete(int id);
+	List<Role> getIdRole(int id);
 }

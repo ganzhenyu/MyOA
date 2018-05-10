@@ -79,18 +79,18 @@ public class MessageController {
 	
 	@RequestMapping("/mcaogaodelete")
 	public String mcaogaodelete(Model model,Integer id){
-		messageBiz.MessageDelete(id);
+		messageBiz.MessageUpdateStatusTwo(id);
 		return "redirect:/pages/manuscript";
 	}
 
 	@RequestMapping("/mfasongdelete")
 	public String mfasongdelete(Model model,Integer id){
-		messageBiz.MessageDelete(id);
+		messageBiz.MessageUpdateStatusTwo(id);
 		return "redirect:/pages/dispatch";
 	}
 	@RequestMapping("/mhuishoudelete")
 	public String mhuishoudelete(Model model,Integer id){
-		messageBiz.MessageDelete(id);
+		messageBiz.MessageUpdateStatusTwo(id);
 		return "redirect:/pages/retrieve";
 	}
 	
@@ -113,7 +113,6 @@ public class MessageController {
 		} catch (DaoException e) {
 			model.addAttribute("erre", e.getMessage());		
 		}
-		
 		return "redirect:/pages/retrieve";
 	}
 	
@@ -257,7 +256,7 @@ public class MessageController {
 				messageReceptionBiz.messageRAddAll(m);
 			}
 		}
-		return "redirect:/pages/dispatch";
+		return "redirect:/pages/newEmail";
 		
     }  
 	

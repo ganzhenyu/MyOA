@@ -46,7 +46,35 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<style type="text/css">
+	.eamil{
+		 float: right;
+		 width: 350px;
+		 height: 45px;
+		 position: absolute;
+         top: 25px;        
+       	 right:50px;
+		 border: 1px solid  #b4b4b4;
+		 padding:7px;
+		 border-radius:5px;
+		 background-color:#f1f1f1;
+	}
+	.eamil a{
+		text-decoration:underline;
+		color: #99e1f1;
+	}
+	.amimg{
+		position: absolute;
+         top: 0px;        
+       	 right:20px;
+	
+	}
+	.eatime{
+		position: absolute;
+        top: 10px;        
+       	right:270px;
+	}
+</style>
 </head>
 
 <body>
@@ -58,6 +86,13 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">欢迎使用OA办公管理系统</h1>
+					<c:forEach var="c" items="${messagrRe}"> 
+						<div class="eatime"><fmt:formatDate value="${c.message.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </div>
+					</c:forEach>
+					<c:if test="${messagrRe.size()>0}">
+						<div class="eamil"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i> 您有条未读邮件！ 点击<a href="inbox?isread=0&status=0&id=${loginUser.id}"> 查看 </a>更多未读邮件</div>
+						<div class="amimg"><i class="fa fa-commenting fa-3x" aria-hidden="true"></i></div>
+					</c:if>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>

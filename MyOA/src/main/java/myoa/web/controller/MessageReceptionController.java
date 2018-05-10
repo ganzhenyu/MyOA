@@ -47,18 +47,11 @@ public class MessageReceptionController {
 	private MessageReceptionBiz messageReceptionbiz;
 	
 	@RequestMapping("/inbox")
-	public String messageReceptionInbox(Model model,@RequestParam(name="status", required=true, defaultValue="0")int status,Integer id,Integer pageNum){
-		pageNum = pageNum==null?1:pageNum;
-		int pageSize = 10;
-		List<MessageReception> mrilist = messageReceptionbiz.findMessageReceptionInbox(0,id,pageNum, pageSize);
-		
-		int rows=messageReceptionbiz.numRow(status);
-		int totalPages = rows%pageSize==0?rows/pageSize:rows/pageSize+1;
+	public String messageReceptionInbox(Model model,
+			@RequestParam(name="status", required=true, defaultValue="0")int status,
+			@RequestParam(name="isread", required=true, defaultValue="-1")int isread,Integer id){
+		List<MessageReception> mrilist = messageReceptionbiz.findMessageReceptionInbox(0,isread,id);
 		model.addAttribute("mrilist", mrilist);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("rows",rows);
-		
 		return "pages/inbox";
 	}
 	//√	

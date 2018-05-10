@@ -40,17 +40,12 @@ public class MessageBizImpl implements MessageBiz {
 		
 	}
 
-	@Override
-	public void MessageDelete(int id) {
-		messageDao.MessageDelete(id);
-		
-	}
 
 	@Override
 	public void delete(int[] id) throws DaoException {
 		try {
 			for (int i : id) {
-				messageDao.delete(i);
+				messageDao.MessageUpdateStatusTwo(i);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -126,6 +121,12 @@ public class MessageBizImpl implements MessageBiz {
 	@Override
 	public List<Message> fetchByLevel(int id, int num) {
 		return messageDao.fetchByLevel(id, num);
+	}
+
+	@Override
+	public void MessageUpdateStatusTwo(int id) {
+		messageDao.MessageUpdateStatusTwo(id);
+		
 	}
 
 

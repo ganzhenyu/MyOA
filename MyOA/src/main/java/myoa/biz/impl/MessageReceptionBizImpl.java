@@ -20,13 +20,11 @@ public class MessageReceptionBizImpl implements MessageReceptionBiz{
 	public List<MessageReception> findMessageReception() {
 		return messageReceptionDao.findMessageReception();
 	}
-
 	@Override
-	public List<MessageReception> findMessageReceptionInbox(int status,int id,int pageNum,int pageSize) {
+	public List<MessageReception> findMessageReceptionInbox(int status,int isread,int id) {
 		// TODO Auto-generated method stub
-		return messageReceptionDao.findMessageReceptionInbox(status,id,(pageNum-1)*pageSize, pageSize);
+		return messageReceptionDao.findMessageReceptionInbox(status,isread,id);
 	}
-
 	@Override
 	public int numRow(int status) {
 		return messageReceptionDao.numRow(status).size();
@@ -80,6 +78,13 @@ public class MessageReceptionBizImpl implements MessageReceptionBiz{
 	@Override
 	public void messageRAddAll(MessageReception messageReception) {
 		messageReceptionDao.messageRAddAll(messageReception);
+	}
+	
+
+	@Override
+	public List<MessageReception> findMessageR(int status, int isread,int id) {
+		// TODO Auto-generated method stub
+		return messageReceptionDao.findMessageR(status, isread,id);
 	}
 
 }

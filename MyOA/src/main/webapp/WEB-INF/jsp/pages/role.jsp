@@ -319,8 +319,9 @@ fieldset .div {
 					".edit-button",
 					"click",
 					function() {
+						
 						var id = $(this).attr("data-id");
-						alert(id);
+						
 						$.ajax({
 							url : "roleFunction",
 							type : "GET",

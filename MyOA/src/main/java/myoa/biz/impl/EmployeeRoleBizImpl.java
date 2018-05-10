@@ -20,4 +20,16 @@ public class EmployeeRoleBizImpl implements EmployeeRoleBiz{
 		return ed.getRoleId(id);
 	}
 
+	@Override
+	public void add(EmployeeRole er) {
+		// TODO Auto-generated method stub
+		ed.add(er);
+	}
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		ed.delete(id);
+	}
+
 }
