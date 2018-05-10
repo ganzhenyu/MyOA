@@ -52,8 +52,8 @@
                             </div>
                             <!-- /input-group -->
                         </li>
+                        
                      <c:if test="${r11!=null||r12!=null}">
-
                         <li>
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> &nbsp;组织管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -122,23 +122,28 @@
                             <ul class="nav nav-second-level">
                               	<c:if test="${r22!=null}">
                                 <li>
-                                    <a href="panels-wells.html">新建信息</a>
+                                    <a href="newEmail">新建信息</a>
                                 </li>
                                  <li>
-                                    <a href="typography.html">发送列表</a>
+                                    <a href="dispatch">发送列表</a>
                                 </li>
+                               
                                 </c:if>
                                 <c:if test="${r23!=null}">
                                 <li>
-                                    <a href="buttons.html">草稿列表</a>
+                                    <a href="manuscript">草稿列表</a>
                                 </li>
                                  </c:if>
                                  <c:if test="${r21!=null}">
                                 <li>
-                                    <a href="notifications.html">接受信息</a>
+                                    <a href="inbox?id=${loginUser.id}">接受信息</a>
+                                    <input type="hidden" name="id" value="${loginUser.id}">
+                                </li>
+                                <li>
+                                    <a href="retrieve">回收列表</a>
                                 </li>
                                </c:if>
-                             
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
