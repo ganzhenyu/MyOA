@@ -115,7 +115,7 @@
 		                <div class="panel-heading">
 		                    <button type="button" id="returning" class="btn btn-default"> <a href="inbox?id=${loginUser.id}"><i class="fa fa-mail-reply-all"></i></a></button>
 		                    <button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> <a href="mrdelete?id=${mrById.id}">删除</a></button>
-		                    <button type="button" id="reply" class="btn btn-default"><i class="fa fa-share-square"></i> <a href="newEmailTwo?id=${mrById.id}">回复</a></button>
+		                    <button type="button" id="reply" class="btn btn-default"><i class="fa fa-share-square"></i> <a href="newEmailTwo?mid=${mid}&eid=${eid}">回复</a></button>
 		                    <button type="button" id="transmit" class="btn btn-default"><i class="fa fa-edit"></i> <a href="">编辑转发</a></button>
 		                    <button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i> <a href="mrUpdatestatus?id=${mrById.id}">移动到垃圾箱</a> </button>
 		                </div>

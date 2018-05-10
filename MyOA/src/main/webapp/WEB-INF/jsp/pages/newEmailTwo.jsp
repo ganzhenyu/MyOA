@@ -139,11 +139,12 @@
                                <div class="col-lg-9">
                                  	<input type="hidden" name="employee.id" value="${loginUser.id}">
                                		<input type="hidden" name="status" value="0">
+                               		<input type="hidden" name="id" value="${mid}">
                                	    <input type="hidden" name="isSent" value="0">
                                     <div class="form-group">
                                          <label id="addname"><i class="fa fa-user-circle" aria-hidden="true"></i> 收件人：</label>
                                          <c:if test="${mrById.message.employee.name!=null}">
-                                         	<span class='addressee'><input type='checkbox' checked='checked' value="${id}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mrById.message.employee.name}" name='listReceivers'/><label>${mrById.message.employee.name}</label></span>
+                                         	<span class='addressee'><input type='checkbox' checked='checked' value="${eid}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mrById.message.employee.name}" name='listReceivers'/><label>${mrById.message.employee.name}</label></span>
                                          </c:if>     
                                          <p class="xuxian" name="receivers"></p>             
                                           <p></p>

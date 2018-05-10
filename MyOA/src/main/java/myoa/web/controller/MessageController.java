@@ -249,12 +249,14 @@ public class MessageController {
 			//这里写一个方法，把字符串写进去,输出一个Employee数组
 			List<Employee> wlist= messageBiz.getByReceiversStr(receivers);
 			//这里把员工数组添加
-			for (int i = 0; i < wlist.size(); i++) {
+			for (Employee employee : wlist) {
 				MessageReception m = new MessageReception();
 				m.setMessage(messageBiz.MessageById(message.getId()));
-				m.setEmployee(wlist.get(i));
+				m.setEmployee(employee);
 				messageReceptionBiz.messageRAddAll(m);
 			}
+			
+			
 		}
 		return "redirect:/pages/newEmail";
 		

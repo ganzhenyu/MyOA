@@ -173,7 +173,7 @@
 					                                        <td class="center"><a href="reply?id=${c.id}"><fmt:formatDate value="${c.message.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/></a></td>
 				                                            <td class="center">
 					                 							<a class="btn btn-social-icon btn-twitter" href="mrdelete?id=${c.id}"><i class="fa fa-trash-o"></i></a>
-					                                            <a class="btn btn-social-icon btn-flickr"  href="reply?id=${c.id}"><i class="fa fa-edit"></i></a>
+					                                            <a class="btn btn-social-icon btn-flickr"  href="reply?eid=${c.employee.id}&mid=${c.id}"><i class="fa fa-edit"></i></a>
 					                                            <a class="btn btn-social-icon btn-bitbucket" href="mrUpdatestatus?id=${c.id}"><i class="fa fa-bitbucket"></i></a>
 				                                            </td>
 				                                        </tr>
