@@ -85,7 +85,7 @@ public class RoleController {
 		HashSet h = new HashSet(it);   
 		it.clear();   
 		it.addAll(h); 
-		
+		System.out.println(id);
 		for (int i : it) {
 			EmployeeRole emr=new EmployeeRole(0, id, i);
 			eb.add(emr);
