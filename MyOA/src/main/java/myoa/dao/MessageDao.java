@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import myoa.entity.Employee;
 import myoa.entity.Message;
 import myoa.entity.MessageReception;
 
@@ -17,11 +18,7 @@ public interface MessageDao {
 	//查询全部------已完成
 	List<Message> findMessageAll(		
 			@Param("status")int status,
-			@Param("isSent")int isSent,
-			@Param("title")String title,
-			@Param("pageNum")int pageNum,
-			@Param("pageSize")int pageSize
-			);
+			@Param("isSent")int isSent);
 
 		
 		//查询全部------已完成
@@ -29,13 +26,9 @@ public interface MessageDao {
 			);
 		
 		//------已完成
-	@Select("SELECT * FROM Message where status=0 and isSent=0")
-	List<Message> numMessageRow(
-			@Param("status")int status,
-			@Param("isSent")int isSent);
-	
+
 	//更新全部
-	@Update("update Message set title=#{title},content=#{content},sendTime=#{sendTime},receivers=#{receivers},level=#{level},status=#{status},isSent=#{isSent} ")
+	@Update("update Message set title=#{title},content=#{content},sendTime=#{sendTime},receivers=#{receivers},level=#{level},status=#{status},isSent=#{isSent} where id=#{id} ")
 	void MessageUpdate(Message message);
 	
 	@Options(useGeneratedKeys = true, keyProperty = "id")

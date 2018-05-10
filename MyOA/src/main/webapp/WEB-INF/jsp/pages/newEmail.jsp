@@ -36,6 +36,8 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styletwo.css">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/font-awesome.min.css">
+
 <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
 
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -102,33 +104,39 @@
   
     </style>
     <script type="application/javascript">
-		$(function () {
-			$("#ztreeid li").click(function() {
-				
-				var bool = true;
-				for(var i = 0;i<$(".addressee").length;i++){
-					if($(".addressee label").eq(i).text()==$(this).text()){
-						$(".addressee").eq(i).remove();
-						bool = false;
-						break;
-					}
-					
+    $(function () {
+		$("#ztreeid li").click(function() {			
+			var bool = true;
+			var list=$("#receivers").val().split(",");
+			for(var i = 0;i<list.length;i++){
+				if(list[i]==$(this).text()){
+					list.splice(i,1);
+					bool = false;
+					break;
+				}
+			}
+			console.log(list);
+			$("#receivers").val(list.toString());
+			if(bool){
+				var receivers= $("#receivers").val();
+				if(receivers==null || receivers==""){
+					$("#receivers").val(receivers+$(this).text());
+				}else{
+					$("#receivers").val(receivers+","+$(this).text());
 				}
 				
-				if(bool){
-					
-					$("#addname").html($("#addname").html()+"<span class='addressee'><input type='checkbox' style='display: none;' checked='checked' value='"+$(this).text()+"' name='listReceivers'/> <input type='checkbox' checked='checked' value='"+$(this).attr("date-id")+"' name='listReceiversid'/><label>"+$(this).text()+"</label></span>")
-				}
-			})
-			$("#btn").click(function () {
-				$("input[name='isSent']").val(0);
-				$("#from").submit();
-			})
-			$("#but").click(function () {
-				$("input[name='isSent']").val(1);
-				$("#from").submit();
-			})
+			}
 		})
+		$("#btn").click(function () {
+			alert("hh");
+			$("input[name='isSent']").val(0);
+			$("#from").submit();
+		})
+		$("#but").click(function () {
+			$("input[name='isSent']").val(1);
+			$("#from").submit();
+		})
+	})
 		//<span class="addressee">dd</span>
     </script>
 </head>
@@ -139,11 +147,11 @@
 	 <!--共有部分 -->
 		<c:import url="../shared/navbar.jsp"></c:import>
 
-	<div id="page-wrapper">
+		<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">邮件箱</h1>
-                    <input type="hidden" name="id" value="${mById.id}">
+                    
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -155,35 +163,41 @@
                          <form action="upload" method="post"  role="form" class="toup" id="from" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-9">
-                                   		<input type="hidden" name="employee.id" value="${loginUser.id}">
-                
-                                 		<input type="hidden" name="status" value="0">
-                                 	    <input type="hidden" name="isSent" value="0">                                 		
-                                       <div class="form-group">
-                                            <label id="addname">收件人：</label>
-                                            <c:if test="${mById.employee.name!=null}">
-                                            	<span class='addressee'><input type='checkbox' checked='checked' value="${mById.employee.id}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mById.employee.name}" name='listReceivers'/><label>${mById.employee.name}</label></span>
-                                            </c:if>   
-                                            <p class="xuxian" name="receivers"></p>                     
-                                             <p></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>标题</label>
-                                            <input class="form-control" name="title" value="${mById.title}">
-                                            
-                                            <p></p>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>内容</label>
-                                            <textarea id="content" name="content" class="ckeditor form-control">${mById.content}</textarea>
-                                        </div>
-                                       
-                                        <div class="form-group">
-                                            <label>附件</label>
-											     <input type="hidden" name="name" value="">
-											     <input type="file" name="file" value="" >                         
-							            </div>
+                                	<c:if test="${mById.id>0}">
+                               			<input type="hidden" name="id" value="${mById.id}">
+                               		</c:if>
+                                  	<input type="hidden" name="employee.id" value="${loginUser.id}">
+                               		<input type="hidden" name="status" value="0">
+                               	    <input type="hidden" name="isSent" value="0">                                 		
+                                     	<div class="form-group">
+                                          <label id="addname"><i class="fa fa-user-circle" aria-hidden="true"></i> 收件人：</label>
+                                          <!--<c:if test="${mById.employee.name!=null}">
+                                          	<span class='addressee'><input type='checkbox' checked='checked' value="${mById.employee.id}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mById.employee.name}" name='listReceivers'/><label>${mById.employee.name}</label></span>
+                                          </c:if> -->  
+                                          <input class="form-control" id="receivers" readonly="readonly" name="receivers" value="${mById.receivers}">
+                                          <%-- <c:if test="${mById.receivers!=null}">
+                                          	<span class='addressee'>
+                                          	<input type='checkbox' checked='checked' value="${mById.employee.id}" style="display: none;" name='listReceiversid'/>
+                                          	<input type='checkbox' checked='checked' value="${mById.receivers}" name='listReceivers'/><label>${mById.receivers}</label>
+                                          	</span>
+                                          </c:if> --%>
+                         
+                                          <p></p>
+                                      </div>
+                                      <div class="form-group">
+                                          <label><i class="fa fa-tags" aria-hidden="true"></i> 标题</label>
+                                          <input class="form-control" name="title" value="${mById.title}">
+                                          <p></p>
+                                      </div>
+                                      <div class="form-group">
+                                          <label><i class="fa fa-bars" aria-hidden="true"></i> 内容</label>
+                                          <textarea id="content" name="content" class="ckeditor form-control">${mById.content}</textarea>
+                                      </div>
+                                      <div class="form-group">
+                                          <label>附件</label>
+									     <input type="hidden" name="name" value="">
+									     <input type="file" name="file" value="" >                         
+					            	  </div>
 							               <!--
 							            <div class="form-group">
 							               <label>附件</label>
@@ -200,27 +214,28 @@
                                                 <p></p>
                                                 <select name="level" aria-controls="dataTables-example" class="form-control input-sm">
                                                     <c:if test="${mById.level==1}">
-                                                    	<option value="0">普通</option>
+                                                    	<option value="1">普通</option>
                                                     </c:if>
                                                     <c:if test="${mById.level==2}">
-                                                    	<option value="0">重要</option>
+                                                    	<option value="2">重要</option>
                                                     </c:if>
                                                     <c:if test="${mById.level==3}">
-                                                    	<option value="0">紧急</option>
+                                                    	<option value="3">紧急</option>
                                                     </c:if>
                                                     <option value="1">普通</option>
-                                                    <option value="2">重要</option>
-                                                    <option value="3">紧急</option>
+                                 					<option value="2">重要</option>
+                                                    <option value="3">紧急</option>                   
                                                 </select>
                                             </label>
                                         </div>
 										<div class="divbuttom">
                                  			<p class="cssbuttom">
-	                                 			 <button type="button" class="btn btn-default" id="btn">存草稿</button>
-	                                        	 <button type="button" class="btn btn-default" id="but" >提交</button>
+                                 				
+		                                 			 <button type="button" class="btn btn-default" id="btn">存草稿</button>
+		                                        	 <button type="button" class="btn btn-default" id="but" >提交</button>
+	                                        	
                                  			</p>
                                  		</div>
-                                 
                                     <!-- 
                                     <div class="form-group">
                                             <label>附件</label>
@@ -238,7 +253,6 @@
                                    <div class="content">
 									    <!-- .list以下（包含.list）以下为本插件内容，需要的同学可复制里面部分即可。 -->
 									    <div class="list">
-									      
 									        <ul>
 									        	<c:forEach var="c" items="${departments}">
 										            <li>
@@ -246,7 +260,7 @@
 											            <ul class='list-se' id="ztreeid">
 											                <p class="title">${c.name}</p>
 											               	<c:forEach var="r" items="${c.employee}">
-											                   	<li date-id="${r.id}"><p>${r.name}</p></li>
+											                   	<li date-id="${r.id}"><p>${r.name} <${r.nr}></p></li>
 											                </c:forEach>
 											             </ul>
 										             </li>
@@ -270,8 +284,6 @@
         </div>
 		<!-- /#page-wrapper -->
 	</div>
-	<!-- /#wrapper -->
-
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
 

@@ -31,6 +31,10 @@ public class EmployeeDaoTest {
 		Employee loginUser=traget.checkUserLogin("Nr002", "123");
 		System.out.println(loginUser.getIsManager());
 	}
+	@Test
+	public void testfindname() {
+		System.out.println(traget.findByName("张三").getId());
+	}
 
 }
 

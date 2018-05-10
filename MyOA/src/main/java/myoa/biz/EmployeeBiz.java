@@ -14,6 +14,12 @@ public interface EmployeeBiz {
 	List<Employee> fetchEmployees(String nr,String name,int did,int gender);
 	List<Employee> getAllNotMy(Employee employee);
 	List<Employee> getByNameNotMy(Employee employee,String name);
+
+
+	Employee findByName(String name);
+	
+
 	void add(Employee employee);
 	void update(Employee employee);
+
 }

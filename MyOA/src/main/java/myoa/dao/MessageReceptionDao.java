@@ -38,7 +38,7 @@ public interface MessageReceptionDao {
 	void mReceptionUpdateStatus(@Param("id")int id);
 
 	//是否已读--已读 
-	@Update("UPDATE MessageReception SET IsRead=1 ,`status`=0 WHERE id=#{id}")
+	@Update("UPDATE MessageReception SET IsRead=1 ,status=0 WHERE id=#{id}")
 	void mReceptionUpdateIsRead(int id);
 	
 	//按照 MessageReception id查询数据

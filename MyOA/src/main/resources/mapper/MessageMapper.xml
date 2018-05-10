@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myoa.dao.MessageDao">
 	<sql id="MessageAndEmployee">
-		SELECT m.*,e.name as eaname,d.Description as dadescription,d.NAME as daname,ma.id maid,ma.NAME maname,ma.`FileUrl` as mafileurl,ma.MessageId as maMessageId
+		SELECT m.*,e.name as eaname,d.Description as dadescription,d.NAME as daname,
+		ma.id maid,ma.NAME maname,ma.`FileUrl` as mafileurl,ma.MessageId as maMessageId,
+		r.isread as mrisread,r.status as mrstatus,r.MessageId as mrMessageId,r.id as mrid
 		FROM Message m
 		LEFT JOIN Employee e ON m.CreatorId=e.id
 		LEFT JOIN Department d ON e.DepartmentId=d.id
@@ -41,16 +43,22 @@
 			<association property="message" javaType="Message">
 				<id column="maMessageId" property="id" />
 			</association>
-		</collection>
-		 
-		
+		</collection>	
+		<collection property="messagereception" ofType="MessageReception">
+			<id column="mrid" property="id" />
+			<result column="mrisread" property="isread" />
+			<result column="mrstatus" property="status" />
+			<association property="message" javaType="Message">
+				<id column="mrMessageId" property="id" />
+			</association>
+			<association property="employee" javaType="Employee">
+				<id column="mrReceiverId" property="id" />
+			</association>
+		</collection>	
 	</resultMap>
 	<select id="findMessageAll" resultMap="MessageRM" resultType="Message">
 		<include refid="MessageAndEmployee"></include>
 		<where>
-			<if test="title!=null and title!=''">
-				and m.title like CONCAT('%',#{title},'%')
-			</if>
 			<if test="status>=0">
 				and m.status=#{status}
 			</if>
@@ -58,7 +66,6 @@
 				and m.isSent=#{isSent}
 			</if>
 		</where>
-		limit #{pageNum},#{pageSize}
 	</select>
 		
 	<!--

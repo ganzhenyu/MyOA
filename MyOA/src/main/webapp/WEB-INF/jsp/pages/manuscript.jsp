@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.sams.com/tags" prefix="tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -23,6 +23,11 @@
 <!-- Bootstrap SOCIAL -->
 <link href="${pageContext.request.contextPath}/static/vendor/bootstrap-social/bootstrap-social.css"	rel="stylesheet">
 
+<!-- DataTables CSS -->
+<link href="${pageContext.request.contextPath}/static/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+<!-- DataTables Responsive CSS -->
+<link href="${pageContext.request.contextPath}/static/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
 <link href="${pageContext.request.contextPath}/static/vendor/metisMenu/metisMenu.min.css"	rel="stylesheet">
@@ -33,8 +38,8 @@
 <!-- Custom Fonts -->
 <link href="${pageContext.request.contextPath}/static/vendor/font-awesome/css/font-awesome.min.css"rel="stylesheet" type="text/css">
 
-     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
    <style type="text/css">
         .panel-body{
             margin-top: 20px;
@@ -74,121 +79,108 @@
    		}
    		
    		div.pager a {
-	text-decoration: none;
-	border: solid 1px gray;
-	padding: 1px 3px;
-}
-
-div.pager span.current {
-	padding: 1px 3px;
-	background-color: gray;
-	color: white;
-}
-
-div.pager span.pageInfo {
-	margin-left: 10px;
-}
-.draftHou td{text-align: center;}   
-
-
+			text-decoration: none;
+			border: solid 1px gray;
+			padding: 1px 3px;
+		}
+		
+		div.pager span.current {
+			padding: 1px 3px;
+			background-color: gray;
+			color: white;
+		}
+		
+		div.pager span.pageInfo {
+			margin-left: 10px;
+		}
+		.draftHou td{text-align: center;}   
+			
     </style>
-    <script type="application/javascript">
-
-    </script>
 </head>
-
 <body>
 	<div id="wrapper">
 	
-	 <!--共有部分 -->
+		 <!--共有部分 -->
 		<c:import url="../shared/navbar.jsp"></c:import>
-
-	<div id="page-wrapper">
-    <div class="row">
-    	<div class="col-lg-12">
-			  <h1 class="page-header"><i class="fa fa-pagelines" aria-hidden="true"></i> 草稿箱&nbsp;&nbsp;<span>(共${mlist.size()}封)</span></h1>
+	
+		<div id="page-wrapper">
+		    <div class="row">
+		    	<div class="col-lg-12">
+					  <h1 class="page-header"><i class="fa fa-pagelines" aria-hidden="true"></i> 草稿箱&nbsp;&nbsp;<span>(共${mlist.size()}封)</span></h1>
+				</div>
+		   	</div>
+		   	<form action="mdel" method="post">
+			   <div class="row">
+			        <div class="col-lg-12">
+			            <div class="panel panel-default">
+			                <div class="panel-heading">
+			                  <button type="submit" id="del" class="btn btn-info"><i class="fa fa-trash-o"></i> <a href="mdel">删除</a></button>
+			                </div>
+			                <!-- /.panel-heading  <input Wheckbox> -->
+			                
+			                <div class="panel-body">
+			                    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+			                        <div class="row">
+			                            <div class="col-sm-12">
+			                                <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+			                                    <thead>
+			                                        <tr role="row">
+			                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width:79px;"><input id="ckbAll" type="checkbox"/> 全选</th>
+			                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width:53px;"><i class="fa fa-envelope-o"></i> <i class="fa fa-paperclip"></i></th>
+			                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 115px;">收件人</th>
+			                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 780px;">主题</th>
+			                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 214px;">时间</th>
+			                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width:74px;">重要性</th>
+			                                        	<th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 166px;">操作</th>
+			                                       </tr>
+			                                    </thead>
+			                                    <tbody>
+			                                      <c:forEach var="c" items="${mlist}" >
+			                                        <tr class="gradeA odd" role="row">
+			                                          <td class="sorting_1"><input name="chkItem" type="checkbox" value="${c.id}"></td>
+			                                            <td><i class="fa fa-envelope-o"></i></td>
+			                                            <td>${c.receivers}</td>
+			                                            <td class="center">${c.title}<span class="font-con">- - </span>
+			                                            	<span>
+			                                            	  <c:if test="${c.content.indexOf('--------------原邮件-----------')==-1 }">
+			                                            		${ c.content}
+				                                            	</c:if>
+				                                            	<c:if test="${c.content.indexOf('--------------原邮件-----------')!=-1 }">
+				                                            		 ${c.content.substring(0,c.content.indexOf("--------------原邮件-----------"))}
+				                                            	</c:if>
+				                                            </span>
+														</td>
+			                                            <td class="center"><fmt:formatDate value="${c.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+			                                            <c:if test="${c.level==1}">
+			                                          	   <td class="center">普通</td>
+			                                            </c:if>
+			                                            <c:if test="${c.level==2}">
+			                                          	   <td class="center">重要</td>
+			                                            </c:if>
+			                                            <c:if test="${c.level==3}">
+			                                          	   <td class="center">紧急</td>
+			                                            </c:if>
+			                                              <td class="center">
+				                 								<a class="btn btn-social-icon btn-twitter" href="mcaogaodelete?id=${c.id}"><i class="fa fa-trash-o"></i></a>
+				                                            	<a class="btn btn-social-icon btn-flickr" href="mById?id=${c.id}"> <i class="fa fa-edit"></i></a>
+				                                            	<a class="btn btn-social-icon btn-bitbucket" href="messageUpdatestatus?id=${c.id}"><i class="fa fa-bitbucket"></i></a>
+				                                          </td>
+			                                        </tr>
+			                                         </c:forEach>
+			                                    </tbody>
+			                                </table>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <!-- /.panel-body -->
+			            </div>
+			            <!-- /.panel -->
+			        </div>
+			        <!-- /.col-lg-12 -->
+			    </div>
+		  	</form>
 		</div>
-      </div>
-   <form action="mdel" method="post">
-   <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  <button type="submit" id="del" class="btn btn-info"><i class="fa fa-trash-o"></i> <a href="mdel">删除</a></button>
-                </div>
-                <!-- /.panel-heading  <input Wheckbox> -->
-                
-                <div class="panel-body">
-                    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
-                                    <thead>
-                                        <tr role="row">
-                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width:75px;"><input id="ckbAll" type="checkbox"/> 全选</th>
-                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width:56px;"><i class="fa fa-envelope-o"></i> <i class="fa fa-paperclip"></i></th>
-                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 110px;">收件人</th>
-                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 780px;">主题</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 214px;">时间</th>
-                                            <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width:74px;">重要性</th>
-                                        	<th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 166px;">操作</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                      <c:forEach var="c" items="${mlist}" >
-                                        <tr class="gradeA odd" role="row">
-                                          <td class="sorting_1"><input name="chkItem" type="checkbox" value="${c.id}"></td>
-                                            <td><i class="fa fa-envelope-o"></i></td>
-                                            <td>${c.receivers}</td>
-                                            <td class="center">${c.title}<span class="font-con">- - </span>
-                                            	<span>
-	                                            	<c:if test="${fn:length(c.content)>66}">
-												       <c:out value="${fn:substring(c.content,0,63)}" />
-												       ...
-												    </c:if>
-												    <c:if test="${fn:length(c.content)<=66}">${c.content}</c:if>
-	                                            </span>
-											</td>
-                                            <td class="center">${c.sendTime}</td>
-                                            <c:if test="${c.level==1}">
-                                          	   <td class="center">普通</td>
-                                            </c:if>
-                                            <c:if test="${c.level==2}">
-                                          	   <td class="center">重要</td>
-                                            </c:if>
-                                            <c:if test="${c.level==3}">
-                                          	   <td class="center">紧急</td>
-                                            </c:if>
-                                              <td class="center">
-	                 								<a class="btn btn-social-icon btn-twitter" href="mcaogaodelete?id=${c.id}"><i class="fa fa-trash-o"></i></a>
-	                                            	<a class="btn btn-social-icon btn-flickr" href="mById?id=${c.id}"> <i class="fa fa-edit"></i></a>
-	                                            	<a class="btn btn-social-icon btn-bitbucket" href="messageUpdatestatus?id=${c.id}"><i class="fa fa-bitbucket"></i></a>
-	                                          </td>
-                                        </tr>
-                                         </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-8"> </div>
-                            <div class="col-sm-4">
-                                 <div class="panel-body-a">						
-									<tags:pager urlFormat="manuscript?isSent=${param.isSent}&pageNum=%d"
-									pageSize="1" numbers="5" totalRows="${totalPages}" curPage="${param.pageNum}" />
-								</div>		 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    </form>
-</div>
 	</div>
 	<!-- /#wrapper -->
 
@@ -204,8 +196,21 @@ div.pager span.pageInfo {
 	<!-- Custom Theme JavaScript -->
 	<script src="${pageContext.request.contextPath}/static/dist/js/sb-admin-2.js"></script>
 	
+	<!-- DataTables JavaScript -->
+	<script src="${pageContext.request.contextPath}/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	
 	<script>
-
+	  $(document).ready(function() {
+	        $('#dataTables-example').DataTable({
+	            responsive: true
+	        });
+	    });
+	  
+	  $("table.dataTable thead .sorting_asc:after").remove();
     $("#del").click(function(){
         if($("input[type='checkbox']").is(':checked')) {
             return true;

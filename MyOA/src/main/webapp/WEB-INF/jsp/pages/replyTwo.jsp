@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -113,10 +113,10 @@
 		        <div class="col-lg-12">
 		            <div class="panel panel-default">
 		                <div class="panel-heading">
-		                    <button type="button" id="returning" class="btn btn-default"> <a href="inbox"><i class="fa fa-mail-reply-all"></i></a></button>
-		                    <button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> <a href="mcaogaodelete?id=${mById.id}">删除</a></button>
-		                    <button type="button" id="transmit" class="btn btn-default"><i class="fa fa-edit"></i> <a href="">编辑转发</a></button>
-		                    <button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i> <a href="mrUpdatestatus?id=${mrById.id}">移动到垃圾箱</a> </button>
+		                    <button type="button" id="returning" class="btn btn-default"> <a href="javascript:history.back(-1)"><i class="fa fa-mail-reply-all"></i></a></button>
+		                    <button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> <a href="mfasongdelete?id=${mById.id}">删除</a></button>
+		                    <button type="button" id="transmit" disabled="disabled" class="btn btn-default"><i class="fa fa-edit"></i> <a href="">编辑转发</a></button>
+		                    <button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i> <a href="messageUpdatestatus?id=${mById.id}">移动到垃圾箱</a> </button>
 		                </div>
 		                <!-- /.panel-heading  <input type=checkbox> -->
 		                <div class="panel-body">
@@ -127,9 +127,10 @@
 		                                    <dl>
 		                                        <dt> <i class="fa fa-tags"></i> ${mById.title} </dt>
 		                                        <dd>发件人：${mById.employee.name} <i class="fa fa-user"></i></dd>
-		                                        <dd class="dtime">时间：${mById.sendTime}</dd>
+		                                        <dd class="dtime">时间：<fmt:formatDate value="${mById.sendTime}" pattern="yyyy年MM月dd日  HH:mm:ss"/></dd>
 		                                        <dd>收件人：${mById.receivers} <i class="fa fa-user-circle-o" aria-hidden="true"></i></dd>
-		                                        <dd>重要性：<c:if test="${mById.level==1}">
+		                                        <dd>重要性：
+		                                        	<c:if test="${mById.level==1}">
 		                                          	   <td class="center">普通</td>
 		                                            </c:if>
 		                                            <c:if test="${mById.level==2}">
@@ -139,7 +140,6 @@
 		                                          	   <td class="center">紧急</td>
 		                                            </c:if>
 														&nbsp;		&nbsp;		
-														                                            
 		                                         </dd>
 		                                    </dl>
 		                                </div>
@@ -171,7 +171,6 @@
 		</div>
 	</div>
 	<!-- /#wrapper -->
-
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
 

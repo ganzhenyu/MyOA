@@ -1,5 +1,6 @@
 package myoa.biz.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
+import myoa.biz.EmployeeBiz;
 import myoa.biz.MessageBiz;
 import myoa.dao.DaoException;
 import myoa.dao.MessageDao;
+import myoa.entity.Employee;
 import myoa.entity.Message;
 
 @Service
@@ -17,10 +20,13 @@ public class MessageBizImpl implements MessageBiz {
 
 	@Autowired
 	private MessageDao messageDao;
+	
+	@Autowired
+	private EmployeeBiz employeeBiz;
 
 	@Override
-	public List<Message> findMessageAll(String title,int status,int isSent,int pageNum,int pageSize) {
-		return messageDao.findMessageAll(isSent,status,title,pageNum,pageSize);
+	public List<Message> findMessageAll(int status,int isSent) {
+		return messageDao.findMessageAll(isSent,status);
 	}
 
 	@Override
@@ -51,11 +57,6 @@ public class MessageBizImpl implements MessageBiz {
 			throw new DaoException("删除失败");
 		}
 		
-	}
-
-	@Override
-	public int numMessageRow(int status,int isSent) {
-		return messageDao.numMessageRow(status,isSent).size();
 	}
 
 	@Override
@@ -100,6 +101,19 @@ public class MessageBizImpl implements MessageBiz {
 	}
 
 	@Override
+
+	public List<Employee> getByReceiversStr(String Receivers) {
+		String[] enameList=Receivers.split(",");
+		List<Employee> list=new ArrayList<>();
+		for(String s:enameList) {
+			Employee e=employeeBiz.findByName(s);
+			list.add(e);
+		}
+		return list;
+	}
+
+	
+
 	public List<Message> fetchByReceiverId(int id, int num) {
 		return messageDao.fetchByReceiverId(id, num);
 	}
@@ -113,5 +127,6 @@ public class MessageBizImpl implements MessageBiz {
 	public List<Message> fetchByLevel(int id, int num) {
 		return messageDao.fetchByLevel(id, num);
 	}
+
 
 }

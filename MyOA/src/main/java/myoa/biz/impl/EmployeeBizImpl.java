@@ -60,6 +60,12 @@ public class EmployeeBizImpl implements EmployeeBiz{
 	}
 
 	@Override
+
+	public Employee findByName(String name) {
+		return employeeDao.findByName(name);
+	}
+
+
 	public List<Employee> getAll() {
 		return employeeDao.getAll();
 	}
@@ -96,5 +102,6 @@ public class EmployeeBizImpl implements EmployeeBiz{
 		ed.add(ro);
 		
 	}
+
 
 }
