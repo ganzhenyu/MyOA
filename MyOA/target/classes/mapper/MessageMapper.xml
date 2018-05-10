@@ -59,9 +59,6 @@
 	<select id="findMessageAll" resultMap="MessageRM" resultType="Message">
 		<include refid="MessageAndEmployee"></include>
 		<where>
-			<if test="title!=null and title!=''">
-				and m.title like CONCAT('%',#{title},'%')
-			</if>
 			<if test="status>=0">
 				and m.status=#{status}
 			</if>
@@ -69,7 +66,6 @@
 				and m.isSent=#{isSent}
 			</if>
 		</where>
-		limit #{pageNum},#{pageSize}
 	</select>
 		
 	<!--

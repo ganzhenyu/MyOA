@@ -7,7 +7,7 @@ import myoa.entity.Employee;
 import myoa.entity.Message;
 
 public interface MessageBiz {
-	List<Message> findMessageAll(String title,int status,int isSent,int pageNum,int pageSize);
+	List<Message> findMessageAll(int status,int isSent);
 	
 	
 	List<Message> findMessageAllStatus();
@@ -19,8 +19,6 @@ public interface MessageBiz {
 	void MessageDelete(int id);
 	
 	void delete(int[] id) throws DaoException;
-	
-	int  numMessageRow(int status,int isSent);
 	
 	void MessageUpdateStatus(int id);
 	

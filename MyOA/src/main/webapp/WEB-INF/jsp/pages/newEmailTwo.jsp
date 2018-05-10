@@ -141,7 +141,7 @@
                                		<input type="hidden" name="status" value="0">
                                	    <input type="hidden" name="isSent" value="0">
                                     <div class="form-group">
-                                         <label id="addname">收件人：</label>
+                                         <label id="addname"><i class="fa fa-user-circle" aria-hidden="true"></i> 收件人：</label>
                                          <c:if test="${mrById.message.employee.name!=null}">
                                          	<span class='addressee'><input type='checkbox' checked='checked' value="${id}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mrById.message.employee.name}" name='listReceivers'/><label>${mrById.message.employee.name}</label></span>
                                          </c:if>     
@@ -149,7 +149,7 @@
                                           <p></p>
                                      </div>
                                      <div class="form-group">
-                                         <label>标题</label>
+                                         <label><i class="fa fa-tags" aria-hidden="true"></i> 标题</label>
                                          <input class="form-control" name="title" value=" 回复：${mrById.message.title}">
                                          <p></p>
                                      </div>

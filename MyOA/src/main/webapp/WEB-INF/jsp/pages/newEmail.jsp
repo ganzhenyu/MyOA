@@ -36,6 +36,8 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styletwo.css">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/font-awesome.min.css">
+
 <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
 
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -149,7 +151,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">邮件箱</h1>
-                    <input type="hidden" name="id" value="${mById.id}">
+                    
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -161,11 +163,14 @@
                          <form action="upload" method="post"  role="form" class="toup" id="from" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-9">
+                                	<c:if test="${mById.id>0}">
+                               			<input type="hidden" name="id" value="${mById.id}">
+                               		</c:if>
                                   	<input type="hidden" name="employee.id" value="${loginUser.id}">
                                		<input type="hidden" name="status" value="0">
                                	    <input type="hidden" name="isSent" value="0">                                 		
                                      	<div class="form-group">
-                                          <label id="addname">收件人：</label>
+                                          <label id="addname"><i class="fa fa-user-circle" aria-hidden="true"></i> 收件人：</label>
                                           <!--<c:if test="${mById.employee.name!=null}">
                                           	<span class='addressee'><input type='checkbox' checked='checked' value="${mById.employee.id}" style="display: none;" name='listReceiversid'/><input type='checkbox' checked='checked' value="${mById.employee.name}" name='listReceivers'/><label>${mById.employee.name}</label></span>
                                           </c:if> -->  
@@ -176,17 +181,16 @@
                                           	<input type='checkbox' checked='checked' value="${mById.receivers}" name='listReceivers'/><label>${mById.receivers}</label>
                                           	</span>
                                           </c:if> --%>
-                                          <p class="xuxian" name="receivers"></p>                     
-                                           <p></p>
-                                      </div>
-                                      <div class="form-group">
-                                          <label>标题</label>
-                                          <input class="form-control" name="title" value="${mById.title}">
-                                          
+                         
                                           <p></p>
                                       </div>
                                       <div class="form-group">
-                                          <label>内容</label>
+                                          <label><i class="fa fa-tags" aria-hidden="true"></i> 标题</label>
+                                          <input class="form-control" name="title" value="${mById.title}">
+                                          <p></p>
+                                      </div>
+                                      <div class="form-group">
+                                          <label><i class="fa fa-bars" aria-hidden="true"></i> 内容</label>
                                           <textarea id="content" name="content" class="ckeditor form-control">${mById.content}</textarea>
                                       </div>
                                       <div class="form-group">
@@ -226,11 +230,12 @@
                                         </div>
 										<div class="divbuttom">
                                  			<p class="cssbuttom">
-	                                 			 <button type="button" class="btn btn-default" id="btn">存草稿</button>
-	                                        	 <button type="button" class="btn btn-default" id="but" >提交</button>
+                                 				
+		                                 			 <button type="button" class="btn btn-default" id="btn">存草稿</button>
+		                                        	 <button type="button" class="btn btn-default" id="but" >提交</button>
+	                                        	
                                  			</p>
                                  		</div>
-                                 
                                     <!-- 
                                     <div class="form-group">
                                             <label>附件</label>

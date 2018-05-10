@@ -72,6 +72,10 @@
          .gradeA .font-con{
         	color: #63a464;
         }
+       	.gradeA a:hover{
+        	text-decoration:none;
+        	color:#555555fa;
+        }
         
         .page-header span{
             font-size: 14px;
@@ -141,9 +145,9 @@
 				                                   	  <c:if test="${c.status==1}">
 				                                   	  	 <tr class="gradeA odd" role="row">
 				                                            <td class="sorting_1"><input name="chkItem" type="checkbox" value="${c.id}"></td>
-				                                            <td><i class="fa fa-envelope-o"></i></td>
-				                                            <td>${c.receivers}</td>
-				                                            <td class="center">${c.title}<span class="font-con">- - </span> 
+				                                            <td><a href="replyTwo?id=${c.id}"><i class="fa fa-envelope-o"></i></a></td>
+				                                            <td><a href="replyTwo?id=${c.id}">${c.receivers}</a></td>
+				                                            <td class="center"><a href="replyTwo?id=${c.id}">${c.title}<span class="font-con">- - </span> 
 				                                            <span>
 				                                            	<c:if test="${c.content.indexOf('--------------原邮件-----------')==-1 }">
 			                                            			${ c.content}
@@ -152,16 +156,17 @@
 				                                            		 ${c.content.substring(0,c.content.indexOf("--------------原邮件-----------"))}
 				                                            	</c:if>
 				                                            </span>
+				                                            </a>
 				                                            </td>
 				                                            <td class="center"><fmt:formatDate value="${c.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				                                            <c:if test="${c.level==1}">
-				                                          	   <td class="center">普通</td>
+				                                          	   <td class="center"><a href="replyTwo?id=${c.id}">普通</a></td>
 				                                            </c:if>
 				                                            <c:if test="${c.level==2}">
-				                                          	   <td class="center">重要</td>
+				                                          	   <td class="center"><a href="replyTwo?id=${c.id}">重要</a></td>
 				                                            </c:if>
 				                                            <c:if test="${c.level==3}">
-				                                          	   <td class="center">紧急</td>
+				                                          	   <td class="center"><a href="replyTwo?id=${c.id}">紧急</a></td>
 				                                            </c:if>
 				                                              <td class="center">
 				                 								<a class="btn btn-social-icon btn-twitter" href="mhuishoudelete?id=${c.id}"><i class="fa fa-trash-o"></i></a>

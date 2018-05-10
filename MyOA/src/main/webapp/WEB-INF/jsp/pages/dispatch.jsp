@@ -119,7 +119,7 @@
 				        <div class="col-lg-12">
 				            <div class="panel panel-default">
 				              	<div class="panel-heading">
-				                 	 <button type="submit" id="ddel" class="btn btn-info"><i class="fa fa-trash-o"></i> 删除</button>
+				                 	 <button type="submit" id="del" class="btn btn-info"><i class="fa fa-trash-o"></i> 删除</button>
 				                </div>
 				                <!-- /.panel-heading  <input Wheckbox> -->
 				                
@@ -147,8 +147,8 @@
 				                                            <td><a href="replyTwo?id=${c.id}">${c.receivers}</a></td>
 				                                            <td class="center"><a href="replyTwo?id=${c.id}">${c.title}<span class="font-con">- - </span>
 				                                            	<span>
-				                                            	  <c:if test="${c.content.indexOf('--------------原邮件-----------')==-1 }">
-				                                            		${ c.content}
+				                                            	   <c:if test="${c.content.indexOf('--------------原邮件-----------')==-1 }">
+				                                            			${ c.content}
 					                                            	</c:if>
 					                                            	<c:if test="${c.content.indexOf('--------------原邮件-----------')!=-1 }">
 					                                            		 ${c.content.substring(0,c.content.indexOf("--------------原邮件-----------"))}

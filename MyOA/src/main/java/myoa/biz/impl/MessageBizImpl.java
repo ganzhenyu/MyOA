@@ -23,8 +23,8 @@ public class MessageBizImpl implements MessageBiz{
 	private EmployeeBiz employeeBiz;
 
 	@Override
-	public List<Message> findMessageAll(String title,int status,int isSent,int pageNum,int pageSize) {
-		return messageDao.findMessageAll(isSent,status,title,pageNum,pageSize);
+	public List<Message> findMessageAll(int status,int isSent) {
+		return messageDao.findMessageAll(isSent,status);
 	}
 
 	@Override
@@ -55,11 +55,6 @@ public class MessageBizImpl implements MessageBiz{
 			throw new DaoException("删除失败");
 		}
 		
-	}
-
-	@Override
-	public int numMessageRow(int status,int isSent) {
-		return messageDao.numMessageRow(status,isSent).size();
 	}
 
 	@Override

@@ -53,18 +53,10 @@ public class MessageController {
 	@RequestMapping("/manuscript")
 	public String findMessageAll(Model model,
 			@RequestParam(name="status", required=true, defaultValue="0")int status,
-			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent,
-			String title,
-			Integer pageNum) {
-		pageNum = pageNum==null?1:pageNum;
-		int pageSize = 10;
-		List<Message> mlist=messageBiz.findMessageAll(title, 0, 0, pageNum, pageSize);
-		
-		int rows=messageBiz.numMessageRow(status,isSent);
-		int totalPages = rows%pageSize==0?rows/pageSize:rows/pageSize+1;
+			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent) 
+	{
+		List<Message> mlist=messageBiz.findMessageAll(0, 0);
 		model.addAttribute("mlist", mlist);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("totalPages", totalPages);
 		return "pages/manuscript";
 	}
 	
@@ -78,17 +70,10 @@ public class MessageController {
 	@RequestMapping("/dispatch")
 	public String findMessageAlldispatch(Model model,
 			@RequestParam(name="status", required=true, defaultValue="0")int status,
-			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent,
-			String title,
-			Integer pageNum) {
-		pageNum = pageNum==null?0:pageNum;
-		int pageSize = 10;
-		List<Message> mlist=messageBiz.findMessageAll(title,1,isSent, pageNum, pageSize);
-		int rows=messageBiz.numMessageRow(status,isSent);
-		int totalPages = rows%pageSize==0?rows/pageSize:rows/pageSize+1;
+			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent) 
+	{
+		List<Message> mlist=messageBiz.findMessageAll(1,isSent);
 		model.addAttribute("mlist", mlist);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("totalPages", totalPages);
 		return "pages/dispatch";
 	}
 	
@@ -140,7 +125,7 @@ public class MessageController {
 		} catch (DaoException e) {
 			model.addAttribute("erre", e.getMessage());		
 		}
-		return "redirect:/pages/";
+		return "redirect:/pages/dispatch";
 	}
 	
 	@RequestMapping("/messageUpdatestatus")
@@ -220,10 +205,12 @@ public class MessageController {
 //		
 //    }  
 	@RequestMapping("/upload") 
-    public String upload(Message message,String receivers,MessageAttachment messageAttachment, HttpSession session,MultipartFile file){
-//		if(message.getId()>0) {
-//			messageBiz.MessageUpdate(message);
-//		}else {
+    public String upload(Message message,String receivers,MessageAttachment messageAttachment,@RequestParam(name="id",required=true,defaultValue="0")Integer id, HttpSession session,MultipartFile file){
+		
+		System.out.println(id);
+		if(id>0) {
+			messageBiz.MessageUpdate(message);
+		}else {
 /*			String Receivers = "";*/
 			
 /*			for (int i = 0;i<listReceivers.length;i++) {
@@ -269,7 +256,7 @@ public class MessageController {
 				m.setEmployee(wlist.get(i));
 				messageReceptionBiz.messageRAddAll(m);
 			}
-		//}
+		}
 		return "redirect:/pages/dispatch";
 		
     }  
@@ -279,22 +266,6 @@ public class MessageController {
 		model.addAttribute("mById", messageBiz.MessageById(id));
 		return "pages/replyTwo";
 	}
-	@RequestMapping("/manuscriptTwo")
-	public String findMessage(Model model,
-			@RequestParam(name="status", required=true, defaultValue="0")int status,
-			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent,
-			String title,
-			Integer pageNum) {
-		pageNum = pageNum==null?1:pageNum;
-		int pageSize = 10;
-		List<Message> mlist=messageBiz.findMessageAll(title, 0, 0, pageNum, pageSize);
-		
-		int rows=messageBiz.numMessageRow(status,isSent);
-		int totalPages = rows%pageSize==0?rows/pageSize:rows/pageSize+1;
-		model.addAttribute("mlist", mlist);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("totalPages", totalPages);
-		return "pages/manuscriptTwo";
-	}
+
 	
 }

@@ -113,7 +113,7 @@
 		        <div class="col-lg-12">
 		            <div class="panel panel-default">
 		                <div class="panel-heading">
-		                    <button type="button" id="returning" class="btn btn-default"> <a href="dispatch"><i class="fa fa-mail-reply-all"></i></a></button>
+		                    <button type="button" id="returning" class="btn btn-default"> <a href="javascript:history.back(-1)"><i class="fa fa-mail-reply-all"></i></a></button>
 		                    <button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> <a href="mfasongdelete?id=${mById.id}">删除</a></button>
 		                    <button type="button" id="transmit" disabled="disabled" class="btn btn-default"><i class="fa fa-edit"></i> <a href="">编辑转发</a></button>
 		                    <button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i> <a href="messageUpdatestatus?id=${mById.id}">移动到垃圾箱</a> </button>
