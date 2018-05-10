@@ -42,6 +42,71 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+   <style type="text/css">
+   .option {
+	margin: 0 auto;
+	width: auto;
+	height: 320px;
+	margin-bottom: 50px;
+	padding-left: 50px;
+	padding-top: 50px;
+}
+
+.option .options {
+	padding-bottom: 30px;
+}
+
+.edit-panel legend {
+	width: 92%;
+}
+
+fieldset {
+	width: auto;
+}
+
+fieldset div {
+	line-height: 30px;
+}
+
+fieldset .div {
+	margin-left: 100px;
+}
+
+.panel-head {
+	margin-left: 50px;
+}
+
+.update {
+	width: 100px;
+	height: 35px;
+	border: none;
+	background-color: #6CB33E;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.delete {
+	width: 100px;
+	height: 35px;
+	border: none;
+	background-color: red;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.update:hover, .delete:hover {
+	background-color: #EA36E5;
+}
+
+.edit-button {
+	width: 100px;
+	height: 35px;
+	border: none;
+	background-color: blue;
+	border-radius: 5px;
+	color: #fff;
+}
+   </style>
 </head>
 <body>
 	<div id="wrapper">
@@ -60,7 +125,7 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<form action="employeeRetrieve" method="post">
+							<form action="roleManage" method="post">
 								<div class="form-group">
 									<label>工号：</label> 
 									<input value="${employee.nr}" name="nr" class="form-control" style="width: 10%;display: inline;">
@@ -150,8 +215,10 @@
 								<div class="option">
 
 									<c:forEach var="r" items="${role}">
+									<div style="width: 210px; float: left;">
 										<input id="${r.id}" type="checkbox" name="checked" class="checkedId"
-																		value="${r.id}" />&nbsp;${r.name}
+																	value="${r.id}" />&nbsp;${r.name}
+																	</div>	
 									</c:forEach>
 
 									<div class="button-group" style="margin-left: 650px;">
