@@ -14,10 +14,7 @@ import myoa.dao.DaoException;
 import myoa.dao.MessageDao;
 import myoa.entity.Employee;
 import myoa.entity.Message;
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/ganzhenyu/MyOA.git
 @Service
 public class MessageBizImpl implements MessageBiz {
 
@@ -104,7 +101,7 @@ public class MessageBizImpl implements MessageBiz {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public List<Employee> getByReceiversStr(String Receivers) {
 		String[] enameList=Receivers.split(",");
 		List<Employee> list=new ArrayList<>();
@@ -116,7 +113,7 @@ public class MessageBizImpl implements MessageBiz {
 	}
 
 	
-=======
+
 	public List<Message> fetchByReceiverId(int id, int num) {
 		return messageDao.fetchByReceiverId(id, num);
 	}
@@ -131,5 +128,5 @@ public class MessageBizImpl implements MessageBiz {
 		return messageDao.fetchByLevel(id, num);
 	}
 
->>>>>>> branch 'master' of https://github.com/ganzhenyu/MyOA.git
+
 }
