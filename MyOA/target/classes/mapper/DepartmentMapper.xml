@@ -6,7 +6,7 @@ SELECT d.*,e.id eid,e.nr,e.password,e.name ename,e.gender,e.departmentid,e.isman
 FROM Department d 
 LEFT JOIN Employee e ON d.id=e.departmentid
 where 1=1
-	</sql>
+	</sql> 
 	<resultMap type="Department" id="DepartmentRM">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
@@ -50,4 +50,5 @@ where 1=1
 		<include refid="DepartmentJoin"/>
 		<if test="ename!=null and !ename.isEmpty()">and e.name LIKE CONCAT('%',#{ename},'%')</if>
 	</select>
+
 </mapper>

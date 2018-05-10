@@ -157,6 +157,8 @@
                 		$("#date_begin").datetimepicker('setStartDate', new Date);
                     	$("#date_end").datetimepicker('setStartDate', new Date);
                 	}
+                	$("#titleError").hide();
+                	$("#timeError").hide();
                 	$("#myActivity").modal("show");//显示弹出框
                 },
                 eventClick:function( event, jsEvent, view ) {
