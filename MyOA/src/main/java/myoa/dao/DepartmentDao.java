@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import myoa.entity.Department;
 
 public interface DepartmentDao {
-	List<Department> getAll();
+	List<Department> getAll(@Param("status")int status);
 	void delete(int id);
 	void update(Department department);
 	void add(Department department);
