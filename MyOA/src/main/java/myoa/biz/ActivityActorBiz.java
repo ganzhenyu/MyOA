@@ -16,4 +16,5 @@ public interface ActivityActorBiz {
 	ActivityActor fetchById(int id);
 	void addActorIdList(Activity activity,int[] aid);
 	List<ActivityActor> getActorNameInfoId(int id,String name);
+	
 }
