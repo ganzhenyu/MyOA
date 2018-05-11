@@ -87,17 +87,15 @@ public class MessageReceptionController {
 	}
 	
 	@RequestMapping("/reply")
-	public String messageReceptionById(Model model,Integer eid,Integer mid){
-		messageReceptionbiz.mReceptionUpdateIsRead(mid);
-		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(mid));
-		model.addAttribute("eid",eid);
-		model.addAttribute("mid",mid);
+	public String messageReceptionById(Model model,Integer id){
+		messageReceptionbiz.mReceptionUpdateIsRead(id);
+		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(id));
 		return "pages/reply";
 	}
 	@RequestMapping("/newEmailTwo")
-	public String messageRById(Model model,Integer mid,Integer eid){
+	public String messageRById(Model model,Integer id){
 		List<Map<String, Object>> list = new ArrayList<>();
-		for (Department department : departmentBiz.getAll()) {
+		for (Department department : departmentBiz.getAll(1)) {
 			 Map<String,Object> item = new HashMap();
 			 item.put("id",department.getId());
 			 item.put("name",department.getName());
@@ -105,12 +103,11 @@ public class MessageReceptionController {
 			 list.add(item);
 		}
 		model.addAttribute("departments",list);
-		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(mid));
-		model.addAttribute("mid",mid);
-		model.addAttribute("eid",eid);
+		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(id));
+		model.addAttribute("id",id);
 		
 		
-		model.addAttribute("mById", messageBiz.MessageById(mid));
+		model.addAttribute("mById", messageBiz.MessageById(id));
 		return "pages/newEmailTwo";
 	}
 
@@ -159,19 +156,14 @@ public class MessageReceptionController {
 		messageAttachment.setFileurl(pathName);
 		messageAttachmentBiz.mAaddAll(messageAttachment);
 		
-		System.out.println(listReceiversid.length);
-		
-		
 		for (int i = 0; i < listReceiversid.length; i++) {
-			MessageReception m = new MessageReception();		
-			m.setEmployee(employeeBiz.fetchById(listReceiversid[i]));
-			m.setMessage(message);
-			System.out.println(listReceiversid[i]);													
+			MessageReception m = new MessageReception();
+			m.setMessage(messageBiz.MessageById(message.getId()));
+			Employee employee = new Employee();
+			employee.setId(listReceiversid[i]);
+			m.setEmployee(employee);
 			messageReceptionbiz.messageRAddAll(m);
-		}	
-		
-		
-		
+		}		
 		return "redirect:/pages/dispatch";
     }  
 	
