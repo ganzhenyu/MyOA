@@ -30,7 +30,7 @@ html,body{
 .list>ul>li p[class=title]{
 	width      : 100%;
 	text-align : center;
-	background : #EE4977;
+	background : #e6e6e6;
 	height     : 50px;
 	line-height: 50px;
 	padding    : 0;
@@ -48,7 +48,7 @@ html,body{
 }
 .list-se>p{
 	background: #444 !important;
-	color     :#ee4977;
+	color     :#e6e6e6;
 }
 .list-se>li{
 	position: relative;
