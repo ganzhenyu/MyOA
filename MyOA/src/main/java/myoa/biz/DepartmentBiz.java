@@ -5,7 +5,7 @@ import java.util.List;
 import myoa.entity.Department;
 
 public interface DepartmentBiz {
-	List<Department> getAll();
+	List<Department> getAll(int status);
 	
 	void delete(int id);
 	void update(Department department);
