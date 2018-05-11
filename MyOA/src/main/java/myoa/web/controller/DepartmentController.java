@@ -25,7 +25,7 @@ public class DepartmentController {
 	
 	@RequestMapping(value="/departmentIndex",method=RequestMethod.GET)
 	public String DepartmentIndex(Model model) {
-		model.addAttribute("departments",departmentBiz.getAll());
+		model.addAttribute("departments",departmentBiz.getAll(0));
 		return "pages/departmentIndex";
 	}
 	
