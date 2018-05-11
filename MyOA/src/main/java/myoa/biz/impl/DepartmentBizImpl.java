@@ -17,8 +17,8 @@ public class DepartmentBizImpl implements DepartmentBiz {
 	
 	
 	@Override
-	public List<Department> getAll() {
-		return departmentDao.getAll();
+	public List<Department> getAll(int status) {
+		return departmentDao.getAll(status);
 	}
 
 	@Override
