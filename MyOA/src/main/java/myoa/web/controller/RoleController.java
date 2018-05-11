@@ -141,8 +141,8 @@ public class RoleController {
 	
 	@RequestMapping(value="/roleManage",method=RequestMethod.GET)
 	public String employeeRetrieve(Model model) {
-		model.addAttribute("employees",employeeBiz.getAll());
-		model.addAttribute("departments",departmentBiz.getAll());
+		model.addAttribute("employees",employeeBiz.getAll(1));
+		model.addAttribute("departments",departmentBiz.getAll(1));
 		model.addAttribute("role",rd.getAll());
 		return "pages/roleManage";
 	}
@@ -152,7 +152,7 @@ public class RoleController {
 		model.addAttribute("role",rd.getAll());
 		model.addAttribute("employee",employee);
 		model.addAttribute("employees",employeeBiz.fetchEmployees(employee.getNr(), employee.getName(), employee.getDepartment().getId(), employee.getGender()));
-		model.addAttribute("departments",departmentBiz.getAll());
+		model.addAttribute("departments",departmentBiz.getAll(1));
 		return "pages/roleManage";
 	}
 	

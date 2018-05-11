@@ -117,4 +117,11 @@ public class Message {
 		this.isSent = isSent;
 	}
 	
+	public String getSendTimeInfo() {
+		if(this.sendTime==null)
+			return "";
+		else
+			return this.sendTime.toLocaleString();
+	}
+	
 }

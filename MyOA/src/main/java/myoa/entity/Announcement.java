@@ -102,4 +102,11 @@ public class Announcement {
 		this.approver = approver;
 	}
 	
+	public String getApproveTimeInfo() {
+		if(this.approveTime==null)
+			return "";
+		else
+			return this.approveTime.toLocaleString();
+	}
+	
 }
