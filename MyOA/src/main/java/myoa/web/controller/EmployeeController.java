@@ -78,7 +78,7 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/employeeModify",method=RequestMethod.GET)
 	public String employeeModify(Model model,Integer id) {
-		model.addAttribute("departments",departmentBiz.getAll());
+		model.addAttribute("departments",departmentBiz.getAll(1));
 		if (id != null) {
 			model.addAttribute("employee",employeeBiz.fetchById(id));
 		}
@@ -92,7 +92,7 @@ public class EmployeeController {
 			return "redirect:/pages/employeeRetrieve";
 		}else {
 			String nr = "Nr00";
-			List<Employee> employees = employeeBiz.getAll();
+			List<Employee> employees = employeeBiz.getAll(1);
 			int lastId = employees.get(employees.size()-1).getId();
 			int newId = lastId + 1;
 			employee.setNr(nr+=newId);
@@ -106,8 +106,8 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/employeeRetrieve",method=RequestMethod.GET)
 	public String employeeRetrieve(Model model) {
-		model.addAttribute("employees",employeeBiz.getAll());
-		model.addAttribute("departments",departmentBiz.getAll());
+		model.addAttribute("employees",employeeBiz.getAll(1));
+		model.addAttribute("departments",departmentBiz.getAll(1));
 		return "pages/employeeRetrieve";
 	}
 	
@@ -115,7 +115,7 @@ public class EmployeeController {
 	public String employeeRetrieve(Model model,Employee employee) {
 		model.addAttribute("employee",employee);
 		model.addAttribute("employees",employeeBiz.fetchEmployees(employee.getNr(), employee.getName(), employee.getDepartment().getId(), employee.getGender()));
-		model.addAttribute("departments",departmentBiz.getAll());
+		model.addAttribute("departments",departmentBiz.getAll(1));
 		return "pages/employeeRetrieve";
 	}
 }
