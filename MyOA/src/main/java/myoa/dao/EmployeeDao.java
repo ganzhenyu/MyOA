@@ -9,7 +9,7 @@ import myoa.entity.Employee;
 
 public interface EmployeeDao {
 
-	List<Employee> getAll();
+	List<Employee> getAll(@Param("status")int status);
 	List<Employee> getByDid(int did);
 
 	List<Employee> getByDidName(@Param("did")int did,@Param("name")String name);
