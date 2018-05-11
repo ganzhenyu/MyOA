@@ -15,11 +15,13 @@ import myoa.biz.ActivityBiz;
 import myoa.biz.AnnouncementBiz;
 import myoa.biz.DepartmentBiz;
 import myoa.biz.EmployeeBiz;
+import myoa.biz.MessageBiz;
 import myoa.entity.Activity;
 import myoa.entity.ActivityActor;
 import myoa.entity.Announcement;
 import myoa.entity.Department;
 import myoa.entity.Employee;
+import myoa.entity.Message;
 
 @RestController
 @RequestMapping("/ajax")
@@ -39,6 +41,9 @@ public class AjaxController {
 	
 	@Autowired
 	private AnnouncementBiz announcementBiz;
+	
+	@Autowired
+	private MessageBiz messageBiz;
 	
 	@RequestMapping("activity")
 	public Map<String, Object> LoadActivity(HttpServletRequest request) {
@@ -71,5 +76,23 @@ public class AjaxController {
 		Announcement announcement=announcementBiz.fetchById(id);
 		map.put("data", announcement);
 		return map;
+	}
+	
+	@RequestMapping("fetchMessage")
+	public Message fetchMessage(int id) {
+		Message message = messageBiz.MessageById(id);
+		return message;
+	}
+	
+	@RequestMapping("fetchAnnouncement")
+	public Announcement fetchAnnouncement(int id) {
+		Announcement announcement = announcementBiz.fetchById(id);
+		return announcement;
+	}
+	
+	@RequestMapping("fetchEmployee")
+	public Employee fetchEmployee(int id) {
+		Employee employee = employeeBiz.fetchById(id);
+		return employee;
 	}
 }

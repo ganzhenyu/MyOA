@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index">首页</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/pages/index">首页</a>
             </div>
             <!-- /.navbar-header -->
 

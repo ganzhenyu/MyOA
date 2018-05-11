@@ -10,7 +10,7 @@
         });
         $("#save").click(function(){
         	var flag=true;
-        	$("#status").val(0);
+        	$("#status").val(1);
         	if($("#title").val()==""){
             	$("#titleError").show();
             	flag=false;
