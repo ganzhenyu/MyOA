@@ -236,6 +236,7 @@
 											<th>标题</th>
 											<th>开始时间</th>
 											<th>结束时间</th>
+											<th>操作</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -244,6 +245,7 @@
 												<td>${at.title}</td>
 												<td><fmt:formatDate value="${at.startTime}" type="both" /></td>
 												<td><fmt:formatDate value="${at.endTime}" type="both" /></td>
+												<td><button class="ActivityButton" date-id="${at.id}">查看</button></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -258,6 +260,7 @@
 											<th>标题</th>
 											<th>开始时间</th>
 											<th>结束时间</th>
+											<th>操作</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -266,6 +269,7 @@
 												<td>${af.title}</td>
 												<td><fmt:formatDate value="${af.startTime}" type="both" /></td>
 												<td><fmt:formatDate value="${af.endTime}" type="both" /></td>
+												<td><button class="ActivityButton" date-id="${af.id}">查看</button></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -360,7 +364,7 @@
 						<input id="loadEmployeeGender" class="form-control" readonly="readonly"/>
 						<label>所处部门：</label> 
 						<input id="loadEmployeeDepartment" class="form-control" readonly="readonly"/>
-						<label>是否为管理员：</label> 
+						<label>职位：</label> 
 						<input id="loadEmployeeManage" class="form-control" readonly="readonly"/>
 					</div>
 					<div class="modal-footer">
@@ -371,6 +375,37 @@
 			</div>
 			<!-- /.modal-dialog -->
 		</div>
+		<div class="modal fade" id="ActivityDiv" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">查看日程</h4>
+					</div>
+					<div class="modal-body">
+						<label>活动名称：</label> 
+						<input id="loadActivityTitle" class="form-control" readonly="readonly"/>
+						<label>创建人：</label> 
+						<input id="loadActivityName" class="form-control" readonly="readonly"/>
+						<label>开始时间：</label> 
+						<input id="loadActivityStartTime" class="form-control" readonly="readonly"/>
+						<label>结束时间：</label> 
+						<input id="loadActivityEndTime" class="form-control" readonly="readonly"/>
+						<label>描述：</label> 
+						<textarea id="loadActivityContent" class="form-control" rows="3" readonly="readonly">
+						</textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 
 	</div>
 	<!-- /#wrapper -->
@@ -438,6 +473,24 @@
 	                $("#loadAnnouncementContent").val(json.content);
 	                $("#loadAnnouncementApproveTime").val(json.approveTimeInfo);
 	                $("#AnnouncementDiv").modal("show");//显示弹出框
+	            }
+	        });
+		});
+		$(".ActivityButton").click(function () {
+			$.ajax({
+	            url: '../ajax/fetchActivity',
+	            data : {
+	                "id":$(this).attr("date-id")
+	            },
+	            dataType: 'json',
+	            type: 'get',
+	            success: function (json) {
+	                $("#loadActivityTitle").val(json.title);
+	                $("#loadActivityName").val(json.employee.name);
+	                $("#loadActivityStartTime").val(json.startTimeLong);
+	                $("#loadActivityEndTime").val(json.endTimeLong);
+	                $("#loadActivityContent").val(json.description);
+	                $("#ActivityDiv").modal("show");//显示弹出框
 	            }
 	        });
 		});
