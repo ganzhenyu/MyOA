@@ -12,6 +12,7 @@ import myoa.entity.Employee;
 import myoa.entity.EmployeeRole;
 @Service
 public class EmployeeBizImpl implements EmployeeBiz{
+	
 	@Autowired
 	private EmployeeroleDao ed;
 
@@ -66,8 +67,8 @@ public class EmployeeBizImpl implements EmployeeBiz{
 	}
 
 
-	public List<Employee> getAll() {
-		return employeeDao.getAll();
+	public List<Employee> getAll(int status) {
+		return employeeDao.getAll(status);
 	}
 
 	@Override
@@ -94,11 +95,14 @@ public class EmployeeBizImpl implements EmployeeBiz{
 	@Override
 	public void add(Employee employee) {
 		// TODO Auto-generated method stub
-		int id=employeeDao.add(employee);
+		employeeDao.add(employee);
 		EmployeeRole ro=new EmployeeRole();
-		ro.setEmployeeId(id);
+		ro.setEmployeeId(employee.getId());
 		ro.setId(0);
 		ro.setRoleId(3);
+		
+		System.out.println(employee.getId());
+		
 		ed.add(ro);
 		
 	}
