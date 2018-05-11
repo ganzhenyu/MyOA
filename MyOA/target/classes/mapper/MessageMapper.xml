@@ -65,6 +65,7 @@
 			<if test="isSent>=0">
 				and m.isSent=#{isSent}
 			</if>
+			and e.id=#{id}
 		</where>
 	</select>
 		
@@ -87,7 +88,10 @@
   -->
 	<select id="findMessageAllStatus" resultMap="MessageRM" resultType="Message">
 		<include refid="MessageAndEmployee"></include>
-		where  m.status=1 or r.status=1
+		<where>
+			and e.id=#{id} 
+			and  m.status=1 or r.status=1
+		</where>
 	</select>
 		
 	<select id="MessageById" resultMap="MessageRM" parameterType="int">

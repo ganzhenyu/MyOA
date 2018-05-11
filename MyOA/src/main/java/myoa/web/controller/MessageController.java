@@ -51,96 +51,108 @@ public class MessageController {
 	private MessageReceptionBiz messageReceptionBiz;
 	
 	@RequestMapping("/manuscript")
-	public String findMessageAll(Model model,
+	public String findMessageAll(Model model,HttpSession session,
 			@RequestParam(name="status", required=true, defaultValue="0")int status,
-			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent) 
+			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent,Integer id) 
 	{
-		List<Message> mlist=messageBiz.findMessageAll(0, 0);
+		List<Message> mlist=messageBiz.findMessageAll(0, 0,id);
 		model.addAttribute("mlist", mlist);
+		
+		Employee e = (Employee) session.getAttribute("loginUser");
 		return "pages/manuscript";
 	}
 	
 	@RequestMapping("/retrieve")
-	public String findMessageAllr(Model model) {
-		List<Message> mlist=messageBiz.findMessageAllStatus();
+	public String findMessageAllr(Model model,HttpSession session,Integer id) {
+		List<Message> mlist=messageBiz.findMessageAllStatus(id);
 		model.addAttribute("mlist", mlist);
+		Employee e = (Employee) session.getAttribute("loginUser");
 		return "pages/retrieve";
 	}
 	
 	@RequestMapping("/dispatch")
-	public String findMessageAlldispatch(Model model,
+	public String findMessageAlldispatch(Model model,HttpSession session,
 			@RequestParam(name="status", required=true, defaultValue="0")int status,
-			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent) 
+			@RequestParam(name="isSent", required=true, defaultValue="0")int isSent,Integer id) 
 	{
-		List<Message> mlist=messageBiz.findMessageAll(1,isSent);
+		List<Message> mlist=messageBiz.findMessageAll(1,isSent,id);
 		model.addAttribute("mlist", mlist);
+		Employee e = (Employee) session.getAttribute("loginUser");
 		return "pages/dispatch";
 	}
 	
 	@RequestMapping("/mcaogaodelete")
-	public String mcaogaodelete(Model model,Integer id){
+	public String mcaogaodelete(Model model,HttpSession session,Integer id){
 		messageBiz.MessageUpdateStatusTwo(id);
-		return "redirect:/pages/manuscript";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/manuscript?id="+e.getId();
 	}
 
 	@RequestMapping("/mfasongdelete")
-	public String mfasongdelete(Model model,Integer id){
+	public String mfasongdelete(Model model,HttpSession session,Integer id){
 		messageBiz.MessageUpdateStatusTwo(id);
-		return "redirect:/pages/dispatch";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/dispatch?id="+e.getId();
 	}
 	@RequestMapping("/mhuishoudelete")
-	public String mhuishoudelete(Model model,Integer id){
+	public String mhuishoudelete(Model model,HttpSession session,Integer id){
 		messageBiz.MessageUpdateStatusTwo(id);
-		return "redirect:/pages/retrieve";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/retrieve?id="+e.getId();
 	}
-	
 	@RequestMapping("mdel")
-	public String mdelete(int[] chkItem,Model model) {
+	public String mdelete(int[] chkItem,HttpSession session,Model model) {
 		try {
 			messageBiz.delete(chkItem);
 			model.addAttribute("erre", "删除成功");
 		} catch (DaoException e) {
 			model.addAttribute("erre", e.getMessage());		
 		}
-		return "redirect:/pages/manuscript";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/manuscript?id="+e.getId();
 	}
 	
 	@RequestMapping("rdel")
-	public String rdelete(int[] chkItem,Model model) {
+	public String rdelete(int[] chkItem,HttpSession session,Model model) {
 		try {
 			messageBiz.delete(chkItem);
 			model.addAttribute("erre", "删除成功");
 		} catch (DaoException e) {
 			model.addAttribute("erre", e.getMessage());		
 		}
-		return "redirect:/pages/retrieve";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/retrieve?id="+e.getId();
 	}
 	
 	@RequestMapping("ddel")
-	public String ddelete(int[] chkItem,Model model) {
+	public String ddelete(int[] chkItem,HttpSession session,Model model) {
 		try {
 			messageBiz.delete(chkItem);
 			model.addAttribute("erre", "删除成功");
 		} catch (DaoException e) {
 			model.addAttribute("erre", e.getMessage());		
 		}
-		return "redirect:/pages/dispatch";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/dispatch?id="+e.getId();
 	}
 	
 	@RequestMapping("/messageUpdatestatus")
-	public String messageUpdatestatus(Model model,int id){
+	public String messageUpdatestatus(Model model,HttpSession session,Integer id){
 		messageBiz.MessageUpdateStatus(id);
-		return "redirect:/pages/retrieve";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/retrieve?id="+e.getId();
 	}
 	@RequestMapping("/UpdateisSent1")
-	public String messageUpdateisSent1(Model model,int id){
+	public String messageUpdateisSent1(Model model,HttpSession session,Integer id){
 		messageBiz.MessageUpdateIsSent1(id);
-		return "redirect:/pages/dispatch";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/dispatch?id="+e.getId();
 	}
 	@RequestMapping("/UpdateisSent0")
-	public String messageUpdateisSent0(Model model,int id){
+	public String messageUpdateisSent0(Model model,HttpSession session,Integer id){
 		messageBiz.MessageUpdateIsSent0(id);
-		return "redirect:/pages/manuscript";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/manuscript?id="+e.getId();
 	}
 
 	@RequestMapping("/newEmail")
@@ -249,14 +261,20 @@ public class MessageController {
 			//这里写一个方法，把字符串写进去,输出一个Employee数组
 			List<Employee> wlist= messageBiz.getByReceiversStr(receivers);
 			//这里把员工数组添加
-			for (int i = 0; i < wlist.size(); i++) {
+			for (Employee employee : wlist) {
 				MessageReception m = new MessageReception();
 				m.setMessage(messageBiz.MessageById(message.getId()));
-				m.setEmployee(wlist.get(i));
+				m.setEmployee(employee);
 				messageReceptionBiz.messageRAddAll(m);
 			}
 		}
-		return "redirect:/pages/newEmail";
+		if(id>0) {
+			Employee e = (Employee) session.getAttribute("loginUser");
+			return "redirect:/pages/manuscript?id="+e.getId();
+		}else {
+			return "redirect:/pages/newEmail";
+		}
+		
 		
     }  
 	

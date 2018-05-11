@@ -25,8 +25,8 @@ public class MessageBizImpl implements MessageBiz {
 	private EmployeeBiz employeeBiz;
 
 	@Override
-	public List<Message> findMessageAll(int status,int isSent) {
-		return messageDao.findMessageAll(isSent,status);
+	public List<Message> findMessageAll(int status,int isSent,int id) {
+		return messageDao.findMessageAll(isSent,status,id);
 	}
 
 	@Override
@@ -90,9 +90,9 @@ public class MessageBizImpl implements MessageBiz {
 
 
 	@Override
-	public List<Message> findMessageAllStatus() {
+	public List<Message> findMessageAllStatus(int id) {
 		// TODO Auto-generated method stub
-		return messageDao.findMessageAllStatus();
+		return messageDao.findMessageAllStatus(id);
 	}
 
 	@Override

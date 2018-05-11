@@ -24,6 +24,9 @@ where 1=1
 	</resultMap>
 	<select id="getAll" resultType="Department">
 		select * from Department
+		<if test="status != 0">
+			where status = #{status}
+		</if> 
 	</select>
 	<update id="update" parameterType="Department">
 		update Department set name = #{name},description = #{description},status = #{status} WHERE id = #{id}

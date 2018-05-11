@@ -75,9 +75,10 @@ public class MessageReceptionController {
 	}
 	//√
 	@RequestMapping("/mrUpdatestatus")
-	public String mReceptionUpdateStatus(Model model,int id){
+	public String mReceptionUpdateStatus(Model model,HttpSession session,int id){
 		messageReceptionbiz.mReceptionUpdateStatus(id);
-		return "redirect:/pages/retrieve";
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/retrieve?id="+e.getId();
 	}
 	@RequestMapping("/mrUpdateIsRead")
 	public String mReceptionUpdateIsRead(Model model,int id,HttpSession session){
@@ -87,13 +88,15 @@ public class MessageReceptionController {
 	}
 	
 	@RequestMapping("/reply")
-	public String messageReceptionById(Model model,Integer id){
-		messageReceptionbiz.mReceptionUpdateIsRead(id);
-		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(id));
+	public String messageReceptionById(Model model,Integer eid,Integer mid){
+		messageReceptionbiz.mReceptionUpdateIsRead(mid);
+		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(mid));
+		model.addAttribute("eid",eid);
+		model.addAttribute("mid",mid);
 		return "pages/reply";
 	}
 	@RequestMapping("/newEmailTwo")
-	public String messageRById(Model model,Integer id){
+	public String messageRById(Model model,Integer mid,Integer eid){
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (Department department : departmentBiz.getAll(1)) {
 			 Map<String,Object> item = new HashMap();
@@ -103,11 +106,12 @@ public class MessageReceptionController {
 			 list.add(item);
 		}
 		model.addAttribute("departments",list);
-		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(id));
-		model.addAttribute("id",id);
+		model.addAttribute("mrById",messageReceptionbiz.MessageReceptionById(mid));
+		model.addAttribute("mid",mid);
+		model.addAttribute("eid",eid);
 		
 		
-		model.addAttribute("mById", messageBiz.MessageById(id));
+		model.addAttribute("mById", messageBiz.MessageById(mid));
 		return "pages/newEmailTwo";
 	}
 
@@ -156,15 +160,18 @@ public class MessageReceptionController {
 		messageAttachment.setFileurl(pathName);
 		messageAttachmentBiz.mAaddAll(messageAttachment);
 		
+		System.out.println(listReceiversid.length);
+		
+		
 		for (int i = 0; i < listReceiversid.length; i++) {
-			MessageReception m = new MessageReception();
-			m.setMessage(messageBiz.MessageById(message.getId()));
-			Employee employee = new Employee();
-			employee.setId(listReceiversid[i]);
-			m.setEmployee(employee);
+			MessageReception m = new MessageReception();		
+			m.setEmployee(employeeBiz.fetchById(listReceiversid[i]));
+			m.setMessage(message);
+			System.out.println(listReceiversid[i]);													
 			messageReceptionbiz.messageRAddAll(m);
-		}		
-		return "redirect:/pages/dispatch";
+		}	
+		Employee e = (Employee) session.getAttribute("loginUser");
+		return "redirect:/pages/dispatch?id="+e.getId();
     }  
 	
 	

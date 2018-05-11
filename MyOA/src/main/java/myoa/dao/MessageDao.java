@@ -18,14 +18,13 @@ public interface MessageDao {
 	//查询全部------已完成
 	List<Message> findMessageAll(		
 			@Param("status")int status,
-			@Param("isSent")int isSent);
+			@Param("isSent")int isSent,
+			@Param("id")int id);
 
 		
 		//查询全部------已完成
-		List<Message> findMessageAllStatus(	
-			);
-		
-		//------已完成
+		List<Message> findMessageAllStatus(@Param("id")int id);
+
 
 	//更新全部
 	@Update("update Message set title=#{title},content=#{content},sendTime=#{sendTime},receivers=#{receivers},level=#{level},status=#{status},isSent=#{isSent} where id=#{id} ")

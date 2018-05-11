@@ -113,11 +113,11 @@
 		        <div class="col-lg-12">
 		            <div class="panel panel-default">
 		                <div class="panel-heading">
-		                    <button type="button" id="returning" class="btn btn-default"> <a href="inbox?id=${loginUser.id}"><i class="fa fa-mail-reply-all"></i></a></button>
-		                    <button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> <a href="mrdelete?id=${mrById.id}">删除</a></button>
-		                    <button type="button" id="reply" class="btn btn-default"><i class="fa fa-share-square"></i> <a href="newEmailTwo?mid=${mid}&eid=${eid}">回复</a></button>
-		                    <button type="button" id="transmit" class="btn btn-default"><i class="fa fa-edit"></i> <a href="">编辑转发</a></button>
-		                    <button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i> <a href="mrUpdatestatus?id=${mrById.id}">移动到垃圾箱</a> </button>
+		                    <a href="inbox?id=${loginUser.id}"><button type="button" id="returning" class="btn btn-default"> <i class="fa fa-mail-reply-all"></i></button></a>
+		                    <a href="mrdelete?id=${mrById.id}"><button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> 删除</button></a>
+		                    <a href="newEmailTwo?mid=${mid}&eid=${eid}"><button type="button" id="reply" disabled="disabled" class="btn btn-default"><i class="fa fa-share-square"></i> 回复</button></a>
+		                    <a href=""><button type="button" id="transmit" class="btn btn-default"><i class="fa fa-edit"></i> 编辑转发</button></a>
+		                    <a href="mrUpdatestatus?id=${mrById.id}"><button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i> 移动到垃圾箱 </button></a>
 		                </div>
 		                <!-- /.panel-heading  <input type=checkbox> -->
 		                <div class="panel-body">

@@ -153,13 +153,13 @@
 				                                    	<tr class="gradeA odd" role="row">
 					                                       <td class="sorting_1"><input name="chkItem" type="checkbox" value="${c.id}"></td>
 					                                       <c:if test="${c.isread==1}">
-					                                           <td><a href="reply?id=${c.id}"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></a></td>
+					                                           <td><a href="reply?eid=${c.employee.id}&mid=${c.id}"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></a></td>
 					                                        </c:if>
 					                                        <c:if test="${c.isread==0}">
-					                                           	<td><a href="reply?id=${c.id}"><i class="fa fa-envelope" aria-hidden="true"></i></a></td>
+					                                           	<td><a href="reply?eid=${c.employee.id}&mid=${c.id}"><i class="fa fa-envelope" aria-hidden="true"></i></a></td>
 					                                        </c:if>
-					                                        <td><a href="reply?id=${c.id}">${c.message.employee.name} </a></td>
-					                                        <td class="center"><a href="reply?id=${c.id}">${c.message.title} <span class="font-con">- - </span>
+					                                        <td><a href="reply?eid=${c.employee.id}&mid=${c.id}">${c.message.employee.name} </a></td>
+					                                        <td class="center"><a href="reply?eid=${c.employee.id}&mid=${c.id}">${c.message.title} <span class="font-con">- - </span>
 						                                        <span>
 					                                            	<c:if test="${c.message.content.indexOf('--------------原邮件-----------')==-1 }">
 				                                            			${c.message.content}

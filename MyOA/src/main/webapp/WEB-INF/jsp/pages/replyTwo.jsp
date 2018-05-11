@@ -113,10 +113,18 @@
 		        <div class="col-lg-12">
 		            <div class="panel panel-default">
 		                <div class="panel-heading">
-		                    <button type="button" id="returning" class="btn btn-default"> <a href="javascript:history.back(-1)"><i class="fa fa-mail-reply-all"></i></a></button>
-		                    <button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> <a href="mfasongdelete?id=${mById.id}">删除</a></button>
-		                    <button type="button" id="transmit" disabled="disabled" class="btn btn-default"><i class="fa fa-edit"></i> <a href="">编辑转发</a></button>
-		                    <button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i> <a href="messageUpdatestatus?id=${mById.id}">移动到垃圾箱</a> </button>
+		                    <a href="javascript:history.back(-1)"><button type="button" id="returning" class="btn btn-default"> <i class="fa fa-mail-reply-all"></i></button></a>
+		                    <a href="mfasongdelete?id=${mById.id}"><button type="button" id="del" class="btn btn-default"><i class="fa fa-trash-o"></i> 删除</button></a>
+		                    <a href=""><button type="button" id="transmit" disabled="disabled" class="btn btn-default"><i class="fa fa-edit"></i>编辑转发</button></a>
+		                   <c:if test="${mById.status==1}">
+		                    	<a href="messageUpdatestatus?id=${mById.id}"> 
+								<button type="button" id="dustbin" disabled="disabled" class="btn btn-default"><i class="fa fa-bitbucket"></i> 移动到垃圾箱 </button></a>
+		                    </c:if>
+		                    <c:if test="${mById.status!=1}">
+		                    	 <a href="messageUpdatestatus?id=${mById.id}"> 
+								<button type="button" id="dustbin" class="btn btn-default"><i class="fa fa-bitbucket"></i>移动到垃圾箱 </button></a>
+		                    </c:if>
+
 		                </div>
 		                <!-- /.panel-heading  <input type=checkbox> -->
 		                <div class="panel-body">

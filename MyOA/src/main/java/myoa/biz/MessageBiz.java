@@ -7,10 +7,10 @@ import myoa.entity.Employee;
 import myoa.entity.Message;
 
 public interface MessageBiz {
-	List<Message> findMessageAll(int status,int isSent);
+	List<Message> findMessageAll(int status,int isSent,int id);
 	
 	
-	List<Message> findMessageAllStatus();
+	List<Message> findMessageAllStatus(int id);
 	
 	void MessageUpdate(Message message);
 

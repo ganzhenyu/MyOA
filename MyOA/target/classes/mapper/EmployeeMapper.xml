@@ -22,6 +22,7 @@
 	</resultMap>
 	<select id="getAll" resultMap="EmployeeRM">
 		<include refid="EmployeeJoinDocument"></include>
+		and d.status = #{status}
 		order by e.id
 	</select>
 	<select id="getByDid" parameterType="int" resultMap="EmployeeRM">
@@ -59,11 +60,8 @@
             and e.gender = ${gender}
         </if>
 	</select>
-	<insert id="add" parameterType="Employee" keyProperty="id">	
-	<selectKey keyProperty='id' resultType='int' order='AFTER'  >  
-        select LAST_INSERT_ID();  
-    </selectKey>  	
-		INSERT INTO Employee VALUES(#{id},#{nr},#{password},#{name},#{gender},#{department.id},#{isManager},#{status});
+	<insert id="add" parameterType="Employee" useGeneratedKeys="true"  keyProperty="id">	 	
+		INSERT INTO Employee VALUES(0,#{nr},#{password},#{name},#{gender},#{department.id},#{isManager},#{status});
 	</insert>
 	<update id="update" parameterType="Employee">
 		update Employee set nr = #{nr},password = #{password},name = #{name},gender = #{gender},departmentId = #{department.id},isManager = #{isManager},status = #{status} WHERE id = #{id}

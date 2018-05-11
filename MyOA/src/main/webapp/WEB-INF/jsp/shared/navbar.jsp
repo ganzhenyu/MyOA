@@ -129,13 +129,13 @@
                                     <a href="${pageContext.request.contextPath}/pages/newEmail">新建信息</a>
                                 </li>
                                  <li>
-                                    <a href="${pageContext.request.contextPath}/pages/dispatch">发送列表</a>
+                                    <a href="${pageContext.request.contextPath}/pages/dispatch?id=${loginUser.id}">发送列表</a>
                                 </li>
                                
                                 </c:if>
                                 <c:if test="${r23!=null}">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/pages/manuscript">草稿列表</a>
+                                    <a href="${pageContext.request.contextPath}/pages/manuscript?id=${loginUser.id}">草稿列表</a>
                                 </li>
                                  </c:if>
                                  <c:if test="${r21!=null}">
@@ -144,7 +144,7 @@
                                     <input type="hidden" name="id" value="${loginUser.id}">
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/pages/retrieve">回收列表</a>
+                                    <a href="${pageContext.request.contextPath}/pages/retrieve?id=${loginUser.id}">回收列表</a>
                                 </li>
                                </c:if>
                                 
