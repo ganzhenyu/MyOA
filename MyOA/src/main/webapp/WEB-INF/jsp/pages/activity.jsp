@@ -113,9 +113,11 @@
                                     var startTime = getTime(alist.startTimeInfo);
                                     var actEndDate=getDate(alist.endTimeAddOneDay);
                                     var userId=alist.employee.id;//创建者id
+                                    var endDate = getDate(alist.endTime);
+                                    var eeDate = endDate.replace(/\-/g, "");
                                     var endTime = getTime(alist.endTimeInfo);//通过getTime方法将时间格式进行转化
                                     var ccTime = endTime.replace(/\:/g, "");//去掉时间格式中的“:”
-                                    if ((ccDate > nowDate || (ccDate == nowDate && ccTime > nowTime))) {
+                                    if ((eeDate > nowDate || (eeDate == nowDate && ccTime > nowTime))) {
                                     	if(userId==${loginUser.id}){
                                     		events.push({
                                                 id: alist.id,//这里我是将活动id作为fullcalendar中event事件的Id
@@ -130,7 +132,7 @@
                                                 title: startTime+"-"+endTime+" "+alist.title,//title我显示的是活动的名称
                                                 start: startDate,//start表示这个event事件放在哪个日期框中
                                                 end:actEndDate,	
-                                                color: '#ff9f2c'//设置event的背景颜色，若该活动还没开始且该活动已经删除则显示为红色
+                                                color: '#ff9f2c'//设置event的背景颜色，若该活动还没开始且该活动已经删除则显示为橙色
                                             });
                                     	}
                                     } 
