@@ -27,6 +27,9 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
+                    	<li id="information" date-id="${sessionScope.loginUser.id}"><i class="fa fa-gear fa-fw"></i> 个人信息
+                        </li>
+                        <li class="divider"></li>
                         <li><a href="${pageContext.request.contextPath}/pages/out"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
                         <li><a href="${pageContext.request.contextPath}/pages/index"><i class="fa fa-sign-out fa-fw"></i> 主页</a>
                         </li>
@@ -36,6 +39,7 @@
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
+
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -185,6 +189,8 @@
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
+            
+		<!-- /.modal -->
         </nav>
         
         <script type="text/javascript">
@@ -198,5 +204,32 @@
 						+ time.getSeconds();
 				show.innerHTML = t;
 			}, 1000);
+			
+			$("#information").click(function () {
+				$.ajax({
+		            url: '../ajax/fetchEmployee',
+		            data : {
+		                "id":$(this).attr("date-id")
+		            },
+		            dataType: 'json',
+		            type: 'get',
+		            success: function (json) {
+		                $("#loadEmployeeNr").val(json.nr);
+		                $("#loadEmployeename").val(json.name);
+		                if(json.gender==0){
+		                	$("#loadEmployeeGender").val("女");
+		                }else{
+		                	$("#loadEmployeeGender").val("男");
+		                }
+		                $("#loadEmployeeDepartment").val(json.department.name);
+		                if(json.isManager==1){
+			                $("#loadEmployeeManage").val("部门主管");
+		                }else{
+		                	$("#loadEmployeeManage").val("员工");
+		                }
+		                $("#informationDiv").modal("show");//显示弹出框
+		            }
+		        });
+			});
 		};
 		</script>
