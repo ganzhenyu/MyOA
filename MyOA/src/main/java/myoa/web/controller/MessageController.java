@@ -146,7 +146,7 @@ public class MessageController {
 	@RequestMapping("/newEmail")
 	public String messageNewEmail(Model model){		
 		List<Map<String, Object>> list = new ArrayList<>();
-		for (Department department : departmentBiz.getAll()) {
+		for (Department department : departmentBiz.getAll(1)) {
 			 Map<String,Object> item = new HashMap();
 			 item.put("id",department.getId());
 			 item.put("name",department.getName());
@@ -162,7 +162,7 @@ public class MessageController {
 		Message m=messageBiz.MessageById(id);
 		model.addAttribute("mById", m);
 		List<Map<String, Object>> list = new ArrayList<>();
-		for (Department department : departmentBiz.getAll()) {
+		for (Department department : departmentBiz.getAll(1)) {
 			 Map<String,Object> item = new HashMap();
 			 item.put("id",department.getId());
 			 item.put("name",department.getName());
@@ -249,14 +249,12 @@ public class MessageController {
 			//这里写一个方法，把字符串写进去,输出一个Employee数组
 			List<Employee> wlist= messageBiz.getByReceiversStr(receivers);
 			//这里把员工数组添加
-			for (Employee employee : wlist) {
+			for (int i = 0; i < wlist.size(); i++) {
 				MessageReception m = new MessageReception();
 				m.setMessage(messageBiz.MessageById(message.getId()));
-				m.setEmployee(employee);
+				m.setEmployee(wlist.get(i));
 				messageReceptionBiz.messageRAddAll(m);
 			}
-			
-			
 		}
 		return "redirect:/pages/newEmail";
 		
